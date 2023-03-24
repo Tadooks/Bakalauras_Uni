@@ -1,0 +1,23 @@
+{
+    "name": "backend",
+    "version": "1.0.0",
+    "description": "",
+    "main": "app.js",
+    "scripts": {
+        "start": "node app.js",
+        "test": "echo  && exit 1"
+    },
+    "author": "",
+    "license": "ISC",
+    "type": "module",
+    "dependencies": {
+        "express": "^4.17.3",
+        "firebase": "^9.6.11",
+        "heroku": "^7.3.0",
+        "rxjs": "^7.5.5",
+        "socket.io": "^4.4.1"
+    },
+    "engines": {
+        "node": "14.15.4"
+    }
+}
