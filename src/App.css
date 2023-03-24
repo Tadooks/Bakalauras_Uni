@@ -1,0 +1,435 @@
+/* Styling for the App component nav element 
+and Course component course-nav div */
+
+html{
+  min-height: 100%;
+  height: 100%;
+}
+
+body{
+  margin: 0;
+  font-family: Arial;
+  background: linear-gradient(-40deg,#6e127a,#000) fixed;
+  height: 100%;
+  min-height: 100%;
+  /* background: linear-gradient(-40deg,#6e127a,#000); */
+  /* height: 100%; */
+  /* background-repeat: no-repeat;  */
+  /* background-size: cover; */
+  /* background-color: rgb(0, 0, 0); */
+  
+  /* New stuff here, if pages looks messed up this might be the reason */
+  display: flex;
+  flex-direction: column;
+  
+}
+
+#root{
+  height: 100%;
+  min-height: 100%;
+}
+
+.App{
+  height: 100%;
+  flex-grow:1;
+}
+
+.homepage{
+  text-align: center;
+}
+
+.container {
+  text-align: center;
+  width: 500px;
+  border: px solid rgb(111,41,97);
+  background-color: #00000017;
+  border-radius: .5em;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  margin: 1em;
+}
+
+/* NAV BAR */
+.App nav{
+  background-size: cover;
+  /* background-size: 100% auto; */
+  display: flex;
+  justify-content: space-between;
+  background: #33003994;
+  min-width: 25%;
+  text-align: center;
+  padding: 10px;
+
+}
+
+.footerbar{
+  color: white;
+  background-size: cover;
+  /* background-size: 100% auto; */
+  display: flex;
+  justify-content: center;
+  background: #33003994;
+  min-width: 25%;
+  text-align: center;
+  padding: 10px;
+  margin:auto 0 0 0;
+  font-size: 26px;
+  font-weight: bold;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #ffffff;
+}
+
+.songs-nav{
+  background: rgba(88, 15, 98, 0.07);;
+  min-width: 25%;
+  text-align: center;
+
+}
+  
+/* Styling for App component nav element anchor 
+tag and Course component nav element anchor tag */
+.App nav a{
+  padding: 20px 20px;
+  font-size: 26px;
+  font-weight: bold;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #ffffff;
+}
+
+.songs-nav a{
+  padding: 20px 20px;
+  font-size: 26px;
+  font-weight: bold;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #ffffff;
+}
+
+.App nav a:hover {
+  background: #9c09ac23;
+  padding-block: 10px;
+}
+  
+/* Styling for Course component 
+course-nav div anchor tag */
+.songs-nav a{
+  color: rgb(255, 255, 255);
+
+}
+  
+/*BACKGROUND TAVO PAGRINDINIS*/
+.Page{
+  background-size: 100%;
+  width: 100%;
+  height: 100%;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  gap: 15px;
+  color: white;
+  /* background: linear-gradient(-40deg,#6e127a,#000); */
+  
+  /* background: linear-gradient(
+    rgb(105, 14, 158) 0%,
+    rgba(105, 14, 158 0.3) 50%,
+    rgba(105, 14, 158, 0.15) 65%,
+    rgba(105, 14, 158, 0.075) 75.5%,
+    rgba(105, 14, 158, 0.037) 82.85%,
+    rgba(105, 14, 158, 0.019) 88%,
+    rgba(105, 14, 158, 0) 100%
+  ); */
+  
+  /* background-size: 200% 200%;
+	animation: gradient 15s ease infinite; */
+}
+
+
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+
+
+
+/*SONG DALIS CSS*/
+.openedsong{
+  width: 100%;
+  gap: 15px;
+  background-color: rgba(88, 15, 98, 0.07);
+  color: white;
+  padding: 25px 50px;
+
+}
+  
+/* Styling for the Search & List component main div */
+.Search, .List{
+  width: 50%;
+  float: left;
+  background-color: rgba(80, 7, 75, 0.76);
+}
+
+
+.songnavigation{
+  display: flex;
+  flex-flow: column;
+  padding: 25px 50px;
+  text-align: center;
+}
+
+
+.stuff{
+  display: flex;
+  flex-flow: row;
+  gap: 25px;
+  /* background-color: #882f2f; */
+}
+
+.singlesong{
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+}
+
+
+
+/* Hover mouse zoom thingy */
+.zoom {
+  transition: transform .1s; /* Animation */
+  margin: 0 auto;
+}
+
+.zoom:hover {
+  transform: scale(1.05); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+  
+  /* blur ir brightness sumazinam on hover */
+   filter: brightness(.9) blur(1px) ;
+
+}
+
+
+.textboxclass{
+  border: 2px solid #310033;
+  border-radius: 4px;
+  background-color: #6e127a;
+  color: white;
+  width: 50%;
+  max-width: 100%;
+  font-size: 16px;
+  padding: 16px;
+  font-family: Arial;
+  
+}
+
+.textboxName{
+  border: 2px solid #310033;
+  border-radius: 4px;
+  background-color: #6e127a;
+  color: white;
+}
+
+
+
+
+/* Ratings/Komentarai */
+
+ul {
+  list-style-type: none;
+  width: 40%;
+  padding: 10px;
+  border: 0px solid #00000073;
+  background-color: #6e127a3b;
+}
+
+li{
+  overflow-wrap: break-word;
+  list-style-type: none;
+  padding: 20px;
+  border: 0px solid #000000;
+  background-color: #00000017;
+  
+}
+
+.CommentRating{
+  padding: 0px;
+}
+
+
+
+
+.button {
+  background-color: rgba(165, 0, 151, 0.322); 
+  border: none;
+  color: white;
+  padding-left: 6px;
+  padding-right: 6px;
+  padding-bottom: 6px;
+  padding-top: 6px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 22px;
+  /* margin: 4px 2px; */
+  transition-duration: 0.4s;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+
+
+
+.button1 {
+  background-color: rgba(165, 0, 151, 0.322); 
+  color: rgb(255, 255, 255); 
+  border: 0px solid #000000;
+}
+
+.button1:hover {
+  background-color: rgba(165, 0, 151, 0.534);
+  color: white;
+}
+
+/* button for comment */
+.button2 {
+  background-color: rgba(165, 0, 151, 0.322); 
+  border: none;
+  color: white;
+  padding-left: 6px;
+  padding-right: 6px;
+  padding-bottom: 6px;
+  padding-top: 6px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 15px;
+  /* margin: 4px 2px; */
+  transition-duration: 0.4s;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+
+
+.socials:link, .socials:visited {
+  background-color: rgba(165, 0, 151, 0.322); 
+  border: none;
+  color: white;
+  padding-left: 6px;
+  padding-right: 6px;
+  padding-bottom: 6px;
+  padding-top: 6px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 22px;
+  /* margin: 4px 2px; */
+  transition-duration: 0.4s;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+.socials:hover, .socials:active {
+  background-color: rgba(165, 0, 151, 0.534);
+  color: white;
+}
+
+.subscription{
+  padding:30px;
+  width: 30%;
+  color:white;
+  background-color: rgba(165, 0, 151, 0.247);
+}
+
+.songrequest{
+  padding:30px;
+  width: 50%;
+  color:white;
+  background-color: rgba(165, 0, 151, 0.247);
+}
+
+.temp{
+  padding: 20px;
+  padding-left:50px;
+  color:white;
+}
+
+.temp2{
+  padding-left:30px;
+}
+
+
+
+/*---------------------SHOP CSS-------------------------*/
+.products{
+  color:white;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+}
+
+.product{
+  width: 250px;
+  max-width: 100%;
+  height: 400px;
+  padding-left: 3%;
+  padding-right: 3%;
+  padding-bottom: 3%;
+  box-shadow: 3px 3px 15px rgba(239, 11, 247, 0.5);
+}
+
+.productImg{
+  width: 80%;
+  margin-top: 1rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.productButton{
+  width: 80%;
+  height:40px;
+  border-radius:  5px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  background-color: #6e127a;
+  color: white;
+  letter-spacing: 1.15px;
+}
+
+
+
+
+/* CART */
+.cart-items{
+  flex: fit-content;
+  display: flex;
+}
+
+.cart-item{
+  padding: 5px;
+}
+
+
+
+
+tr {
+  border: 1px solid blue;
+}
+
+td {
+  outline: 0.5px solid #72007b;
+  padding: 0;
+}
