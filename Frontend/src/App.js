@@ -7,10 +7,15 @@ import ProductsList from './Pages/ProductList';
 import Cart from './Pages/Cart';
 import Product from './Details/Product';
 import Login from './Pages/Login';
-
+import { useEffect, useState } from "react";
+import { auth } from './firebase_config';
+import { createUserWithEmailAndPassword,signInWithEmailAndPassword,signOut } from 'firebase/auth';
 
 
 function App() {
+
+
+  
   return (
     
     <div className="App">
