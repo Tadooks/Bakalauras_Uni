@@ -4,6 +4,14 @@ import { useEffect, useState } from "react";
 import { auth } from '../firebase_config';
 
 
+//popup system for logins, registration, errors?
+//same popups for item added to cart.
+
+//User profile page
+//change password
+//forgot password
+//email confirmation when registering.
+
 const Login = () => {
 
   const [registerEmail, setRegisterEmail] = useState("");
@@ -15,13 +23,30 @@ const Login = () => {
   //currently logged in user object
   const [user, setUser] = useState({});
 
-  //Saving the logged in user data (keep user logged in)
-  onAuthStateChanged(auth,(currentUser) =>{
-    setUser(currentUser);
-  })
+
+  const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
+
+  const [refresh,setRefresh] = useState(false);
 
 
-  // const [errorMessage, setErrorMessage] = useState("");
+  //Putting onAuthStateChange to useEffect to prevent memory leak.
+  useEffect(() => {
+
+    //Instead of onAuthStateChanged might use localStorage
+    //Saving the logged in user data (keep user logged in)
+    onAuthStateChanged(auth,(currentUser) =>{
+      setUser(currentUser);
+    })
+
+  },[])
+
+
+  //this gets spewed out into console everytime you type something in due to onChange event
+  console.log(registerEmail);
+
+  
+  
 
 
 
@@ -33,8 +58,15 @@ const Login = () => {
         registerPassword
       );
       console.log(user);
+      //clearing any error messages
+      setErrorMessage("")
+      setSuccessMessage("User "+ user.email +" has registered successfully")
     } catch (error) {
       console.log(error.message);
+      //setting error message
+      setErrorMessage(error.message);
+      //clearing success message
+      setSuccessMessage("");
     }
   };
 
@@ -48,18 +80,42 @@ const Login = () => {
         loginPassword
       );
       console.log(user);
+      //clearing any error messages
+      setErrorMessage("")
+      setSuccessMessage("User "+ user.email +" has logged in successfully")
     } catch (error) {
       console.log(error.message);
-      // setErrorMessage(error.message);
+      //setting error message
+      setErrorMessage("Login Error: " + error.message);
+      //clearing success message
+      setSuccessMessage("");
     }
   };
 
-
+  // setRefresh(true);//refreshing values
 
   const logout = async () => {
-    await signOut(auth);
+    if(user==null)
+    {
+      setErrorMessage("Already signed out")
+      setSuccessMessage("")
+    }
+    else
+    {
+      setSuccessMessage("Signed out successfully")
+      await signOut(auth);
+    }
+    
   };
   
+
+
+
+
+
+
+
+
 
   return (
     <div style={{ color: 'white'}}>
@@ -67,6 +123,9 @@ const Login = () => {
 
     {/* Register */}
     <div>
+
+      <h1><div style={{ color: 'red'}} >{errorMessage}</div></h1>
+      <h1><div style={{ color: 'green'}} >{successMessage}</div></h1>
 
         <h3> Register User </h3>
         {/* Error message: {errorMessage} */}
@@ -105,6 +164,7 @@ const Login = () => {
             setLoginEmail(event.target.value);
           }}
         />
+        
 
         <br></br><br></br>
         
@@ -118,11 +178,12 @@ const Login = () => {
         <button onClick={login}> Login</button>
       </div>
 
-      <h4> User Logged In: </h4>
 
       {/* if user has an email property, if not doesnt do anything */}
+      <br></br>
+      <b>User currently signed in:</b> <br></br>
       {user?.email}
-      
+      <br></br>
       
       <button onClick={logout}> Sign Out </button>
         
@@ -133,19 +194,3 @@ const Login = () => {
   
 export default Login
 
-
-      {/* <div className=''>
-        <h1>Login</h1>
-        <form onSubmit={""}>
-                    <label>Email:</label> &nbsp;
-                    <br></br>
-                    <input type='text' name="name" className='textboxName'/>
-                    <br></br>
-                    <label>Password:</label> &nbsp; 
-                    <br></br>
-                    <input type='text' name="name" className='textboxName'/>
-                    <br></br>
-                    <button>Login</button>
-        </form>
-
-      </div> */}
