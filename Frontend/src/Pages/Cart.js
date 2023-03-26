@@ -141,6 +141,9 @@ const Cart = () => {
 
     var tempCartSum;
 
+
+    //console.log("awooga user:"+ {user?.email})
+
     return(
     <div style={{ color: 'white'}} className="cart-container">
         <h2>Shopping cart</h2>
