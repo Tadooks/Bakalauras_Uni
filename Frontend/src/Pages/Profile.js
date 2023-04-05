@@ -8,25 +8,30 @@ function Profile() {
   const {currentUser} = useAuthValue()
   const navigate = useNavigate()
 
+  const [refresh,setRefresh] = useState(false);
+
   useEffect(() => {
     // if(currentUser==null)
     // {
     //     navigate("/login")
     // }
-
+    // setRefresh(false);
   }, [])
+
+
   
   //add loading
   return (
-      <div style={{ color: 'white'}} className='center'>
+      <div style={{ background: 'white'}} className='center'>
         <div className='profile'>
           <h1>Profile</h1>
           <p><strong>Email: </strong>{currentUser?.email}</p>
           <p>
             <strong>Email verified: </strong>
             {`${currentUser?.emailVerified}`}
+            
           </p>
-          <span onClick={() => signOut(auth)}>Sign Out</span>
+          <span onClick={() => {signOut(auth); navigate("/login")}}>Sign Out</span>
         </div>
       </div>
   )

@@ -14,32 +14,55 @@ import { AuthProvider } from './Pages/AuthContext';
 import Register from './Pages/Register';
 import VerifyEmail from './Pages/VerifyEmail';
 import Profile from './Pages/Profile';
+import { async } from '@firebase/util';
 
 
-
-//Need to fix flashing
 function App() {
 
   const [currentUser, setCurrentUser] = useState(null)
   const [timeActive, setTimeActive] = useState(false)
   //const navigate = useNavigate()
 
-  const [isLoading, setIsLoading] = useState(true);
+  const [refresh,setRefresh] = useState(false);
+
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
-      setCurrentUser(user)
+      //setCurrentUser(user)
+      console.log("I WORKED FIRST??")
+
+      if (user) {
+        // User logged in already or has just logged in.
+        setCurrentUser(user)
+        setLoading(false);
+        console.log(user.uid);
+      } else {
+        // User not logged in or has just logged out.
+        setLoading(false);
+        console.log("elsee")
+      }
+
     })
-  }, [])
+
+
+    setRefresh(false);
+  }, [refresh])
 
 
   //rerouting to login page if user not logged in
   const ProtectedRoute = ({ children }) => {
-    if (currentUser==null) {
+    
+    //Loading padaryt kaip product data 
+
+    if(currentUser==null){
       return <Navigate to={"/login"}/>
     }
     else
     {
+      console.log("Signed in successfully")
+      console.log(auth.currentUser);
+
       return children
     }
     
@@ -85,14 +108,19 @@ function App() {
           <Route path="register" element={<Register/>} />
           <Route path="verifyemail" element={<VerifyEmail/>} />
           {/* <Route path="profile" element={<Profile/>} /> */}
+          
           <Route 
             path="profile" 
             element={
-              <ProtectedRoute>
+              loading ?(
+                <p>Loading...</p>
+            ) : (
+              
+              <ProtectedRoute>  
                 <Profile/>
               </ProtectedRoute>
               
-            } />
+            )} />
 
 
         </Routes>

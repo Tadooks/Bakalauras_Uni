@@ -1,8 +1,10 @@
 import {useState} from 'react'
 import {auth} from '../firebase_config';
 import {useNavigate, Link} from 'react-router-dom'
-import {createUserWithEmailAndPassword, sendEmailVerification} from 'firebase/auth'
+import {createUserWithEmailAndPassword, sendEmailVerification, onAuthStateChanged} from 'firebase/auth'
 import {useAuthValue} from './AuthContext'
+import userEvent from '@testing-library/user-event';
+import {signOut} from 'firebase/auth'
 
 
 //set this up then check what you can delete
@@ -29,6 +31,7 @@ function Register() {
     return isValid
   }
 
+  //old register
   const register = e => {
     e.preventDefault()
     setError('')
@@ -40,6 +43,7 @@ function Register() {
           .then(() => {
             setTimeActive(true)
             navigate('/verifyemail')
+            signOut(auth)//sign out user, so he could only login when verified.
           }).catch((err) => alert(err.message))
         })
         .catch(err => setError(err.message))
@@ -48,6 +52,7 @@ function Register() {
     setPassword('')
     setConfirmPassword('')
   }
+
 
   return (
     <div style={{ color: 'white'}} className='center'>

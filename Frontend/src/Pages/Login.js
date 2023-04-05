@@ -58,6 +58,7 @@ function Login(){
           Don't have and account? 
           <Link to='/register'>Create one here</Link>
         </p>
+        Forgot your password? Click here
       </div>
     </div>
   )
