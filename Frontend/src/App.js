@@ -15,6 +15,8 @@ import Register from './Pages/Register';
 import VerifyEmail from './Pages/VerifyEmail';
 import Profile from './Pages/Profile';
 import { async } from '@firebase/util';
+import ForgotPassword from './Pages/ForgotPassword';
+import ChangePassword from './Pages/ChangePassword';
 
 
 function App() {
@@ -107,20 +109,24 @@ function App() {
           <Route path="login" element={<Login/>} />
           <Route path="register" element={<Register/>} />
           <Route path="verifyemail" element={<VerifyEmail/>} />
+          <Route path="forgotpassword" element={<ForgotPassword/>} />
+          <Route path="changepassword" element={<ChangePassword/>} />
           {/* <Route path="profile" element={<Profile/>} /> */}
           
           <Route 
             path="profile" 
             element={
               loading ?(
-                <p>Loading...</p>
+                // <p>Loading...</p>
+                <div>Loading...</div>
             ) : (
               
               <ProtectedRoute>  
                 <Profile/>
               </ProtectedRoute>
               
-            )} />
+            )} 
+          />
 
 
         </Routes>
