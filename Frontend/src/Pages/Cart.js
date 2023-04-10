@@ -1,6 +1,6 @@
 import {Link} from "react-router-dom"
 import { useState } from "react";
-import { useEffect } from "react";
+import { useEffect,createContext } from "react";
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -16,6 +16,12 @@ const Cart = () => {
     //Total price calculations
     //Checkout screen
 
+    
+    function toggleTheme(){
+        setDarkTheme(prevDarkTheme=>!prevDarkTheme);
+    }
+    //pls work
+    const [darkTheme, setDarkTheme] = useState(true);
 
 
     const [cart, setCart] = useState([window.localStorage.getItem("cart") ? JSON.parse(localStorage.getItem("cart")) : []]);
@@ -178,6 +184,12 @@ const Cart = () => {
     <div style={{ color: 'white'}} className="cart-container">
         <ToastContainer/>
         <h2>Shopping cart</h2>
+
+        {/* <ThemeContext.Provider value={darkTheme} >
+            <button onClick={toggleTheme}>Toggle</button>
+            <FunctionContextComponent/>
+        </ThemeContext.Provider> */}
+
         {/* if empty array */}
         {cart==[] ? (
             <div className="cartEmpty">
@@ -244,7 +256,10 @@ const Cart = () => {
                             <span>{subtotal} €</span>
                         </div>
                         
+                        <Link to="/profile">
                         <button>Checkout</button>
+                        </Link>
+
                         <div className="continue-shopping">
                             <Link to="/shop">
                                 Continue shopping

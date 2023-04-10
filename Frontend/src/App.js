@@ -7,7 +7,7 @@ import ProductsList from './Pages/ProductList';
 import Cart from './Pages/Cart';
 import Product from './Details/Product';
 import Login from './Pages/Login';
-import { useEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { auth } from './firebase_config';
 import { onAuthStateChanged } from 'firebase/auth';
 import { AuthProvider } from './Pages/AuthContext';
@@ -18,9 +18,18 @@ import { async } from '@firebase/util';
 import ForgotPassword from './Pages/ForgotPassword';
 import ChangePassword from './Pages/ChangePassword';
 
-
-
+import FunctionContextComponent from './FunctionContextComponent';
+import Checkout from './Pages/Checkout';
+export const ThemeContext = createContext();
 function App() {
+
+  //pls work
+  const [darkTheme, setDarkTheme] = useState(true);
+  function toggleTheme(){
+    setDarkTheme(prevDarkTheme=>!prevDarkTheme);
+  }
+
+  ////////
 
   //----------PRODUCT data states----------
   const [cart, setCart] = useState([window.localStorage.getItem("cart") ? JSON.parse(localStorage.getItem("cart")) : []]);
@@ -121,6 +130,13 @@ function App() {
           {/* Right */}
           <div>
             <Link to="cart">Cart count: {totalCart}  </Link>
+            {/* Theme context */}
+
+            <ThemeContext.Provider value={darkTheme} >
+            <button onClick={toggleTheme}>Toggle</button>
+            <FunctionContextComponent/>
+            </ThemeContext.Provider>
+
             {/* <Link to="login">Login</Link> */}
             <Link to="profile">Profile</Link>
           </div>
@@ -140,6 +156,7 @@ function App() {
           <Route path="verifyemail" element={<VerifyEmail/>} />
           <Route path="forgotpassword" element={<ForgotPassword/>} />
           <Route path="changepassword" element={<ChangePassword/>} />
+          <Route path="checkout" element={<Checkout/>} />
           
           {/* <Route path="profile" element={<Profile/>} /> */}
 

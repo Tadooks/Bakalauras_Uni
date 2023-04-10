@@ -28,7 +28,8 @@ const ChangePassword = () => {
       .then(() => {
         updatePassword(auth.currentUser,newPassword);
         alert("Sucessfully changed password!")
-        window.location.href = "http://localhost:3000/profile";
+        // window.location.href = "http://localhost:3000/profile";
+        window.location.href = window.location.origin + "/profile";
       })
       .catch((err) => {
         console.log(err);
