@@ -19,7 +19,15 @@ import ForgotPassword from './Pages/ForgotPassword';
 import ChangePassword from './Pages/ChangePassword';
 
 
+
 function App() {
+
+  //----------PRODUCT data states----------
+  const [cart, setCart] = useState([window.localStorage.getItem("cart") ? JSON.parse(localStorage.getItem("cart")) : []]);
+
+  //for cart count
+  const [totalCart,setTotalCart] = useState();
+  //----------------------------------------
 
   const [currentUser, setCurrentUser] = useState(null)
   const [timeActive, setTimeActive] = useState(false)
@@ -29,7 +37,29 @@ function App() {
 
   const [loading, setLoading] = useState(true);
 
+
+  
   useEffect(() => {
+    if(window.localStorage.getItem("cart")){
+      setCart(JSON.parse(window.localStorage.getItem("cart")));
+    }//this if may cause issues. idk idk
+    
+    //---------Calculate total cart count---------- //or make a global variable xd
+    console.log("Calculating Subtotal")
+    const tempArray = JSON.parse(window.localStorage.getItem("cart"))[0];
+    var tempCountTotal = 0;
+
+    tempArray.forEach((value) =>{            
+      var tempAmount = (Object(value)['amount']);
+      console.log("Amount: "+ tempAmount);
+      //convert to number
+
+      tempCountTotal=tempAmount+tempCountTotal;
+
+    })
+    setTotalCart(tempCountTotal);
+
+    //-----Account stuff------
     onAuthStateChanged(auth, (user) => {
       //setCurrentUser(user)
       console.log("I WORKED FIRST??")
@@ -47,9 +77,8 @@ function App() {
 
     })
 
-
     setRefresh(false);
-  }, [refresh])
+  },[refresh])
 
 
   //rerouting to login page if user not logged in
@@ -91,7 +120,7 @@ function App() {
 
           {/* Right */}
           <div>
-            <Link to="cart">Cart</Link>
+            <Link to="cart">Cart count: {totalCart}  </Link>
             {/* <Link to="login">Login</Link> */}
             <Link to="profile">Profile</Link>
           </div>
@@ -111,8 +140,11 @@ function App() {
           <Route path="verifyemail" element={<VerifyEmail/>} />
           <Route path="forgotpassword" element={<ForgotPassword/>} />
           <Route path="changepassword" element={<ChangePassword/>} />
-          {/* <Route path="profile" element={<Profile/>} /> */}
           
+          {/* <Route path="profile" element={<Profile/>} /> */}
+
+          
+
           <Route 
             path="profile" 
             element={

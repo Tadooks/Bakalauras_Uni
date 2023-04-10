@@ -2,6 +2,12 @@ import {Link} from "react-router-dom"
 import { useState } from "react";
 import { useEffect } from "react";
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+//https://fkhadra.github.io/react-toastify/introduction
+
+
+
 const Cart = () => {
     
     //TO DO:
@@ -27,6 +33,7 @@ const Cart = () => {
         }//this if may cause issues. idk idk
 
         var tempTotalPrice=0.0;
+        var countTotal = 0;
 
         //---------Calculate total cart subtotal----------
         console.log("Calculating Subtotal")
@@ -39,12 +46,19 @@ const Cart = () => {
             console.log("Price: "+ tempPrice+ " Amount: "+ tempAmount);
             //convert to number
             tempTotalPrice=((tempPrice*tempAmount)+tempTotalPrice);
+
+
+            countTotal=tempAmount+countTotal;
+
+
         })
         console.log("Final total: "+tempTotalPrice);
+        console.log("Total: "+countTotal)
         setSubtotal(tempTotalPrice.toFixed(2));
         //saving subtotal to local storage (idk if its really needed)
         window.localStorage.setItem("Subtotal", JSON.stringify(tempTotalPrice))
         //------------------------------------------------
+        
         
 
 
@@ -72,6 +86,10 @@ const Cart = () => {
         
         //setting the new cart to be saved in local storage
         window.localStorage.setItem("cart", JSON.stringify(tempCart))
+        toast(cartItem.name+" was removed from cart!", {
+            position: toast.POSITION.BOTTOM_LEFT,
+            className: 'foo-bar'
+        });
         return;
     }
 
@@ -95,6 +113,11 @@ const Cart = () => {
 
         //setting the new cart to be saved in local storage
         window.localStorage.setItem("cart", JSON.stringify(cart))
+
+        toast("Count of " + cartItem.name+ " was increased" +" !", {
+            position: toast.POSITION.BOTTOM_LEFT,
+            className: 'foo-bar'
+        });
         return;
     }
     const handleAmountRemove=(cartItem)=>{
@@ -106,6 +129,7 @@ const Cart = () => {
         console.log(cart);
         var n = k[0][productIndex];
         
+
         n.amount--;
         if(n.amount<=0)
         {
@@ -114,6 +138,11 @@ const Cart = () => {
         }
         else
         {
+            toast("Count of " + cartItem.name+ " was decreased" +" !", {
+                position: toast.POSITION.BOTTOM_LEFT,
+                className: 'foo-bar'
+            });
+
             console.log("minus minus");
             k[0][productIndex] = n;
         
@@ -134,10 +163,11 @@ const Cart = () => {
         window.localStorage.setItem("cart", JSON.stringify(tempEmpty))
         console.log(window.localStorage.getItem("cart"))
         setRefresh(true);//refreshing values
+        toast("Cart was cleared!", {
+            position: toast.POSITION.BOTTOM_LEFT,
+            className: 'foo-bar'
+        });
     }
-
-
-
 
     var tempCartSum;
 
@@ -146,6 +176,7 @@ const Cart = () => {
 
     return(
     <div style={{ color: 'white'}} className="cart-container">
+        <ToastContainer/>
         <h2>Shopping cart</h2>
         {/* if empty array */}
         {cart==[] ? (

@@ -43,18 +43,18 @@ const ChangePassword = () => {
                 <label htmlFor="current-password">Current password:</label>
                 <input
                     type="password"
+                    value={currentPassword}
                     id="current-password"
                     name="currentPassword"
-                    value={currentPassword}
                     onChange={handleChange}
                 />
 
                 <label htmlFor="new-password">New password:</label>
                 <input
                     type="password"
+                    value={newPassword}
                     id="new-password"
                     name="newPassword"
-                    value={newPassword}
                     onChange={handleChange}
                 />
                 You will have to login after changing the password!

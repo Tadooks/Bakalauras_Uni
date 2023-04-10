@@ -4,19 +4,21 @@ import { GetProductsAPI } from '../API/ProductsAPI';
 import Cookies from 'universal-cookie';
 
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+//https://fkhadra.github.io/react-toastify/introduction
+
 const Shop = () => {
 
     //----------PRODUCT data states----------
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    //---------------------------------------
-
-
+    
     //cart data
     //if cart is empty 
     const [cart, setCart] = useState([window.localStorage.getItem("cart") ? JSON.parse(localStorage.getItem("cart")) : []]);
-    
+    //---------------------------------------
 
 
 
@@ -43,6 +45,7 @@ const Shop = () => {
 
 
     //window.localStorage.clear();
+    console.log("cart.length")
     console.log(cart.length)
     
         
@@ -77,6 +80,10 @@ const handleAddToCart = (product) => {
         //setting the new cart to be saved in local storage
         window.localStorage.setItem("cart", JSON.stringify(k))
         console.table(window.localStorage);
+        toast(product.name+" was added to the cart!", {
+            position: toast.POSITION.BOTTOM_LEFT,
+            className: 'foo-bar'
+        });
         return;
     }
     else
@@ -102,7 +109,10 @@ const handleAddToCart = (product) => {
         console.log("table window.localStorage (but non table :sadge: )")
         console.table(window.localStorage);
 
-        
+        toast(product.name+" was added to the cart!", {
+            position: toast.POSITION.BOTTOM_LEFT,
+            className: 'foo-bar'
+        });
     }
 
     console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAa");
@@ -114,6 +124,7 @@ const handleAddToCart = (product) => {
 
     return (
         <div style={{ color: 'white'}}>
+            <ToastContainer/>
             <h1>Music shop!</h1>
             Filter
             Sort
@@ -155,73 +166,3 @@ const handleAddToCart = (product) => {
 }
   
 export default Shop
-
-
-
-
-
-
-
-
-
-
-// //-------------add to cart button---------
-// const handleAddToCart = (product) => {
-
-//     console.log(cart);
-//     //we set array
-//     // var arrayFromStorage= [];
-
-//     if (cart.some((cartItem) => cartItem.id == product.id))//why? Checks for duplicates i guess, if theres a duplicate, +1 to amount, if not a new object is created.
-//     {
-//         console.log("that just happeneed");
-
-        
-
-//         setCart((cart) =>
-//             cart.map((cartItem) =>
-//             cartItem.id === product.id
-//                 ? {
-//                     ...cartItem,
-//                     amount: cartItem.amount + 1
-//                 }
-//                 : cartItem
-//             )
-//         );
-        
-
-//         // //get the cart from storage.
-//         // var arrayFromStorage=JSON.parse(window.localStorage.getItem("cart"));
-//         // //push new cart into array
-        
-        
-//         // // last step. Set newest arrayStorage to storage.
-//         // window.localStorage.setItem("cart", JSON.stringify(arrayFromStorage));
-
-//         window.localStorage.setItem("cart", JSON.stringify(cart))
-//         console.log(window.localStorage);
-//         return;
-//     }
-//     else
-//     {
-//         //if unique, then this code goes here
-//         console.log("that just happeneed2");
-//         setCart((cart) => [
-//         ...cart,
-//         { ...product, amount: 1 } // <-- initial amount 1
-//         ]);
-
-//         window.localStorage.setItem("cart", JSON.stringify(cart))
-//         console.log(window.localStorage);
-//         // //get the cart from storage.
-//         // var arrayFromStorage=JSON.parse(window.localStorage.getItem("cart"));
-//         // //push new cart into array
-//         // arrayFromStorage.push(cart);
-//         // // last step. Set newest arrayStorage to storage.
-//         // window.localStorage.setItem("cart", JSON.stringify(arrayFromStorage));
-//         // console.log(window.localStorage)
-//     }
-    
-    
-// };
-// //----------------------------------------
