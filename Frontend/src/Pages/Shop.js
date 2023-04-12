@@ -1,9 +1,9 @@
-import {useState,useEffect} from 'react'
+import {useState,useEffect, useContext} from 'react'
 import { generatePath,Router, Link, Routes, Route,useParams } from 'react-router-dom';
 import { GetProductsAPI } from '../API/ProductsAPI';
 import Cookies from 'universal-cookie';
 
-import { CartProvider } from './CartContext';
+import { CartContext } from './CartContext';
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -11,6 +11,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const Shop = () => {
 
+    const { cartCount, setCartCount } = useContext(CartContext);
     //----------PRODUCT data states----------
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -58,14 +59,14 @@ const Shop = () => {
     //-------------add to cart button---------
 const handleAddToCart = (product) => {
 
-    console.log(cart);
+    console.log(cartCount);
 
     if (cart[0].some((tempCart2) => tempCart2.id == product.id))//why? Checks for duplicates i guess, if theres a duplicate, +1 to amount, if not a new object is created.
     {
         //1. find product index inside cart, 2. get product based on index 3. product amount ++ 4. set cart with increased product.
         console.log("non-unique click");
         var productIndex = cart[0].findIndex(item => item.id === product.id);
-        
+        console.log(cartCount);
         var k = cart;
         var n = k[0][productIndex];
 
@@ -85,6 +86,13 @@ const handleAddToCart = (product) => {
             position: toast.POSITION.BOTTOM_LEFT,
             className: 'foo-bar'
         });
+
+        //-------visual header cart update-------
+        const c= Number(cartCount) +1;
+        setCartCount(c)
+        window.localStorage.setItem("cartVVVVV", c)
+        //---------------------------------------
+
         return;
     }
     else
@@ -99,7 +107,7 @@ const handleAddToCart = (product) => {
         tempCart[0].push(product);
         
 
-
+        
         console.log("Table of tempCart[0]:")
         console.table(tempCart[0])
         setCart(tempCart);
@@ -109,6 +117,12 @@ const handleAddToCart = (product) => {
         window.localStorage.setItem("cart", JSON.stringify(tempCart))
         console.log("table window.localStorage (but non table :sadge: )")
         console.table(window.localStorage);
+
+        //-------visual header cart update-------
+        const c= Number(cartCount) +1;
+        setCartCount(c)
+        window.localStorage.setItem("cartVVVVV", c)
+        //---------------------------------------
 
         toast(product.name+" was added to the cart!", {
             position: toast.POSITION.BOTTOM_LEFT,
@@ -135,7 +149,6 @@ const handleAddToCart = (product) => {
                 <p>An error occured</p>
             ):(
             <>
-            <CartProvider value={"Baller"}></CartProvider>
                 <div className="products">
                     {data && 
                         data?.map((product) => (

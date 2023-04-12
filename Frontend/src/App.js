@@ -7,7 +7,7 @@ import ProductsList from './Pages/ProductList';
 import Cart from './Pages/Cart';
 import Product from './Details/Product';
 import Login from './Pages/Login';
-import { createContext, useEffect, useState } from "react";
+import { createContext, useEffect, useState,useContext,useMemo } from "react";
 import { auth } from './firebase_config';
 import { onAuthStateChanged } from 'firebase/auth';
 import { AuthProvider } from './Pages/AuthContext';
@@ -17,30 +17,22 @@ import Profile from './Pages/Profile';
 import { async } from '@firebase/util';
 import ForgotPassword from './Pages/ForgotPassword';
 import ChangePassword from './Pages/ChangePassword';
+import Cert from './Pages/Testing';
+import {CartContext} from './Pages/CartContext';
 
-import {CartProvider, useCartValue} from './Pages/CartContext';
-
-import FunctionContextComponent from './FunctionContextComponent';
 import Checkout from './Pages/Checkout';
 import DatabaseTest from './Pages/DatabaseTest';
 export const ThemeContext = createContext();
 function App() {
 
-  //pls work
-  const [darkTheme, setDarkTheme] = useState(true);
-  function toggleTheme(){
-    setDarkTheme(prevDarkTheme=>!prevDarkTheme);
-  }
+  //-------visual header cart update-------
+  const [cartCount, setCartCount] = useState([window.localStorage.getItem("cartVVVVV") ? localStorage.getItem("cartVVVVV") : 0]);
+  const value = useMemo(
+    () => ({ cartCount, setCartCount }), 
+    [cartCount]
+  );
+  //--------------------------------------
 
-  ////////
-
-  //----------PRODUCT data states----------
-  const [cart, setCart] = useState([window.localStorage.getItem("cart") ? JSON.parse(localStorage.getItem("cart")) : []]);
-  
-  const cartCount = useCartValue;
-  //for cart count
-  const [totalCart,setTotalCart] = useState();
-  //----------------------------------------
 
   const [currentUser, setCurrentUser] = useState(null)
   const [timeActive, setTimeActive] = useState(false)
@@ -53,25 +45,8 @@ function App() {
 
   
   useEffect(() => {
-    if(window.localStorage.getItem("cart")){
-      setCart(JSON.parse(window.localStorage.getItem("cart")));
-    }//this if may cause issues. idk idk
+
     
-    //---------Calculate total cart count---------- //or make a global variable xd
-    console.log("Calculating Subtotal")
-    const tempArray = JSON.parse(window.localStorage.getItem("cart"))[0];
-    var tempCountTotal = 0;
-
-    tempArray.forEach((value) =>{            
-      var tempAmount = (Object(value)['amount']);
-      console.log("Amount: "+ tempAmount);
-      //convert to number
-
-      tempCountTotal=tempAmount+tempCountTotal;
-
-    })
-    setTotalCart(tempCountTotal);
-
     //-----Account stuff------
     onAuthStateChanged(auth, (user) => {
       //setCurrentUser(user)
@@ -100,6 +75,7 @@ function App() {
     //Loading padaryt kaip product data 
 
     if(currentUser==null){
+      console.log("WOWWOWOWOWOWO")
       return <Navigate to={"/login"}/>
     }
     else
@@ -117,7 +93,10 @@ function App() {
     
     <div className="App">
       <Router>
-        <AuthProvider value={{currentUser,timeActive,setTimeActive}}>
+      <AuthProvider value={{currentUser,timeActive,setTimeActive}}>
+        <>
+        <CartContext.Provider value={value} >
+
         <nav>
           {/* Left */}
           <div>
@@ -133,22 +112,16 @@ function App() {
 
           {/* Right */}
           <div>
-            <CartProvider value={{value}} >
-              <Link to="cart">Cart count: {value}  </Link>
-            </CartProvider>
+          <Cert />
             {/* Theme context */}
 
-            <ThemeContext.Provider value={darkTheme} >
-            <button onClick={toggleTheme}>Toggle</button>
-            <FunctionContextComponent/>
-            </ThemeContext.Provider>
+
 
             {/* <Link to="login">Login</Link> */}
             <Link to="profile">Profile</Link>
           </div>
           
         </nav>
-        
         <Routes>
           
           <Route path="/" element={<Home />} />
@@ -186,6 +159,8 @@ function App() {
 
 
         </Routes>
+        </CartContext.Provider>
+        </>
         </AuthProvider>
      </Router>
 

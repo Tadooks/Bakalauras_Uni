@@ -1,4 +1,7 @@
-import { useState, createContext } from "react";
-import ReactDOM from "react-dom/client";
+import { createContext } from "react";
 
-const CartContext = createContext()
+
+export const CartContext = createContext({
+  cartCount: 0,
+  setCartCount : () => {},
+});
