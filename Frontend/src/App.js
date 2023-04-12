@@ -18,8 +18,11 @@ import { async } from '@firebase/util';
 import ForgotPassword from './Pages/ForgotPassword';
 import ChangePassword from './Pages/ChangePassword';
 
+import {CartProvider, useCartValue} from './Pages/CartContext';
+
 import FunctionContextComponent from './FunctionContextComponent';
 import Checkout from './Pages/Checkout';
+import DatabaseTest from './Pages/DatabaseTest';
 export const ThemeContext = createContext();
 function App() {
 
@@ -33,7 +36,8 @@ function App() {
 
   //----------PRODUCT data states----------
   const [cart, setCart] = useState([window.localStorage.getItem("cart") ? JSON.parse(localStorage.getItem("cart")) : []]);
-
+  
+  const cartCount = useCartValue;
   //for cart count
   const [totalCart,setTotalCart] = useState();
   //----------------------------------------
@@ -129,7 +133,9 @@ function App() {
 
           {/* Right */}
           <div>
-            <Link to="cart">Cart count: {totalCart}  </Link>
+            <CartProvider value={{value}} >
+              <Link to="cart">Cart count: {value}  </Link>
+            </CartProvider>
             {/* Theme context */}
 
             <ThemeContext.Provider value={darkTheme} >
@@ -157,6 +163,7 @@ function App() {
           <Route path="forgotpassword" element={<ForgotPassword/>} />
           <Route path="changepassword" element={<ChangePassword/>} />
           <Route path="checkout" element={<Checkout/>} />
+          <Route path="databasetest" element={<DatabaseTest/>} />
           
           {/* <Route path="profile" element={<Profile/>} /> */}
 

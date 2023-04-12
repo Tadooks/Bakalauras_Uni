@@ -3,6 +3,7 @@ import { generatePath,Router, Link, Routes, Route,useParams } from 'react-router
 import { GetProductsAPI } from '../API/ProductsAPI';
 import Cookies from 'universal-cookie';
 
+import { CartProvider } from './CartContext';
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -134,6 +135,7 @@ const handleAddToCart = (product) => {
                 <p>An error occured</p>
             ):(
             <>
+            <CartProvider value={"Baller"}></CartProvider>
                 <div className="products">
                     {data && 
                         data?.map((product) => (

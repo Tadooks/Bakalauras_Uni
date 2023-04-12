@@ -88,4 +88,7 @@ let add_comment =  async function(comment, result) {
     }
 };
 
+
+
+
 export {get_all_comments, add_comment};

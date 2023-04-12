@@ -1,18 +1,24 @@
 'use strict';
-
+// import { createRequire } from 'module'
+// const require = createRequire(import.meta.url);
+// require('dotenv').config();
+// https://www.npmjs.com/package/dotenv
+import { config } from 'dotenv';
+config();
 import { initializeApp } from 'firebase/app';
 import { getDatabase } from "firebase/database";
 
 // TODO: Replace with your app's Firebase project configuration
 const firebaseConfig = {
-    apiKey: "AIzaSyAdDQg97wkwKR3M2PEljeOLl2u4tHpJHko",
-    authDomain: "melonter-ed65b.firebaseapp.com",
-    databaseURL: "https://melonter-ed65b-default-rtdb.europe-west1.firebasedatabase.app",
-    projectId: "melonter-ed65b",
-    storageBucket: "melonter-ed65b.appspot.com",
-    messagingSenderId: "55137342194",
-    appId: "1:55137342194:web:ea805390b4a7c9bde4366b",
-    measurementId: "G-9CPBV9W135"
+    apiKey: "AIzaSyBjLcKDKBz0RsDqWxXbFxWw_1cZazlHR_o",
+    authDomain: "bakalauras-8fdcd.firebaseapp.com",
+    databaseURL: "https://bakalauras-8fdcd-default-rtdb.europe-west1.firebasedatabase.app",
+    projectId: "bakalauras-8fdcd",
+    storageBucket: "bakalauras-8fdcd.appspot.com",
+    messagingSenderId: "709385383917",
+    appId: "1:709385383917:web:db15e427bf728a5abf41e4",
+    measurementId: "G-RB8XZ1X5LJ"
+
 };
 
 const app = initializeApp(firebaseConfig);
