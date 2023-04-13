@@ -3,7 +3,7 @@
 import { database } from "../db/firebaseDB.js";
 import { ref, child, get, push, update} from "firebase/database";
 
-let getProducts =  async function(songID, result) {
+let getProducts =  async function(thingamabob, result) {
 
     const dbRef = ref(database);
  

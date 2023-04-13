@@ -22,12 +22,12 @@ import {CartContext} from './Pages/CartContext';
 
 import Checkout from './Pages/Checkout';
 import DatabaseTest from './Pages/DatabaseTest';
-export const ThemeContext = createContext();
+
 function App() {
 
   //-------visual header cart update-------
-  const [cartCount, setCartCount] = useState([window.localStorage.getItem("cartVVVVV") ? localStorage.getItem("cartVVVVV") : 0]);
-  const value = useMemo(
+  const [cartCount, setCartCount] = useState([window.localStorage.getItem("cartVisualCount") ? localStorage.getItem("cartVisualCount") : 0]);
+  const cartCountValue = useMemo(
     () => ({ cartCount, setCartCount }), 
     [cartCount]
   );
@@ -95,7 +95,7 @@ function App() {
       <Router>
       <AuthProvider value={{currentUser,timeActive,setTimeActive}}>
         <>
-        <CartContext.Provider value={value} >
+        <CartContext.Provider value={cartCountValue} >
 
         <nav>
           {/* Left */}
@@ -112,9 +112,7 @@ function App() {
 
           {/* Right */}
           <div>
-          <Cert />
-            {/* Theme context */}
-
+            <Cert />
 
 
             {/* <Link to="login">Login</Link> */}

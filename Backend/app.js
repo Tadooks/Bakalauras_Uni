@@ -7,11 +7,6 @@ import { addComment, getAllCommentsOnSong} from './controllers/comment.controlle
 
 import { getProducts, getSingleProduct, addProduct, editProduct, deleteProduct} from './controllers/product.controller.js'
 
-// import products from './products.js';
-
-
-
-
 
 // Express
 const bodyParser = require('body-parser');
@@ -68,12 +63,12 @@ app.get("/products/:id",function (req, res) {
 //create
 app.post("/products",function (req,res) {
     let product = req.body;
-    addProduct(product, function(err, responseFROMPRODUCTTHEwatchemacallit) {
+    addProduct(product, function(err, responseAddProduct) {
         if (err){
             console.log(err);
         }
         else{
-            res.send(responseFROMPRODUCTTHEwatchemacallit);
+            res.send(responseAddProduct);
         }
     });
 });
@@ -82,12 +77,12 @@ app.post("/products",function (req,res) {
 app.put("/products/:id",function(req,res) {
     const id = req.params.id;
     let change = req.body;
-    editProduct({"uid": id, "product": change}, function(err, holyFuckLuisImDeleting) {
+    editProduct({"uid": id, "product": change}, function(err, responseEditProduct) {
         if (err){
             console.log(err);
         }
         else{
-            res.send(holyFuckLuisImDeleting);
+            res.send(responseEditProduct);
         }
     });
 });
@@ -96,17 +91,17 @@ app.put("/products/:id",function(req,res) {
 // To delete / edit / create you need to use admin account . Thus its important to send user object with product to verify that its admin that wants to delete/edit/create !
 app.delete("/products/:id",function(req,res) {
     const id = req.params.id;
-    deleteProduct(id, function(err, holyFuckLuisImDeleting) {
+    deleteProduct(id, function(err, responseDeleteProduct) {
         if (err){
             console.log(err);
         }
         else{
-            res.send(holyFuckLuisImDeleting);
+            res.send(responseDeleteProduct);
         }
     });
 });
 
-//the function thingamabob is the same as function(req,res) thingamajig
+//the function ()=> thingamabob is the same as function(req,res) thingamajig
 // app.get("/products",(req,res)=>{
 //     res.send(products);
 // });

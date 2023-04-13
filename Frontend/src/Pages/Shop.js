@@ -11,7 +11,9 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const Shop = () => {
 
+    //visual cart change
     const { cartCount, setCartCount } = useContext(CartContext);
+
     //----------PRODUCT data states----------
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -59,14 +61,11 @@ const Shop = () => {
     //-------------add to cart button---------
 const handleAddToCart = (product) => {
 
-    console.log(cartCount);
-
     if (cart[0].some((tempCart2) => tempCart2.id == product.id))//why? Checks for duplicates i guess, if theres a duplicate, +1 to amount, if not a new object is created.
     {
         //1. find product index inside cart, 2. get product based on index 3. product amount ++ 4. set cart with increased product.
         console.log("non-unique click");
         var productIndex = cart[0].findIndex(item => item.id === product.id);
-        console.log(cartCount);
         var k = cart;
         var n = k[0][productIndex];
 
@@ -121,7 +120,7 @@ const handleAddToCart = (product) => {
         //-------visual header cart update-------
         const c= Number(cartCount) +1;
         setCartCount(c)
-        window.localStorage.setItem("cartVVVVV", c)
+        window.localStorage.setItem("cartVisualCount", c)
         //---------------------------------------
 
         toast(product.name+" was added to the cart!", {

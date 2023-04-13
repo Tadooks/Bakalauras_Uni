@@ -1,6 +1,8 @@
 import {Link} from "react-router-dom"
 import { useState } from "react";
-import { useEffect,createContext } from "react";
+
+import { useEffect,createContext,useContext } from "react";
+import { CartContext } from './CartContext';
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -16,6 +18,8 @@ const Cart = () => {
     //Total price calculations
     //Checkout screen
 
+    //visual cart change
+    const { cartCount, setCartCount } = useContext(CartContext);
     
     function toggleTheme(){
         setDarkTheme(prevDarkTheme=>!prevDarkTheme);
@@ -78,6 +82,8 @@ const Cart = () => {
     const handleRemoveFromCart=(cartItem)=>{
         console.log("removedFromCart");
 
+        
+
         var tempCart = cart;
         
         var productIndex = cart[0].findIndex(item => item.id === cartItem.id);
@@ -96,6 +102,19 @@ const Cart = () => {
             position: toast.POSITION.BOTTOM_LEFT,
             className: 'foo-bar'
         });
+
+        //-------visual header cart update-------
+        if(cartItem.amount==0)
+        {
+            cartItem.amount=1
+        }
+        const c= Number(cartCount) -cartItem.amount;
+        console.log(Number(cartCount)+" - "+cartItem.amount + " = " + c)
+        setCartCount(c)
+        window.localStorage.setItem("cartVisualCount", c)
+        //---------------------------------------
+        
+
         return;
     }
 
@@ -124,10 +143,18 @@ const Cart = () => {
             position: toast.POSITION.BOTTOM_LEFT,
             className: 'foo-bar'
         });
+
+        //-------visual header cart update-------
+        const c= Number(cartCount) +1;
+        setCartCount(c)
+        window.localStorage.setItem("cartVisualCount", c)
+        //---------------------------------------
         return;
     }
     const handleAmountRemove=(cartItem)=>{
         console.log("amountRemove");
+        
+        
 
         var productIndex = cart[0].findIndex(item => item.id === cartItem.id);
         
@@ -135,15 +162,26 @@ const Cart = () => {
         console.log(cart);
         var n = k[0][productIndex];
         
+        
 
         n.amount--;
         if(n.amount<=0)
         {
+            
             handleRemoveFromCart(cartItem);
             return;
         }
         else
         {
+
+
+            //-------visual header cart update-------
+            const c= Number(cartCount) -1;
+            setCartCount(c)
+            window.localStorage.setItem("cartVisualCount", c)
+            console.log("Huhhhh!!!!!!!!!!!")
+            //---------------------------------------
+
             toast("Count of " + cartItem.name+ " was decreased" +" !", {
                 position: toast.POSITION.BOTTOM_LEFT,
                 className: 'foo-bar'
@@ -158,6 +196,7 @@ const Cart = () => {
     
             //setting the new cart to be saved in local storage
             window.localStorage.setItem("cart", JSON.stringify(k))
+
             return;
         }
         
@@ -173,6 +212,12 @@ const Cart = () => {
             position: toast.POSITION.BOTTOM_LEFT,
             className: 'foo-bar'
         });
+
+        //-------visual header cart update-------
+        const c= Number(cartCount) *0;
+        setCartCount(c)
+        window.localStorage.setItem("cartVisualCount", c)
+        //---------------------------------------
     }
 
     var tempCartSum;
