@@ -236,11 +236,13 @@ const Cart = () => {
         </ThemeContext.Provider> */}
 
         {/* if empty array */}
-        {cart==[] ? (
+        {cart[0][0]==null ? (
             <div className="cartEmpty">
-            <p>Your cart is empty boyyyyyy got danmn</p>
+            <p>Your cart is empty!</p>
+            {console.log("This carrrt is empty ")}
+                    {console.log([cart])}
             <div className="startShopping">
-                <Link to="/">
+                <Link to="/shop">
 
                     Start Shopping
                 </Link>
@@ -252,7 +254,8 @@ const Cart = () => {
                 <div className="cart-items">
                 ORDER SUMMARY
                 <table>
-                
+                    {console.log("This aint empty ")}
+                    {console.log(cart[0][0])}
                     {cart[0]?.map((cartItem) =>(
                         // <div className="cart-item" key={cartItem.id}>
                         <>
@@ -301,7 +304,7 @@ const Cart = () => {
                             <span>{subtotal} €</span>
                         </div>
                         
-                        <Link to="/profile">
+                        <Link to="/checkout">
                         <button>Checkout</button>
                         </Link>
 

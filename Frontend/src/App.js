@@ -21,7 +21,7 @@ import Cert from './Pages/Testing';
 import {CartContext} from './Pages/CartContext';
 
 import Checkout from './Pages/Checkout';
-import DatabaseTest from './Pages/DatabaseTest';
+import AdminPanel from './Pages/AdminPanel';
 
 function App() {
 
@@ -134,7 +134,7 @@ function App() {
           <Route path="forgotpassword" element={<ForgotPassword/>} />
           <Route path="changepassword" element={<ChangePassword/>} />
           <Route path="checkout" element={<Checkout/>} />
-          <Route path="databasetest" element={<DatabaseTest/>} />
+          <Route path="adminpanel" element={<AdminPanel/>} />
           
           {/* <Route path="profile" element={<Profile/>} /> */}
 

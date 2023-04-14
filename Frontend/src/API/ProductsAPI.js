@@ -11,7 +11,9 @@ export function GetProductsAPI(){
     
     //-------GET PRODUCT DATA FROM API------------
     useEffect(() => {
-        fetch(`http://localhost:3001/products`)
+        fetch(`http://localhost:3001/products`,{
+            method: "GET"
+        })
           .then(response => response.json())
           .then((usefulData) => {
             //console.log(usefulData);
