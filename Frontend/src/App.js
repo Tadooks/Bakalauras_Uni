@@ -22,6 +22,8 @@ import {CartContext} from './Pages/CartContext';
 
 import Checkout from './Pages/Checkout';
 import AdminPanel from './Pages/AdminPanel';
+import CreateProduct from './Pages/AdminCRUD/CreateProduct';
+
 
 function App() {
 
@@ -108,6 +110,7 @@ function App() {
             <Link to="shop">Shop</Link>
             <Link to="songrequest">Song Request</Link>
             <Link to="productslist">Product list</Link>
+            <Link to="adminpanel">Admin panel</Link>
           </div>
 
           {/* Right */}
@@ -134,7 +137,9 @@ function App() {
           <Route path="forgotpassword" element={<ForgotPassword/>} />
           <Route path="changepassword" element={<ChangePassword/>} />
           <Route path="checkout" element={<Checkout/>} />
+
           <Route path="adminpanel" element={<AdminPanel/>} />
+          <Route path="createproduct" element={<CreateProduct/>} />
           
           {/* <Route path="profile" element={<Profile/>} /> */}
 
