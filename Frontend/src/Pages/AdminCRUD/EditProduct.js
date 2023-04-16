@@ -3,12 +3,12 @@ import React,{useState, useEffect} from "react"
 import { set,ref,child, Database } from "firebase/database"
 import Button from '@material-ui/core/Button';
 
-import { Link,useNavigate } from "react-router-dom";
+import { Link,useNavigate, useParams } from "react-router-dom";
 
 import { IconButton } from "@material-ui/core";
 
 
-const CreateProduct = () => {
+const EditProduct = () => {
 
     //Add states
     const [productId, setProductId] = useState('');
@@ -17,6 +17,8 @@ const CreateProduct = () => {
     const [productDescription, setProductDescription] = useState('');
     const [productImage, setProductImage] = useState('');
     const [productType, setProductType] = useState('');
+
+    
 
     //----------PRODUCT data states----------
     const [data, setData] = useState(null);
@@ -28,39 +30,55 @@ const CreateProduct = () => {
 
     const navigate = useNavigate()
 
-
+    //get id from URL
+    const idFromURL= window.location.pathname.split('/').pop();
     
+
     // //-------GET PRODUCT DATA FROM API------------
     useEffect(() => {
         
-        fetch(`http://localhost:3001/products`,{
+        fetch(`http://localhost:3001/products/${idFromURL}`,{
             method: "GET"
         })
           .then(response => response.json())
           .then((usefulData) => {
-            //console.log(usefulData);
-            setLoading(false);
+            //setting fetched data
             setData(usefulData);
+            
+            setProductId(usefulData.id);
+            setProductName(usefulData.name);
+            setProductPrice(usefulData.price);
+            setProductDescription(usefulData.desc);
+            setProductImage(usefulData.image);
+            setProductType(usefulData.type);
+
+            setLoading(false);//stop loading once data is fetched.
+            
           })
           .catch((e) => {
             console.error(`An error occurred: ${e}`)
           });
+
           setRefresh(false);
-    }, [refresh]);
+    }, []);
     // //------------------------------------------
 
-    //------------CREATE PRODUCT------------
-    const handleCreateProduct=e=>{
-        e.preventDefault()
-        console.log("handleCreateProduct was clicked!");
+    
 
-        fetch(`http://localhost:3001/products`,{
-            method: "POST",
+    //------------EDIT PRODUCT------------
+    const handleEditProduct=(e,product)=>{
+        e.preventDefault()
+        console.log("handleEditProduct was clicked!");
+
+        // console.log(product);
+        fetch(`http://localhost:3001/products/${idFromURL}`,{
+            method: "PUT",
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',
             },
             body: JSON.stringify(
                 { 
+                    uid: idFromURL,
                     id: productId,
                     name: productName,
                     desc: productDescription,
@@ -72,19 +90,19 @@ const CreateProduct = () => {
             )
         })
           .then(response => {
-            alert('Created successfully');
+            alert('Edited successfully');
             navigate('/adminpanel')
           })
           .then((usefulData) => {
-            setData(usefulData);
             setLoading(false);
+            setData(usefulData);
           })
           .catch((e) => {
             console.error(`An error occurred: ${e}`)
           });
 
     
-          setRefresh(true);
+        //   setRefresh(true);
         return;
     }
     //------------------------------------
@@ -95,20 +113,22 @@ const CreateProduct = () => {
             {/* when empty this will get stuck on loading. */}
             {loading ?(
                 <p>Loading...</p>
+                
             ) : error ? (
                 <p>An error occured</p>
             ):(
             <>
-
+    
                 {/* Dialog content goes here */}
-                <div>Dialog Content</div>
+                <div>Edit window content</div>
 
                 <Link to='/adminpanel'>
-                <Button variant="contained">Close</Button>
+                    <Button variant="contained">Back</Button>
                 </Link>
                 
 
-                <form onSubmit={handleCreateProduct} >
+                <form onSubmit={handleEditProduct} >
+                id:
                 <input 
                     type='text' 
                     value={productId}
@@ -116,7 +136,7 @@ const CreateProduct = () => {
                     required
                     onChange={e => setProductId(e.target.value)}
                 />
-
+                name:
                 <input 
                     type='text' 
                     value={productName}
@@ -124,6 +144,7 @@ const CreateProduct = () => {
                     required
                     onChange={e=>setProductName(e.target.value)}
                 />
+                price:
                 <input 
                     type='number' 
                     value={productPrice}
@@ -131,14 +152,16 @@ const CreateProduct = () => {
                     required
                     onChange={e=>setProductPrice(e.target.value)}
                 />
+                description:
                 <input 
-                    type='text' 
+                    type='text'
                     value={productDescription}
                     placeholder="Description"
                     required
                     onChange={e=>setProductDescription(e.target.value)}
 
                 />
+                image:
                 <input 
                     type='text' 
                     value={productImage}
@@ -147,6 +170,7 @@ const CreateProduct = () => {
                     onChange={e=>setProductImage(e.target.value)}
 
                 />
+                type:
                 <input 
                     type='text' 
                     value={productType}
@@ -156,7 +180,7 @@ const CreateProduct = () => {
 
                 />
 
-                <Button variant="contained" type='submit'>Add new</Button>
+                <Button variant="contained" type='submit'>Save changes</Button>
                 </form>
 
 
@@ -169,4 +193,4 @@ const CreateProduct = () => {
     )
 }
 
-export default CreateProduct;
+export default EditProduct;

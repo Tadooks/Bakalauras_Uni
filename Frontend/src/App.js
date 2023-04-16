@@ -23,6 +23,7 @@ import {CartContext} from './Pages/CartContext';
 import Checkout from './Pages/Checkout';
 import AdminPanel from './Pages/AdminPanel';
 import CreateProduct from './Pages/AdminCRUD/CreateProduct';
+import EditProduct from './Pages/AdminCRUD/EditProduct';
 
 
 function App() {
@@ -140,6 +141,7 @@ function App() {
 
           <Route path="adminpanel" element={<AdminPanel/>} />
           <Route path="createproduct" element={<CreateProduct/>} />
+          <Route path="editproduct/:id" element={<EditProduct/>} />
           
           {/* <Route path="profile" element={<Profile/>} /> */}
 

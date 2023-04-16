@@ -61,24 +61,28 @@ const AdminPanel = () => {
     //delete not always doing its delete thing
     const handleDeleteProduct=(product)=>{
         console.log("handleDeleteProduct was clicked!");
-        
         console.log(product.uid);
-        fetch(`http://localhost:3001/products/${product.uid}`,{
-            method: "DELETE",
-        body: JSON.stringify({ uid: product.uid })
-        })
-          .then(response => response.json())
-          .then((usefulData) => {
-            //console.log(usefulData);
-            setLoading(false);
-            setData(usefulData);
-          })
-          .catch((e) => {
-            console.error(`An error occurred: ${e}`)
-          });
+        if(window.confirm("Are you sure you want to delete " + product.name + " ?")){
+            
+            fetch(`http://localhost:3001/products/${product.uid}`,{
+                method: "DELETE",
+            body: JSON.stringify({ uid: product.uid })
+            })
+            .then(response => response.json())
+            .then((usefulData) => {
+                //console.log(usefulData);
+                setLoading(false);
+                setData(usefulData);
+            })
+            .catch((e) => {
+                console.error(`An error occurred: ${e}`)
+            });
 
-    
-          setRefresh(true);
+        
+            setRefresh(true);
+        }
+        
+        
         return;
     }
 
@@ -258,6 +262,10 @@ const AdminPanel = () => {
     return(
         <div style={{ color: 'white'}}>
 
+            <Link to='/createproduct'>
+                <button>Add neeeew product</button>
+            </Link>
+            <button onClick={()=>OpenDialogWindow()}>Add new product</button><br></br><br></br>
             {/* when empty this will get stuck on loading. */}
             {loading ?(
                 <p>Loading...</p>
@@ -265,10 +273,70 @@ const AdminPanel = () => {
                 <p>An error occured</p>
             ):(
             <>
-            <button onClick={()=>OpenDialogWindow()}>Add new product</button><br></br><br></br>
-            <Link to='/createproduct'>
-                <button>Add neeeew product</button>
-            </Link>
+            
+
+            ????Search????
+            <table>
+                    <thead>
+                      <tr>
+                        <th>Firebase uid</th>
+                        <th>Product id</th>
+                        <th>Product type</th>
+                        <th>Product name</th>
+                        <th>Price</th>
+                        <th>Description</th>
+                        {/* <th>image</th> */}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {data && 
+                        data?.map((product) => (
+                          <tr key={product.id}>
+                            <td>{product.uid}</td>
+                            <td>{product.id}</td>
+                            <td>{ }</td>
+                            <td>{product.name}</td>
+                            <td>{product.price}</td>
+                            <td>{product.desc}</td>
+
+                            {/* on edit, open Single product, with screen to edit it? */}
+                            {/* Add the open single product  */}
+
+                            <Link to={`/editproduct/${product.uid}`}>
+                                <button>Edit</button>
+                            </Link>
+                            {/* <button onClick={()=>OpenEditDialogWindow(product)}>Edit</button>  */}
+                            <button onClick={()=>handleDeleteProduct(product)}>Delete</button>
+                            
+                            
+
+                            {/* <td>{product.image}</td> */}
+                          </tr>
+                        ))}
+                    </tbody>
+            </table>
+
+            
+            
+
+            </>
+            )}
+        </div>
+    )
+}
+
+export default AdminPanel;
+
+
+
+
+
+
+
+
+
+
+
 
             {/* -------------------Dialog CREATE window popup------------------- */}
             {/* <Dialog open={dialogOpen} onClose={handleClose}>
@@ -328,51 +396,3 @@ const AdminPanel = () => {
                 </form>
             </Dialog> */}
             {/* -------------------------------------------- */}
-
-            ????Search????
-            <table>
-                    <thead>
-                      <tr>
-                        <th>Firebase uid</th>
-                        <th>Product id</th>
-                        <th>Product type</th>
-                        <th>Product name</th>
-                        <th>Price</th>
-                        <th>Description</th>
-                        {/* <th>image</th> */}
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {data && 
-                        data?.map((product) => (
-                          <tr key={product.id}>
-                            <td>{product.uid}</td>
-                            <td>{product.id}</td>
-                            <td>{ }</td>
-                            <td>{product.name}</td>
-                            <td>{product.price}</td>
-                            <td>{product.desc}</td>
-
-                            {/* on edit, open Single product, with screen to edit it? */}
-                            {/* Add the open single product  */}
-                            <button onClick={()=>OpenEditDialogWindow(product)}>Edit</button> 
-                            <button onClick={()=>handleDeleteProduct(product)}>Delete</button>
-                            
-                            
-
-                            {/* <td>{product.image}</td> */}
-                          </tr>
-                        ))}
-                    </tbody>
-            </table>
-
-            
-            
-
-            </>
-            )}
-        </div>
-    )
-}
-
-export default AdminPanel;
