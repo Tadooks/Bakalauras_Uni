@@ -3,6 +3,8 @@
 import { database } from "../db/firebaseDB.js";
 import { ref, child, get, push, update} from "firebase/database";
 
+//https://firebase.google.com/docs
+
 let getProducts =  async function(thingamabob, result) {
 
     const dbRef = ref(database);
@@ -13,7 +15,7 @@ let getProducts =  async function(thingamabob, result) {
             const arrayOfProducts = [];
 
             const objectArray = Object.entries( snapshot.val());
-
+            
             objectArray.forEach(([key, value]) => {
                 arrayOfProducts.push({
                     uid: key,
@@ -29,7 +31,7 @@ let getProducts =  async function(thingamabob, result) {
         } else {
 
             console.log("No data available");
-            result("No data available", null);
+            result(null, []);
         }
 
         }).catch((error) => {
@@ -38,11 +40,11 @@ let getProducts =  async function(thingamabob, result) {
         });
 };
 
-let getSingleProduct =  async function(id, result) {
+let getSingleProduct =  async function(uid, result) {
 
     const dbRef = ref(database);
  
-    get(child(dbRef, `/Products/`+id)).then((snapshot) => {
+    get(child(dbRef, `/Products/`+uid)).then((snapshot) => {
  
         if (snapshot.exists()) {
             result(null, snapshot.val());
@@ -64,7 +66,7 @@ let addProduct =  async function(product, result) {
     if(product != null){
         
         //we create a new key
-        const newPostKey = push(child(dbRef, '/Products/' + product.id)).key;
+        const newPostKey = push(child(dbRef, '/Products/' + product.uid)).key;
 
         const postData = {
             uid: newPostKey,
@@ -119,20 +121,20 @@ let editProduct =  async function(product, result) {
     }
 };
 
-let deleteProduct =  async function(productID, result) {
+let deleteProduct =  async function(productUID, result) {
     const dbRef = ref(database);
 
-    if(productID != null){
+    if(productUID != null){
         
         const postData = {};
     
         const updates = {};
 
-        updates['/Products/'+ productID] = postData;
+        updates['/Products/'+ productUID] = postData;
 
         update(dbRef, updates);
  
-        result(null, productID);
+        result(null, productUID);
 
     }else{
         result("Bad comment", null);

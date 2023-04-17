@@ -31,6 +31,7 @@ function Register() {
     return isValid
   }
 
+  //register su google pridet.
   //old register
   const register = e => {
     e.preventDefault()

@@ -6,6 +6,7 @@ import { addComment, getAllCommentsOnSong} from './controllers/comment.controlle
 
 
 import { getProducts, getSingleProduct, addProduct, editProduct, deleteProduct} from './controllers/product.controller.js'
+import { getUsers, getSingleUser, addUser, editUser, deleteUser} from './controllers/user.controller.js'
 
 
 // Express
@@ -35,6 +36,7 @@ app.get("/",function (req,res) {
 });
 
 
+//---------------PRODUCTS---------------------
 //all
 app.get("/products",function (req,res) {
     getProducts(null, function(err, all_products) {
@@ -100,17 +102,93 @@ app.delete("/products/:id",function(req,res) {
         }
     });
 });
+//-------------------------------------------------------------------------------------
+
+
+
+//------------------USERS------------------
+//all
+app.get("/users",function (req,res) {
+    getUsers(null, function(err, all_users) {
+        if (err){
+            console.log(err);
+        }
+        else{
+            res.send(all_users);
+        }
+    });
+});
+
+//single
+app.get("/users/:id",function (req, res) {
+    const id = req.params.id;
+    getSingleUser(id, function(err, single_user) {
+        if (err){
+            console.log(err);
+        }
+        else{
+            res.send(single_user);
+        }
+    });
+});
+
+//create
+app.post("/users",function (req,res) {
+    let user = req.body;
+    addUser(user, function(err, responseAddUser) {
+        if (err){
+            console.log(err);
+        }
+        else{
+            res.send(responseAddUser);
+        }
+    });
+});
+
+//edit
+app.put("/users/:id",function(req,res) {
+    const id = req.params.id;
+    let change = req.body;
+    editUser({"uid": id, "user": change}, function(err, responseEditUser) {
+        if (err){
+            console.log(err);
+        }
+        else{
+            res.send(responseEditUser);
+        }
+    });
+});
+
+//delete 
+// To delete / edit / create you need to use admin account . Thus its important to send user object with user to verify that its admin that wants to delete/edit/create !
+app.delete("/users/:id",function(req,res) {
+    const id = req.params.id;
+    deleteUser(id, function(err, responseDeleteUser) {
+        if (err){
+            console.log(err);
+        }
+        else{
+            res.send(responseDeleteUser);
+        }
+    });
+});
+//-------------------------------------------------------------------------------------
+
+
+
 
 //the function ()=> thingamabob is the same as function(req,res) thingamajig
 // app.get("/products",(req,res)=>{
 //     res.send(products);
 // });
-app.post('/event', function (req, res) {
-    let change = req.body;
-    console.log(change.id);
-    console.log(change.name);
-    res.send(change);
-});
+
+
+// app.post('/event', function (req, res) {
+//     let change = req.body;
+//     console.log(change.id);
+//     console.log(change.name);
+//     res.send(change);
+// });
 
 
 const PORT = process.env.PORT || 3001;
