@@ -1,6 +1,5 @@
 
 import React,{useState, useEffect} from "react"
-import { set,ref,child, Database } from "firebase/database"
 import Button from '@material-ui/core/Button';
 
 import { Link,useNavigate, useParams } from "react-router-dom";
@@ -9,7 +8,9 @@ import { IconButton } from "@material-ui/core";
 
 
 //storage for adding files
-import { storage } from "../../../firebase_config";
+import { getStorage, ref, uploadBytes  } from "firebase/storage";
+const storage = getStorage();
+
 
 const EditProduct = () => {
 
@@ -131,24 +132,16 @@ const EditProduct = () => {
         const selectedFile = e.target.files[0];
         setFile(selectedFile);
     };
-    
-    const handleDrop = (e) => {
-      e.preventDefault();
-      const selectedFile = e.dataTransfer.files[0];
-      setFile(selectedFile);
-    };
 
-    const handleDragOver = (e) => {
-      e.preventDefault();
-    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (file) {
-          const fileName = `${Date.now()}-${file.name}`;
-          const storageRef = storage.ref().child(fileName);
-          await storageRef.put(file);
-        //   const downloadUrl = await storageRef.getDownloadURL();
+            const fileName = `${Date.now()}-${file.name}`;
+            const mountainsRef = ref(storage, fileName);
+            uploadBytes(mountainsRef, file).then((snapshot) => {
+                console.log('Uploaded a blob or file!');
+            });
         //   setUrl(downloadUrl);
         }
     };
@@ -239,22 +232,20 @@ const EditProduct = () => {
                         <input type="file" id="fileInput" onChange={handleFileChange} />
                         </div>
                         <div
-                        onDrop={handleDrop}
-                        onDragOver={handleDragOver}
                         style={{ border: "1px dashed black", padding: "1rem" }}
                         >
                         Drop file here
                         </div>
                         <button type="submit">Upload</button>
                     </form>
-                    {/* {url && (
+                    {url && (
                         <div>
                         <p>Download URL:</p>
                         <a href={url} target="_blank" rel="noopener noreferrer">
                             {url}
                         </a>
                         </div>
-                    )} */}
+                    )}
                 </div>
 
 
