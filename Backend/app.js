@@ -20,6 +20,11 @@ const server = http.createServer(app);
 // Middleware
 app.use(bodyParser.json());
 
+// app.use(cors({
+//     origin: "http://localhost:3000",
+// })
+// );
+
 //--------------new stuff--------------//
 const express=require("express");
 const cors = require("cors");
@@ -30,6 +35,8 @@ const cors = require("cors");
 
 app.use(express.json());
 app.use(cors())
+
+
 
 app.get("/",function (req,res) {
     res.send("Melonter shop api");

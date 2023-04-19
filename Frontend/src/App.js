@@ -21,9 +21,12 @@ import Cert from './Pages/Testing';
 import {CartContext} from './Pages/CartContext';
 
 import Checkout from './Pages/Checkout';
-import AdminPanel from './Pages/AdminPanel';
-import CreateProduct from './Pages/AdminCRUD/CreateProduct';
-import EditProduct from './Pages/AdminCRUD/EditProduct';
+import CreateProduct from './Pages/AdminCRUD/Product/CreateProduct';
+import EditProduct from './Pages/AdminCRUD/Product/EditProduct';
+import ProductAdminPanel from './Pages/AdminCRUD/Product/ProductAdminPanel';
+import UserAdminPanel from './Pages/AdminCRUD/User/UserAdminPanel';
+import EditUser from './Pages/AdminCRUD/User/EditUser';
+import CreateUser from './Pages/AdminCRUD/User/CreateUser';
 
 
 function App() {
@@ -111,7 +114,8 @@ function App() {
             <Link to="shop">Shop</Link>
             <Link to="songrequest">Song Request</Link>
             <Link to="productslist">Product list</Link>
-            <Link to="adminpanel">Admin panel</Link>
+            <Link to="productadminpanel">Admin panel</Link>
+            <Link to="useradminpanel">Admin panel user</Link>
           </div>
 
           {/* Right */}
@@ -139,9 +143,15 @@ function App() {
           <Route path="changepassword" element={<ChangePassword/>} />
           <Route path="checkout" element={<Checkout/>} />
 
-          <Route path="adminpanel" element={<AdminPanel/>} />
+          {/* Product admin */}
+          <Route path="productadminpanel" element={<ProductAdminPanel/>} />
           <Route path="createproduct" element={<CreateProduct/>} />
           <Route path="editproduct/:id" element={<EditProduct/>} />
+
+          {/* User admin */}
+          <Route path="useradminpanel" element={<UserAdminPanel/>} />
+          <Route path="edituser/:id" element={<EditUser/>} />
+          <Route path="createuser" element={<CreateUser/>} />
           
           {/* <Route path="profile" element={<Profile/>} /> */}
 

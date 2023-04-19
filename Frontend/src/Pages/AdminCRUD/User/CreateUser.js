@@ -8,15 +8,12 @@ import { Link,useNavigate } from "react-router-dom";
 import { IconButton } from "@material-ui/core";
 
 
-const CreateProduct = () => {
+const CreateUser = () => {
 
     //Add states
-    const [productId, setProductId] = useState('');
-    const [productName, setProductName] = useState('');
-    const [productPrice, setProductPrice] = useState(0);
-    const [productDescription, setProductDescription] = useState('');
-    const [productImage, setProductImage] = useState('');
-    const [productType, setProductType] = useState('');
+    const [userAuthId, setUserAuthId] = useState('');
+    const [userEmail, setUserEmail] = useState('');
+
 
     //----------PRODUCT data states----------
     const [data, setData] = useState(null);
@@ -33,7 +30,7 @@ const CreateProduct = () => {
     // //-------GET PRODUCT DATA FROM API------------
     useEffect(() => {
         
-        fetch(`http://localhost:3001/products`,{
+        fetch(`http://localhost:3001/users`,{
             method: "GET"
         })
           .then(response => response.json())
@@ -50,30 +47,26 @@ const CreateProduct = () => {
     // //------------------------------------------
 
     //------------CREATE PRODUCT------------
-    const handleCreateProduct=e=>{
+    const handleCreateUser=e=>{
         e.preventDefault()
-        console.log("handleCreateProduct was clicked!");
+        console.log("handleCreateUser was clicked!");
 
-        fetch(`http://localhost:3001/products`,{
+        fetch(`http://localhost:3001/users`,{
             method: "POST",
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',
             },
             body: JSON.stringify(
                 { 
-                    id: productId,
-                    name: productName,
-                    desc: productDescription,
-                    price: productPrice,
-                    image: productImage,
-                    type: productType
+                    authid: userAuthId,
+                    email: userEmail,
 
                 }
             )
         })
           .then(response => {
             alert('Created successfully');
-            navigate('/adminpanel')
+            navigate('/useradminpanel')
           })
           .then((usefulData) => {
             setData(usefulData);
@@ -101,67 +94,33 @@ const CreateProduct = () => {
             <>
 
                 {/* Dialog content goes here */}
-                <div>Dialog Content</div>
+                <div>Create Content</div>
 
-                <Link to='/adminpanel'>
+                <Link to='/useradminpanel'>
                 <Button variant="contained">Close</Button>
                 </Link>
                 
 
-                <form onSubmit={handleCreateProduct} >
+                <form onSubmit={handleCreateUser} >
                 <input 
                     type='text' 
-                    value={productId}
-                    placeholder="Product id"
+                    value={userAuthId}
+                    placeholder="User id"
                     required
-                    onChange={e => setProductId(e.target.value)}
+                    onChange={e => setUserAuthId(e.target.value)}
                 />
 
                 <input 
-                    type='text' 
-                    value={productName}
-                    placeholder="Product name"
+                    type='email' 
+                    value={userEmail}
+                    placeholder="Email"
                     required
-                    onChange={e=>setProductName(e.target.value)}
+                    onChange={e=>setUserEmail(e.target.value)}
                 />
-                <input 
-                    type='number' 
-                    value={productPrice}
-                    placeholder="Price"
-                    required
-                    onChange={e=>setProductPrice(e.target.value)}
-                />
-                <input 
-                    type='text' 
-                    value={productDescription}
-                    placeholder="Description"
-                    required
-                    onChange={e=>setProductDescription(e.target.value)}
 
-                />
-                <input 
-                    type='text' 
-                    value={productImage}
-                    placeholder="Image"
-                    required
-                    onChange={e=>setProductImage(e.target.value)}
-
-                />
-                <input 
-                    type='text' 
-                    value={productType}
-                    placeholder="Type"
-                    required
-                    onChange={e=>setProductType(e.target.value)}
-
-                />
 
                 <Button variant="contained" type='submit'>Add new</Button>
                 </form>
-
-
-            
-        
 
             </>
             )}
@@ -169,4 +128,4 @@ const CreateProduct = () => {
     )
 }
 
-export default CreateProduct;
+export default CreateUser;
