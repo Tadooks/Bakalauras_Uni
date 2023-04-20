@@ -18,10 +18,10 @@ const ProductAdminPanel = () => {
     const [productPrice, setProductPrice] = useState(0);
     const [productDescription, setProductDescription] = useState('');
     const [productImage, setProductImage] = useState('');
+    const [productAudio, setProductAudio] = useState('');
+    const [productDownload, setProductDownload] = useState('');
     const [productType, setProductType] = useState('');
 
-    const [productPreview, setProductPreview] = useState('');
-    const [productDownload, setProductDownload] = useState('');
 
 
     //----------PRODUCT data states----------
@@ -124,6 +124,8 @@ const ProductAdminPanel = () => {
                         <th>Price</th>
                         <th>Description</th>
                         <th>Image</th>
+                        <th>Audio</th>
+                        <th>Download</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -137,6 +139,8 @@ const ProductAdminPanel = () => {
                             <td>{product.price}</td>
                             <td>{product.desc}</td>
                             <td>{product.image}</td>
+                            <td>{product.audio}</td>
+                            <td>{product.download}</td>
                             {/* on edit, open Single product, with screen to edit it? */}
                             {/* Add the open single product  */}
 

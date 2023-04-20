@@ -20,6 +20,8 @@ const EditProduct = () => {
     const [productPrice, setProductPrice] = useState(0);
     const [productDescription, setProductDescription] = useState('');
     const [productImage, setProductImage] = useState('');
+    const [productAudio, setProductAudio] = useState('');
+    const [productDownload, setProductDownload] = useState('');
     const [productType, setProductType] = useState('');
 
 
@@ -62,6 +64,8 @@ const EditProduct = () => {
             setProductPrice(usefulData.price);
             setProductDescription(usefulData.desc);
             setProductImage(usefulData.image);
+            setProductAudio(usefulData.audio);
+            setProductDownload(usefulData.download);
             setProductType(usefulData.type);
 
             setLoading(false);//stop loading once data is fetched.
@@ -96,6 +100,8 @@ const EditProduct = () => {
                     desc: productDescription,
                     price: productPrice,
                     image: productImage,
+                    audio: productAudio,
+                    download: productDownload,
                     type: productType
 
                 }
@@ -135,6 +141,7 @@ const EditProduct = () => {
         const selectedFile = e.target.files[0];
         if (selectedFile && selectedFile.type.includes("image")) { // Check if the selected file is an image
             setFile(selectedFile);
+
         } else {
             alert("Please select a valid image file."); // Display an error message if the selected file is not an image
         }
@@ -145,6 +152,7 @@ const EditProduct = () => {
         const selectedFile = e.target.files[0];
         if (selectedFile && selectedFile.type.includes("audio")) { // Check if the selected file is an audio file
             setFile(selectedFile);
+
         } else {
             alert("Please select a valid audio file."); // Display an error message if the selected file is not an audio file
         }
@@ -153,6 +161,7 @@ const EditProduct = () => {
     const handleFileChangeDownload = (e) => {
         const selectedFile = e.target.files[0];
         setFile(selectedFile);
+
     };
 
     //getting the actual link to file
@@ -162,6 +171,7 @@ const EditProduct = () => {
         console.log("Download URL:", downloadURL);
     }
 
+    //on upload, set the url 
     const handleUpload = async (e) => {
         e.preventDefault();
         if (file) {
@@ -172,10 +182,19 @@ const EditProduct = () => {
                 console.log('Uploaded file!');
                 handleDownloadURL(snapshot.ref);//getting the download url
                 console.log(file.type);
+
+                //Paskirstom failus: if file is image,
+                if(file.type.includes("image")){
+                    setProductImage(url)
+                }
+                else if(file.type.includes("audio")){
+                    setProductAudio(url)
+                }
+                else{
+                    setProductDownload(url)
+                }
             });
 
-            
-            
         }
         else
             alert("No file or wrong file selected!");
@@ -249,14 +268,36 @@ const EditProduct = () => {
                                 onChange={e=>setProductImage(e.target.value)}
 
                             />
+                            
 
                             type:
                             <select id="product-type" name="product-type" value={productType} onChange={e => setProductType(e.target.value)}>
-                                <option value="Clothing">Clothing</option>
+                                <option value="Merch">Merch</option>
                                 <option value="Audio">Audio</option>
                             </select>
 
-                            
+                            {productType == "Audio" && (
+                            <>
+                            audio:
+                            <input 
+                                type='text' 
+                                value={productAudio}
+                                placeholder="Image"
+                                required
+                                onChange={e=>setProductAudio(e.target.value)}
+
+                            />
+                            download:
+                            <input 
+                                type='text' 
+                                value={productDownload}
+                                placeholder="Image"
+                                required
+                                onChange={e=>setProductDownload(e.target.value)}
+
+                            />
+                            </>
+                            )}
                             
 
                             
@@ -265,9 +306,8 @@ const EditProduct = () => {
                         </form>
                         </div>
                         
-                        {/* If Clothing is selected we show image upload */}
-                        {productType == "Clothing" && (
-                            <div>
+                        {/* We always show image preview */}
+                        <div>
                                 <div className="crudFilePreview">
                                     <form onSubmit={handleUpload}>
                                         <div>
@@ -277,58 +317,38 @@ const EditProduct = () => {
                                         <button type="submitFile">Upload</button>
                                     </form>
                                     
-                                    Image preview
-                                    {url && (
+                                    Image preview:
+                                    {productImage && (
                                     <div>
-                                        
-                                        <img src={url} alt={url} width="400" height="300"></img>
+                                        {productImage}
+                                        <img src={productImage} alt={productImage} width="400" height="300"></img>
                                     </div>
                                     )}
                                     
                                 </div>
-                            </div>
-                                
-                        )}
+                        </div>
                         
 
                         {/* If Audio is selected we show image upload */}
                         {productType == "Audio" && (
-                            <div>
+                        <div>
 
-                            
-                            <div className="crudFilePreview">
-                                <form onSubmit={handleUpload}>
-                                    <div>
-                                    <label htmlFor="fileInput">Select an image file:</label>
-                                    <input type="file" id="fileInput" onChange={handleFileChangeImage} />
-                                    </div>
-                                    <button type="submitFile">Upload</button>
-                                </form>
-                                
-                                Image preview
-                                {url && (
-                                <div>
-                                    
-                                    <img src={url} alt={url} width="400" height="300"></img>
-                                </div>
-                                )}
-                                
-                            </div>
                             <div className="crudFilePreview">
 
                                 <div className="crudFilePreview">
                                     <form onSubmit={handleUpload}>
                                         <div>
+                                        <div>Audio preview file</div>
                                         <label htmlFor="fileInput">Select an audio mp3 file:</label>
                                         <input type="file" id="fileInput" onChange={handleFileChangeAudio} />
                                         </div>
                                         <button type="submitFile">Upload</button>
                                     </form>
                                     
-                                    Audio preview
-                                    {url && (
+                                    Audio url and preview:
+                                    {productAudio && (
                                     <div>
-                                        Audio thingamabob
+                                        {productAudio}
                                         
                                     </div>
                                     )}
@@ -338,16 +358,17 @@ const EditProduct = () => {
                                 <div className="crudFilePreview">
                                     <form onSubmit={handleUpload}>
                                         <div>
+                                            <div>Downloadable file</div>
                                             <label htmlFor="fileInput">Select an archive rar file:</label>
                                             <input type="file" id="fileInput" onChange={handleFileChangeDownload} />
                                         </div>
                                         <button type="submitFile">Upload</button>
                                     </form>
                                     
-                                    Archive file url
-                                    {url && (
+                                    Download file url:
+                                    {productDownload && (
                                     <div>
-                                        Archive file thingamabob
+                                        {productDownload}
                                         
                                     </div>
                                     )}
@@ -356,10 +377,7 @@ const EditProduct = () => {
                             </div>
                         </div>
                         )}
-
-
                         
-
                         
                 </div>
 
