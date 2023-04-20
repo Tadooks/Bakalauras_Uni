@@ -26,7 +26,7 @@ const EditProduct = () => {
 
 
     const [file, setFile] = useState(null);
-    const [url, setUrl] = useState("");
+
 
     // const tempStorage = storage;
 
@@ -139,7 +139,7 @@ const EditProduct = () => {
     const handleFileChangeImage = (e) => {
         const selectedFile = e.target.files[0];
         if (selectedFile && selectedFile.type.includes("image")) { // Check if the selected file is an image
-            setFile(selectedFile);
+            setFile({type:1, selectedFile});
 
         } else {
             alert("Please select a valid image file."); // Display an error message if the selected file is not an image
@@ -150,7 +150,7 @@ const EditProduct = () => {
     const handleFileChangeAudio = (e) => {
         const selectedFile = e.target.files[0];
         if (selectedFile && selectedFile.type.includes("audio")) { // Check if the selected file is an audio file
-            setFile(selectedFile);
+            setFile({type:2, selectedFile});
 
         } else {
             alert("Please select a valid audio file."); // Display an error message if the selected file is not an audio file
@@ -159,7 +159,7 @@ const EditProduct = () => {
     //FILE UPLOADING rar archive file (i allow any file to be uploaded)
     const handleFileChangeDownload = (e) => {
         const selectedFile = e.target.files[0];
-        setFile(selectedFile);
+        setFile({type:3, selectedFile});
 
     };
     //--------------------------------------------------------
@@ -168,84 +168,44 @@ const EditProduct = () => {
 
     //getting the actual link to file
     const handleDownloadURL = async (ref) => {
-        const downloadURL = await getDownloadURL(ref);
-        setUrl(downloadURL);
-        console.log("Download URL:", downloadURL);
+        return await getDownloadURL(ref);
     }
 
     //on upload, set the url 
-    const handleUpload = async (e) => {
-        e.preventDefault();
-        if (file) {
-            const fileName = `${Date.now()}-${file.name}`;
+  
+    const handleUpload = async (type) => {
+        if (file && file.type == type) {
+            console.log(file);
+            const newFile = file.selectedFile;
+            const fileName = `${Date.now()}-${newFile.name}`;
             const storageRef = ref(storage, fileName);
-            uploadBytes(storageRef, file).then((snapshot) => {
-                alert("File " + fileName + " was added successfully")
-                console.log('Uploaded file!');
-                handleDownloadURL(snapshot.ref);//getting the download url
-                
-                // setProductImage(url);
-                ////nunulinam values, kad nebutu visi vienodi
-                //Paskirstom failus: if file is image,
-                if(file.type.includes("image")){
-                    setProductImage(url);
-                    setUrl("");//nunulinam values, kad nebutu visi vienodi
-                }
-                else if(file.type.includes("audio")){
-                    setProductAudio(url)
-                    setUrl("");
-                }
-                else{
-                    setProductDownload(url)
-                    setUrl("");
-                }
-            });
+
+            const snapshot = await uploadBytes(storageRef, newFile);
+            alert("File " + fileName + " was added successfully")
+            console.log('Uploaded file!');
+            const naujasURL = await handleDownloadURL(snapshot.ref);//getting the download url
+            console.log(naujasURL);
+            // setProductImage(url);
+            ////nunulinam values, kad nebutu visi vienodi
+            //Paskirstom failus: if file is image,
+            if(newFile.type.includes("image")){
+                setProductImage(naujasURL);
+                setFile(null);
+            }
+            else if(newFile.type.includes("audio")){
+                setProductAudio(naujasURL)
+                setFile(null);
+            }
+            else{
+                setProductDownload(naujasURL)
+                setFile(null);
+            }
 
         }
         else
             alert("No file or wrong file selected!");
     };
-    // const handleUploadAudio = async (e) => {
-    //     e.preventDefault();
-    //     if (file) {
-    //         const fileName = `${Date.now()}-${file.name}`;
-    //         const storageRef = ref(storage, fileName);
-    //         uploadBytes(storageRef, file).then((snapshot) => {
-    //             alert("File " + fileName + " was added successfully")
-    //             console.log('Uploaded file!');
-    //             handleDownloadURL(snapshot.ref);//getting the download url
-                
 
-    //             setProductAudio(url)
-    //             setUrl("");
-    //         });
-
-    //     }
-    //     else
-    //         alert("No file or wrong file selected!");
-    // };
-    // const handleUploadDownload= async (e) => {
-    //     e.preventDefault();
-    //     if (file) {
-    //         const fileName = `${Date.now()}-${file.name}`;
-    //         const storageRef = ref(storage, fileName);
-    //         uploadBytes(storageRef, file).then((snapshot) => {
-    //             alert("File " + fileName + " was added successfully")
-    //             console.log('Uploaded file!');
-    //             handleDownloadURL(snapshot.ref);//getting the download url
-                
-
-    //             setProductDownload(url)
-    //             setUrl("");
-    //         });
-
-    //     }
-    //     else
-    //         alert("No file or wrong file selected!");
-    // };
-
-
-///////////////////////////////////////
 
     return(
         <div style={{ color: 'white'}}>
@@ -353,7 +313,11 @@ const EditProduct = () => {
                         {/* We always show image preview */}
                         <div>
                                 <div className="crudFilePreview">
-                                    <form onSubmit={handleUpload}>
+                                    <form onSubmit={e => {
+                                        e.preventDefault();
+                                        handleUpload(1);
+                                    }
+                                        }>
                                         <div>
                                         <label htmlFor="imageInput">Select an image file:</label>
                                         <input type="file" id="imageInput" onChange={handleFileChangeImage} />
@@ -380,7 +344,11 @@ const EditProduct = () => {
                             <div className="crudFilePreview">
 
                                 <div className="crudFilePreview">
-                                    <form onSubmit={handleUpload}>
+                                    <form onSubmit={e => {
+                                                e.preventDefault();
+                                        handleUpload(2);
+                                    }
+                                        }>
                                         <div>
                                         <div>Audio preview file</div>
                                         <label htmlFor="audioInput">Select an audio mp3 file:</label>
@@ -400,7 +368,11 @@ const EditProduct = () => {
 
                                 
                                 <div className="crudFilePreview">
-                                    <form onSubmit={handleUpload}>
+                                    <form onSubmit={e => {
+                                                e.preventDefault();
+                                        handleUpload(3);
+                                    }
+                                        }>
                                         <div>
                                             <div>Downloadable file</div>
                                             <label htmlFor="downloadInput">Select an archive rar file:</label>
