@@ -78,7 +78,6 @@ const EditProduct = () => {
           setRefresh(false);
     }, [refresh]);
     // //------------------------------------------
-
     
 
     //------------EDIT PRODUCT------------
@@ -135,7 +134,7 @@ const EditProduct = () => {
 
 
 
-
+    //-----------------Handle file changes---------------------
     //FILE IMAGE UPLOADING 
     const handleFileChangeImage = (e) => {
         const selectedFile = e.target.files[0];
@@ -163,6 +162,9 @@ const EditProduct = () => {
         setFile(selectedFile);
 
     };
+    //--------------------------------------------------------
+
+
 
     //getting the actual link to file
     const handleDownloadURL = async (ref) => {
@@ -181,17 +183,21 @@ const EditProduct = () => {
                 alert("File " + fileName + " was added successfully")
                 console.log('Uploaded file!');
                 handleDownloadURL(snapshot.ref);//getting the download url
-                console.log(file.type);
-
+                
+                // setProductImage(url);
+                ////nunulinam values, kad nebutu visi vienodi
                 //Paskirstom failus: if file is image,
                 if(file.type.includes("image")){
-                    setProductImage(url)
+                    setProductImage(url);
+                    setUrl("");//nunulinam values, kad nebutu visi vienodi
                 }
                 else if(file.type.includes("audio")){
                     setProductAudio(url)
+                    setUrl("");
                 }
                 else{
                     setProductDownload(url)
+                    setUrl("");
                 }
             });
 
@@ -199,6 +205,44 @@ const EditProduct = () => {
         else
             alert("No file or wrong file selected!");
     };
+    // const handleUploadAudio = async (e) => {
+    //     e.preventDefault();
+    //     if (file) {
+    //         const fileName = `${Date.now()}-${file.name}`;
+    //         const storageRef = ref(storage, fileName);
+    //         uploadBytes(storageRef, file).then((snapshot) => {
+    //             alert("File " + fileName + " was added successfully")
+    //             console.log('Uploaded file!');
+    //             handleDownloadURL(snapshot.ref);//getting the download url
+                
+
+    //             setProductAudio(url)
+    //             setUrl("");
+    //         });
+
+    //     }
+    //     else
+    //         alert("No file or wrong file selected!");
+    // };
+    // const handleUploadDownload= async (e) => {
+    //     e.preventDefault();
+    //     if (file) {
+    //         const fileName = `${Date.now()}-${file.name}`;
+    //         const storageRef = ref(storage, fileName);
+    //         uploadBytes(storageRef, file).then((snapshot) => {
+    //             alert("File " + fileName + " was added successfully")
+    //             console.log('Uploaded file!');
+    //             handleDownloadURL(snapshot.ref);//getting the download url
+                
+
+    //             setProductDownload(url)
+    //             setUrl("");
+    //         });
+
+    //     }
+    //     else
+    //         alert("No file or wrong file selected!");
+    // };
 
 
 ///////////////////////////////////////
@@ -311,10 +355,10 @@ const EditProduct = () => {
                                 <div className="crudFilePreview">
                                     <form onSubmit={handleUpload}>
                                         <div>
-                                        <label htmlFor="fileInput">Select an image file:</label>
-                                        <input type="file" id="fileInput" onChange={handleFileChangeImage} />
+                                        <label htmlFor="imageInput">Select an image file:</label>
+                                        <input type="file" id="imageInput" onChange={handleFileChangeImage} />
                                         </div>
-                                        <button type="submitFile">Upload</button>
+                                        <button type="submitImage">Upload</button>
                                     </form>
                                     
                                     Image preview:
@@ -339,10 +383,10 @@ const EditProduct = () => {
                                     <form onSubmit={handleUpload}>
                                         <div>
                                         <div>Audio preview file</div>
-                                        <label htmlFor="fileInput">Select an audio mp3 file:</label>
-                                        <input type="file" id="fileInput" onChange={handleFileChangeAudio} />
+                                        <label htmlFor="audioInput">Select an audio mp3 file:</label>
+                                        <input type="file" id="audioInput" onChange={handleFileChangeAudio} />
                                         </div>
-                                        <button type="submitFile">Upload</button>
+                                        <button type="submitAudio">Upload</button>
                                     </form>
                                     
                                     Audio url and preview:
@@ -359,10 +403,10 @@ const EditProduct = () => {
                                     <form onSubmit={handleUpload}>
                                         <div>
                                             <div>Downloadable file</div>
-                                            <label htmlFor="fileInput">Select an archive rar file:</label>
-                                            <input type="file" id="fileInput" onChange={handleFileChangeDownload} />
+                                            <label htmlFor="downloadInput">Select an archive rar file:</label>
+                                            <input type="file" id="downloadInput" onChange={handleFileChangeDownload} />
                                         </div>
-                                        <button type="submitFile">Upload</button>
+                                        <button type="submitDownload">Upload</button>
                                     </form>
                                     
                                     Download file url:
