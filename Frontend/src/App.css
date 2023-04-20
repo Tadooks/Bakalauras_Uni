@@ -440,7 +440,8 @@ td {
 /* REGISTER CSS */
 
 .auth{
-  width: 90%;
+  margin: auto;
+  width: 50%;
   max-width: 400px;
   border: 1px solid #dcdcdc;
   padding: 20px;
@@ -519,6 +520,38 @@ td {
   color: blue;
   margin-top: 30px;
   cursor: pointer;
+}
+
+
+
+/* CRUD CSS */
+.center{
+  
+  margin: auto;
+  width: 50%;
+}
+
+.crudCenter{
+  margin: auto;
+  width: 50%;
+  max-width: 400px;
+  border: 1px solid #dcdcdc;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+
+.crudCenter form{
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin: 0 auto 10px auto;
+}
+
+
+.crudFilePreview{
+  border: 1px solid #dcdcdc;
 }
 
 

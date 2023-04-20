@@ -4,11 +4,11 @@ import Button from '@material-ui/core/Button';
 
 import { Link,useNavigate, useParams } from "react-router-dom";
 
-import { IconButton } from "@material-ui/core";
+import { IconButton, useTheme } from "@material-ui/core";
 
 
 //storage for adding files
-import { getStorage, ref, uploadBytes  } from "firebase/storage";
+import { getStorage, ref, uploadBytes, getDownloadURL  } from "firebase/storage";
 const storage = getStorage();
 
 
@@ -28,6 +28,8 @@ const EditProduct = () => {
 
     // const tempStorage = storage;
 
+    //Selection type state
+    const [selectedOption, setSelectedOption] = useState('');
     
 
     //----------PRODUCT data states----------
@@ -70,7 +72,7 @@ const EditProduct = () => {
           });
 
           setRefresh(false);
-    }, []);
+    }, [refresh]);
     // //------------------------------------------
 
     
@@ -112,7 +114,6 @@ const EditProduct = () => {
           });
 
     
-        //   setRefresh(true);
         return;
     }
     //------------------------------------
@@ -128,22 +129,56 @@ const EditProduct = () => {
 
 
 
-    const handleFileChange = (e) => {
+
+    //FILE IMAGE UPLOADING 
+    const handleFileChangeImage = (e) => {
+        const selectedFile = e.target.files[0];
+        if (selectedFile && selectedFile.type.includes("image")) { // Check if the selected file is an image
+            setFile(selectedFile);
+        } else {
+            alert("Please select a valid image file."); // Display an error message if the selected file is not an image
+        }
+    };
+
+    //FILE AUDIO UPLOADING MP3
+    const handleFileChangeAudio = (e) => {
+        const selectedFile = e.target.files[0];
+        if (selectedFile && selectedFile.type.includes("audio")) { // Check if the selected file is an audio file
+            setFile(selectedFile);
+        } else {
+            alert("Please select a valid audio file."); // Display an error message if the selected file is not an audio file
+        }
+    };
+    //FILE UPLOADING rar archive file (i allow any file to be uploaded)
+    const handleFileChangeDownload = (e) => {
         const selectedFile = e.target.files[0];
         setFile(selectedFile);
     };
 
+    //getting the actual link to file
+    const handleDownloadURL = async (ref) => {
+        const downloadURL = await getDownloadURL(ref);
+        setUrl(downloadURL);
+        console.log("Download URL:", downloadURL);
+    }
 
-    const handleSubmit = async (e) => {
+    const handleUpload = async (e) => {
         e.preventDefault();
         if (file) {
             const fileName = `${Date.now()}-${file.name}`;
-            const mountainsRef = ref(storage, fileName);
-            uploadBytes(mountainsRef, file).then((snapshot) => {
-                console.log('Uploaded a blob or file!');
+            const storageRef = ref(storage, fileName);
+            uploadBytes(storageRef, file).then((snapshot) => {
+                alert("File " + fileName + " was added successfully")
+                console.log('Uploaded file!');
+                handleDownloadURL(snapshot.ref);//getting the download url
+                console.log(file.type);
             });
-        //   setUrl(downloadUrl);
+
+            
+            
         }
+        else
+            alert("No file or wrong file selected!");
     };
 
 
@@ -160,94 +195,173 @@ const EditProduct = () => {
                 <p>An error occured</p>
             ):(
             <>
-    
-                {/* Dialog content goes here */}
-                <div>Edit window content</div>
+                <div className='crudCenter'>
+                    <div>
+                        <div >Edit window content</div>
 
-                <Link to='/productadminpanel'>
-                    <Button variant="contained">Back</Button>
-                </Link>
-                
+                        <Link to='/productadminpanel'>
+                            <Button variant="contained">Back</Button>
+                        </Link>
+                        
 
-                <form onSubmit={handleEditProduct} >
-                    id:
-                    <input 
-                        type='text' 
-                        value={productId}
-                        placeholder="Product id"
-                        required
-                        onChange={e => setProductId(e.target.value)}
-                    />
-                    name:
-                    <input 
-                        type='text' 
-                        value={productName}
-                        placeholder="Product name"
-                        required
-                        onChange={e=>setProductName(e.target.value)}
-                    />
-                    price:
-                    <input 
-                        type='number' 
-                        value={productPrice}
-                        placeholder="Price"
-                        step="0.01"
-                        required
-                        onChange={handlePriceChange}
-                    />
-                    description:
-                    <input 
-                        type='text'
-                        value={productDescription}
-                        placeholder="Description"
-                        required
-                        onChange={e=>setProductDescription(e.target.value)}
+                        <form onSubmit={handleEditProduct} >
+                            id:
+                            <input 
+                                type='text' 
+                                value={productId}
+                                placeholder="Product id"
+                                required
+                                onChange={e => setProductId(e.target.value)}
+                            />
+                            name:
+                            <input 
+                                type='text' 
+                                value={productName}
+                                placeholder="Product name"
+                                required
+                                onChange={e=>setProductName(e.target.value)}
+                            />
+                            price:
+                            <input 
+                                type='number' 
+                                value={productPrice}
+                                placeholder="Price"
+                                step="0.01"
+                                required
+                                onChange={handlePriceChange}
+                            />
+                            description:
+                            <input 
+                                type='text'
+                                value={productDescription}
+                                placeholder="Description"
+                                required
+                                onChange={e=>setProductDescription(e.target.value)}
 
-                    />
-                    image:
-                    <input 
-                        type='text' 
-                        value={productImage}
-                        placeholder="Image"
-                        required
-                        onChange={e=>setProductImage(e.target.value)}
+                            />
 
-                    />
-                    type:
-                    <select id="product-type" name="product-type" value={productType} onChange={e => setProductType(e.target.value)}>
-                        <option value="Clothing">Clothing</option>
-                        <option value="Audio">Audio</option>
-                    </select>
+                            image:
+                            <input 
+                                type='text' 
+                                value={productImage}
+                                placeholder="Image"
+                                required
+                                onChange={e=>setProductImage(e.target.value)}
 
-                    
+                            />
 
-                    <Button variant="contained" type='submit'>Save changes</Button>
-                </form>
+                            type:
+                            <select id="product-type" name="product-type" value={productType} onChange={e => setProductType(e.target.value)}>
+                                <option value="Clothing">Clothing</option>
+                                <option value="Audio">Audio</option>
+                            </select>
 
+                            
+                            
 
-                <div>
-                    <form onSubmit={handleSubmit}>
-                        <div>
-                        <label htmlFor="fileInput">Select file:</label>
-                        <input type="file" id="fileInput" onChange={handleFileChange} />
+                            
+
+                            <Button variant="contained" type='submit'>Save changes</Button>
+                        </form>
                         </div>
-                        <div
-                        style={{ border: "1px dashed black", padding: "1rem" }}
-                        >
-                        Drop file here
+                        
+                        {/* If Clothing is selected we show image upload */}
+                        {productType == "Clothing" && (
+                            <div>
+                                <div className="crudFilePreview">
+                                    <form onSubmit={handleUpload}>
+                                        <div>
+                                        <label htmlFor="fileInput">Select an image file:</label>
+                                        <input type="file" id="fileInput" onChange={handleFileChangeImage} />
+                                        </div>
+                                        <button type="submitFile">Upload</button>
+                                    </form>
+                                    
+                                    Image preview
+                                    {url && (
+                                    <div>
+                                        
+                                        <img src={url} alt={url} width="400" height="300"></img>
+                                    </div>
+                                    )}
+                                    
+                                </div>
+                            </div>
+                                
+                        )}
+                        
+
+                        {/* If Audio is selected we show image upload */}
+                        {productType == "Audio" && (
+                            <div>
+
+                            
+                            <div className="crudFilePreview">
+                                <form onSubmit={handleUpload}>
+                                    <div>
+                                    <label htmlFor="fileInput">Select an image file:</label>
+                                    <input type="file" id="fileInput" onChange={handleFileChangeImage} />
+                                    </div>
+                                    <button type="submitFile">Upload</button>
+                                </form>
+                                
+                                Image preview
+                                {url && (
+                                <div>
+                                    
+                                    <img src={url} alt={url} width="400" height="300"></img>
+                                </div>
+                                )}
+                                
+                            </div>
+                            <div className="crudFilePreview">
+
+                                <div className="crudFilePreview">
+                                    <form onSubmit={handleUpload}>
+                                        <div>
+                                        <label htmlFor="fileInput">Select an audio mp3 file:</label>
+                                        <input type="file" id="fileInput" onChange={handleFileChangeAudio} />
+                                        </div>
+                                        <button type="submitFile">Upload</button>
+                                    </form>
+                                    
+                                    Audio preview
+                                    {url && (
+                                    <div>
+                                        Audio thingamabob
+                                        
+                                    </div>
+                                    )}
+                                </div>
+
+                                
+                                <div className="crudFilePreview">
+                                    <form onSubmit={handleUpload}>
+                                        <div>
+                                            <label htmlFor="fileInput">Select an archive rar file:</label>
+                                            <input type="file" id="fileInput" onChange={handleFileChangeDownload} />
+                                        </div>
+                                        <button type="submitFile">Upload</button>
+                                    </form>
+                                    
+                                    Archive file url
+                                    {url && (
+                                    <div>
+                                        Archive file thingamabob
+                                        
+                                    </div>
+                                    )}
+                                </div>
+                                
+                            </div>
                         </div>
-                        <button type="submit">Upload</button>
-                    </form>
-                    {url && (
-                        <div>
-                        <p>Download URL:</p>
-                        <a href={url} target="_blank" rel="noopener noreferrer">
-                            {url}
-                        </a>
-                        </div>
-                    )}
+                        )}
+
+
+                        
+
+                        
                 </div>
-
 
             </>
 
