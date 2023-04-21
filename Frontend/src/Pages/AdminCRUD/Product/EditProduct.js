@@ -6,6 +6,9 @@ import { Link,useNavigate, useParams } from "react-router-dom";
 
 import { IconButton, useTheme } from "@material-ui/core";
 
+//https://www.npmjs.com/package/react-player
+import ReactPlayer from "react-player";
+
 
 //storage for adding files
 import { getStorage, ref, uploadBytes, getDownloadURL  } from "firebase/storage";
@@ -64,12 +67,12 @@ const EditProduct = () => {
             setProductPrice(usefulData.price);
             setProductDescription(usefulData.desc);
             setProductImage(usefulData.image);
+            setProductType(usefulData.type);
             setProductAudio(usefulData.audio);
             setProductDownload(usefulData.download);
-            setProductType(usefulData.type);
+            
 
             setLoading(false);//stop loading once data is fetched.
-            
           })
           .catch((e) => {
             console.error(`An error occurred: ${e}`)
@@ -80,46 +83,87 @@ const EditProduct = () => {
     // //------------------------------------------
     
 
-    //------------EDIT PRODUCT------------
+    //------------EDIT PRODUCT (save changes button)------------
     const handleEditProduct=(e,product)=>{
         e.preventDefault()
         console.log("handleEditProduct was clicked!");
 
-        // console.log(product);
-        fetch(`http://localhost:3001/products/${idFromURL}`,{
-            method: "PUT",
-            headers: {
-                'Content-type': 'application/json; charset=UTF-8',
-            },
-            body: JSON.stringify(
-                { 
-                    uid: idFromURL,
-                    id: productId,
-                    name: productName,
-                    desc: productDescription,
-                    price: productPrice,
-                    image: productImage,
-                    audio: productAudio,
-                    download: productDownload,
-                    type: productType
+        //clearing AUDIO and DOWNLOAD if type was Merch
+        if(productType=="Merch"){
+            fetch(`http://localhost:3001/products/${idFromURL}`,{
+                method: "PUT",
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                },
+                body: JSON.stringify(
+                    { 
+                        uid: idFromURL,
+                        id: productId,
+                        name: productName,
+                        desc: productDescription,
+                        price: productPrice,
+                        image: productImage,
+                        audio: "none",
+                        download: "none",
+                        type: productType
 
-                }
-            )
-        })
-          .then(response => {
-            alert('Edited successfully');
-            navigate('/productadminpanel')
-          })
-          .then((usefulData) => {
-            setLoading(false);
-            setData(usefulData);
-          })
-          .catch((e) => {
-            console.error(`An error occurred: ${e}`)
-          });
+                    }
+                )
+            })
+            .then(response => {
+                alert('Edited successfully');
+                navigate('/productadminpanel')
+            })
+            .then((usefulData) => {
+                setLoading(false);
+                setData(usefulData);
+            })
+            .catch((e) => {
+                console.error(`An error occurred: ${e}`)
+            });
 
-    
-        return;
+        
+            return;
+            
+        }
+        else{
+            // console.log(product);
+            fetch(`http://localhost:3001/products/${idFromURL}`,{
+                method: "PUT",
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                },
+                body: JSON.stringify(
+                    { 
+                        uid: idFromURL,
+                        id: productId,
+                        name: productName,
+                        desc: productDescription,
+                        price: productPrice,
+                        image: productImage,
+                        audio: productAudio,
+                        download: productDownload,
+                        type: productType
+
+                    }
+                )
+            })
+            .then(response => {
+                alert('Edited successfully');
+                navigate('/productadminpanel')
+            })
+            .then((usefulData) => {
+                setLoading(false);
+                setData(usefulData);
+            })
+            .catch((e) => {
+                console.error(`An error occurred: ${e}`)
+            });
+
+        
+            return;
+        }
+        
     }
     //------------------------------------
 
@@ -209,7 +253,9 @@ const EditProduct = () => {
 
     return(
         <div style={{ color: 'white'}}>
-
+            <Link to='/productadminpanel'>
+                <Button variant="contained">Back</Button>
+            </Link>
             {/* when empty this will get stuck on loading. */}
             {loading ?(
                 <p>Loading...</p>
@@ -222,13 +268,11 @@ const EditProduct = () => {
                     <div>
                         <div >Edit window content</div>
 
-                        <Link to='/productadminpanel'>
-                            <Button variant="contained">Back</Button>
-                        </Link>
+                        
                         
 
                         <form onSubmit={handleEditProduct} >
-                            id:
+                            Id:
                             <input 
                                 type='text' 
                                 value={productId}
@@ -236,7 +280,7 @@ const EditProduct = () => {
                                 required
                                 onChange={e => setProductId(e.target.value)}
                             />
-                            name:
+                            Name:
                             <input 
                                 type='text' 
                                 value={productName}
@@ -244,7 +288,7 @@ const EditProduct = () => {
                                 required
                                 onChange={e=>setProductName(e.target.value)}
                             />
-                            price:
+                            Price:
                             <input 
                                 type='number' 
                                 value={productPrice}
@@ -253,8 +297,8 @@ const EditProduct = () => {
                                 required
                                 onChange={handlePriceChange}
                             />
-                            description:
-                            <input 
+                            Description:
+                            <textarea 
                                 type='text'
                                 value={productDescription}
                                 placeholder="Description"
@@ -263,8 +307,8 @@ const EditProduct = () => {
 
                             />
 
-                            image:
-                            <input 
+                            Image:
+                            <textarea 
                                 type='text' 
                                 value={productImage}
                                 placeholder="Image"
@@ -274,7 +318,7 @@ const EditProduct = () => {
                             />
                             
 
-                            type:
+                            Type:
                             <select id="product-type" name="product-type" value={productType} onChange={e => setProductType(e.target.value)}>
                                 <option value="Merch">Merch</option>
                                 <option value="Audio">Audio</option>
@@ -282,17 +326,17 @@ const EditProduct = () => {
 
                             {productType == "Audio" && (
                             <>
-                            audio:
-                            <input 
+                            Audio url:
+                            <textarea 
                                 type='text' 
                                 value={productAudio}
                                 placeholder="Image"
                                 required
                                 onChange={e=>setProductAudio(e.target.value)}
-
+                                
                             />
-                            download:
-                            <input 
+                            Download url:
+                            <textarea 
                                 type='text' 
                                 value={productDownload}
                                 placeholder="Image"
@@ -328,7 +372,7 @@ const EditProduct = () => {
                                     Image preview:
                                     {productImage && (
                                     <div>
-                                        {productImage}
+                                        <a href={productImage}>{productImage}</a>
                                         <img src={productImage} alt={productImage} width="400" height="300"></img>
                                     </div>
                                     )}
@@ -340,7 +384,7 @@ const EditProduct = () => {
                         {/* If Audio is selected we show image upload */}
                         {productType == "Audio" && (
                         <div>
-
+                            
                             <div className="crudFilePreview">
 
                                 <div className="crudFilePreview">
@@ -360,8 +404,14 @@ const EditProduct = () => {
                                     Audio url and preview:
                                     {productAudio && (
                                     <div>
-                                        {productAudio}
-                                        
+                                        <a href={productAudio}>{productAudio}</a>
+                                        <ReactPlayer
+                                            url={productAudio}
+                                            width="100%"
+                                            height="50px"
+                                            playing={false}
+                                            controls={true}
+                                        />
                                     </div>
                                     )}
                                 </div>
@@ -375,7 +425,7 @@ const EditProduct = () => {
                                         }>
                                         <div>
                                             <div>Downloadable file</div>
-                                            <label htmlFor="downloadInput">Select an archive rar file:</label>
+                                            <label htmlFor="downloadInput">Select a file:</label>
                                             <input type="file" id="downloadInput" onChange={handleFileChangeDownload} />
                                         </div>
                                         <button type="submitDownload">Upload</button>
@@ -384,7 +434,9 @@ const EditProduct = () => {
                                     Download file url:
                                     {productDownload && (
                                     <div>
-                                        {productDownload}
+                                        
+                                        <a href={productDownload}>{productDownload}</a>
+
                                         
                                     </div>
                                     )}
