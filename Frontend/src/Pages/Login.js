@@ -4,7 +4,7 @@ import {signInWithEmailAndPassword, sendEmailVerification} from 'firebase/auth'
 import {auth} from '../firebase_config'
 import {useNavigate} from 'react-router-dom'
 import {useAuthValue} from './AuthContext'
-
+import {signOut} from 'firebase/auth'
 
 function Login(){
 
@@ -20,9 +20,12 @@ function Login(){
     .then(() => {
       if(!auth.currentUser.emailVerified) {
         sendEmailVerification(auth.currentUser)
+        signOut(auth)
+        window.location.reload(true)//quick fix profile login bug :-)
         .then(() => {
           setTimeActive(true)
-          navigate('/verifyemail')
+          
+          // navigate('/verifyemail')
         })
       .catch(err => alert(err.message))
     }else{

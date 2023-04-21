@@ -3,7 +3,7 @@ import {useState, useEffect} from 'react'
 import {auth} from '../firebase_config';
 import {sendEmailVerification} from 'firebase/auth'
 import {useNavigate} from 'react-router-dom'
-
+import {signOut} from 'firebase/auth'
 
 //email verification does nothing. When registered, the user is already set to the database
 
@@ -20,6 +20,8 @@ function VerifyEmail() {
       .then(() => {
         if(currentUser?.emailVerified){
           clearInterval(interval)
+          signOut(auth)
+          window.location.reload(true)
           navigate('/')
         }
       })

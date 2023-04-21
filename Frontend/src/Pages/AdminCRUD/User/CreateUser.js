@@ -13,6 +13,8 @@ const CreateUser = () => {
     //Add states
     const [userAuthId, setUserAuthId] = useState('');
     const [userEmail, setUserEmail] = useState('');
+    const [userVerified, setUserVerified] = useState('False');
+    const [userPermissions, setUserPermissions] = useState('');
 
 
     //----------PRODUCT data states----------
@@ -60,6 +62,8 @@ const CreateUser = () => {
                 { 
                     authid: userAuthId,
                     email: userEmail,
+                    verified: userVerified,
+                    permissions: userPermissions,
 
                 }
             )
@@ -102,20 +106,34 @@ const CreateUser = () => {
                 
 
                 <form onSubmit={handleCreateUser} >
+                Authid:
                 <input 
                     type='text' 
                     value={userAuthId}
-                    placeholder="User id"
+                    placeholder="Auth ID"
                     required
-                    onChange={e => setUserAuthId(e.target.value)}
+                    onChange={e=>setUserAuthId(e.target.value)}
                 />
-
+                Email:
                 <input 
-                    type='email' 
+                    type='text' 
                     value={userEmail}
                     placeholder="Email"
                     required
                     onChange={e=>setUserEmail(e.target.value)}
+                />
+                Verification:
+                <select id="product-type" name="product-type" value={userVerified} onChange={e => setUserVerified(e.target.value)}>
+                    <option selected value="False">False</option>
+                    <option value="True">True</option>
+                </select>
+                Permissions:
+                <input 
+                    type='text' 
+                    value={userPermissions}
+                    placeholder="Permissions"
+                    required
+                    onChange={e=>setUserPermissions(e.target.value)}
                 />
 
 

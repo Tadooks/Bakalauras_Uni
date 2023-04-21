@@ -39,12 +39,37 @@ function Register() {
     if(validatePassword()) {
       // Create a new user with email and password using firebase
         createUserWithEmailAndPassword(auth, email, password)
-        .then(() => {
+        .then(async () => {
+          
+          console.log(auth.currentUser)
+          fetch(`http://localhost:3001/users`,{
+            method: "POST",
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+            },
+            body: JSON.stringify(
+                { 
+                  authid: auth.currentUser.uid,
+                  email: auth.currentUser.email,
+                  verified:  auth.currentUser.emailVerified
+                  //permissions: userPermissions
+                }
+            )
+        })
+          .then(response => {
+            alert('Created successfully');
+          })
+          .catch((e) => {
+            console.error(`An error occurred: ${e}`)
+          });
+
           sendEmailVerification(auth.currentUser)   
-          .then(() => {
+          .then(async () => {
             setTimeActive(true)
+            await signOut(auth)//sign out user, so he could only login when verified.
+            
             navigate('/verifyemail')
-            signOut(auth)//sign out user, so he could only login when verified.
+
           }).catch((err) => alert(err.message))
         })
         .catch(err => setError(err.message))

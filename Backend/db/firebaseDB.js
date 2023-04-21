@@ -3,8 +3,6 @@
 // const require = createRequire(import.meta.url);
 // require('dotenv').config();
 // https://www.npmjs.com/package/dotenv
-import { config } from 'dotenv';
-config();
 import { initializeApp } from 'firebase/app';
 import { getDatabase } from "firebase/database";
 

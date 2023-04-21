@@ -7,17 +7,14 @@ import { Link } from 'react-router-dom'
 
 
 function Profile() {
-  const {currentUser} = useAuthValue()
   const navigate = useNavigate()
 
-  const [refresh,setRefresh] = useState(false);
-
   useEffect(() => {
-    // if(currentUser==null)
-    // {
-    //     navigate("/login")
-    // }
-    // setRefresh(false);
+    if(auth.currentUser==null)
+    {
+         navigate("/login")
+    }
+
   }, [])
 
   
@@ -27,14 +24,14 @@ function Profile() {
       <div style={{ background: 'white'}} className='center'>
         <div className='profile'>
           <h1>Profile</h1>
-          <p><strong>Email: </strong>{currentUser?.email}</p>
+          <p><strong>Email: </strong>{auth.currentUser.email}</p>
           <p>
             <strong>Email verified: </strong>
-            {`${currentUser?.emailVerified}`}
+            {`${auth.currentUser.emailVerified}`}
             
           </p>
           <p><Link to='/changepassword'>Change password</Link></p>
-          <span onClick={() => {signOut(auth); navigate("/login")}}>Sign Out</span>
+          <span onClick={() => {signOut(auth); navigate("/login"); window.location.reload(true)}}>Sign Out</span>
         </div>
         
       </div>

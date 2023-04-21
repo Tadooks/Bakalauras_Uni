@@ -1,26 +1,31 @@
 'use strict';
 
 import { database } from "../db/firebaseDB.js";
+import { auth } from "../db/firebaseDBAdmin.js";
 import { ref, child, get, push, update} from "firebase/database";
 
 let getUsers =  async function(thingamabob, result) {
 
     const dbRef = ref(database);
  
-    get(child(dbRef, `/Users/`)).then((snapshot) => {
+    get(child(dbRef, `/Users/`)).then(async (snapshot) => {
  
         if (snapshot.exists()) {
             const arrayOfUsers = [];
 
             const objectArray = Object.entries( snapshot.val());
-            
-            objectArray.forEach(([key, value]) => {
+
+            for (let index = 0; index < objectArray.length; index++) {
+                const key = objectArray[index][0]; //([key, value])
+                const value = objectArray[index][1]; //([key, value])
                 arrayOfUsers.push({
                     uid: key,
                     authid: value.authid,
-                    email: value.email
+                    email: value.email,
+                    verified: (await auth.getUser(value.authid)).emailVerified,
+                    permissions: value.permissions
                 });
-            });
+            }
             result(null, arrayOfUsers);
         } else {
 
@@ -38,10 +43,14 @@ let getSingleUser =  async function(uid, result) {
 
     const dbRef = ref(database);
  
-    get(child(dbRef, `/Users/`+uid)).then((snapshot) => {
+    get(child(dbRef, `/Users/`+uid)).then(async (snapshot) => {
  
         if (snapshot.exists()) {
-            result(null, snapshot.val());
+            let obj= snapshot.val()
+            obj["verified"]  = (await auth.getUser(obj.authid)).emailVerified
+            console.log(obj)
+            result(null, obj);
+            
         } else {
 
             console.log("No data available");
@@ -66,6 +75,8 @@ let addUser =  async function(user, result) {
             uid: newPostKey,
             authid: user.authid,
             email: user.email,
+            verified: user.verified,
+            permissions: "None",
         };
     
         const updates = {};
@@ -92,6 +103,8 @@ let editUser =  async function(user, result) {
             uid: user.uid,
             authid: user.user.authid,
             email: user.user.email,
+            verified: user.user.verified,
+            permissions: user.user.permissions
         };
     
         const updates = {};
@@ -107,20 +120,28 @@ let editUser =  async function(user, result) {
     }
 };
 
-let deleteUser =  async function(userUID, result) {
+let deleteUser =  async function(user, result) {
     const dbRef = ref(database);
-
-    if(userUID != null){
+    console.log(user);
+    if(user.uid != null && user.change != null && user.uid == user.change.uid ){
         
         const postData = {};
     
         const updates = {};
 
-        updates['/Users/'+ userUID] = postData;
+        updates['/Users/'+ user.uid] = postData;
 
         update(dbRef, updates);
  
-        result(null, userUID);
+        auth.deleteUser(user.change.authid)
+            .then(() => {
+                console.log('Successfully deleted user');
+            })
+            .catch((error) => {
+                console.log('Error deleting user:', error);
+            });
+
+        result(null, user);
 
     }else{
         result("Bad comment", null);

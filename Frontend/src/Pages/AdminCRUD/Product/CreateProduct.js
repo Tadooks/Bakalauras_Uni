@@ -431,8 +431,6 @@ const CreateProduct = () => {
                             </div>
                         </div>
                         )}
-                        
-                        
                 </div>
 
             </>

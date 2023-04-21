@@ -154,9 +154,9 @@ app.post("/users",function (req,res) {
 
 //edit
 app.put("/users/:id",function(req,res) {
-    const id = req.params.id;
+    const uid = req.params.id;
     let change = req.body;
-    editUser({"uid": id, "user": change}, function(err, responseEditUser) {
+    editUser({"uid": uid, "user": change}, function(err, responseEditUser) {
         if (err){
             console.log(err);
         }
@@ -169,8 +169,11 @@ app.put("/users/:id",function(req,res) {
 //delete 
 // To delete / edit / create you need to use admin account . Thus its important to send user object with user to verify that its admin that wants to delete/edit/create !
 app.delete("/users/:id",function(req,res) {
-    const id = req.params.id;
-    deleteUser(id, function(err, responseDeleteUser) {
+    const uid = req.params.id;
+    let change = req.body;
+    console.log(uid);
+    console.log(change);
+    deleteUser({uid,change}, function(err, responseDeleteUser) {
         if (err){
             console.log(err);
         }

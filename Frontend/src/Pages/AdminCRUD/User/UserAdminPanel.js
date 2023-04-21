@@ -13,12 +13,6 @@ import { IconButton } from "@material-ui/core";
 const UserAdminPanel = () => {
 
     //Add states
-    const [userId, setUserId] = useState('');
-    const [userName, setUserName] = useState('');
-    const [userPrice, setUserPrice] = useState(0);
-    const [userDescription, setUserDescription] = useState('');
-    const [userImage, setUserImage] = useState('');
-    const [userType, setUserType] = useState('');
 
 
     //----------PRODUCT data states----------
@@ -40,7 +34,7 @@ const UserAdminPanel = () => {
         })
           .then(response => response.json())
           .then((usefulData) => {
-            //console.log(usefulData);
+            console.log(usefulData);
             setLoading(false);
             setData(usefulData);
           })
@@ -64,7 +58,16 @@ const UserAdminPanel = () => {
             
             fetch(`http://localhost:3001/users/${user.uid}`,{
                 method: "DELETE",
-            body: JSON.stringify({ uid: user.uid })
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(
+                  { 
+                    authid: user.authid,
+                    uid: user.uid,
+                    userWhoDelete: "Tadus"
+                  }
+              )
             })
             .then(response => response.json())
             .then((usefulData) => {
@@ -96,9 +99,9 @@ const UserAdminPanel = () => {
     return(
         <div style={{ color: 'white'}}>
 
-            <Link to='/createuser'>
+            {/* <Link to='/createuser'>
                 <button>Add neeeew user</button>
-            </Link>
+            </Link> */}
             {/* when empty this will get stuck on loading. */}
             {loading ?(
                 <p>Loading...</p>
@@ -117,15 +120,19 @@ const UserAdminPanel = () => {
                         <th>Firebase uid</th>
                         <th>Auth id</th>
                         <th>Email</th>
+                        <th>Verified</th>
+                        <th>Permissions</th>
                       </tr>
                     </thead>
                     <tbody>
-                      {data && 
+                      {data != [] && 
                         data?.map((user) => (
                           <tr key={user.id}>
                             <td>{user.uid}</td>
                             <td>{user.authid}</td>
                             <td>{user.email}</td>
+                            <td>{""+user.verified}</td>
+                            <td>{user.permissions}</td>
 
 
 

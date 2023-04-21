@@ -91,7 +91,7 @@ const handleAddToCart = (product) => {
         //-------visual header cart update-------
         const c= Number(cartCount) +1;
         setCartCount(c)
-        window.localStorage.setItem("cartVVVVV", c)
+        window.localStorage.setItem("cartVisualCount", c)
         //---------------------------------------
 
         return;

@@ -13,6 +13,8 @@ const EditUser = () => {
     //Add states
     const [userAuthId, setUserAuthId] = useState('');
     const [userEmail, setUserEmail] = useState('');
+    const [userVerified, setUserVerified] = useState(false);
+    const [userPermissions, setUserPermissions] = useState('None');
 
     
 
@@ -40,9 +42,11 @@ const EditUser = () => {
           .then((usefulData) => {
             //setting fetched data
             setData(usefulData);
-            
+            //console.log(usefulData.verified)
             setUserAuthId(usefulData.authid);
             setUserEmail(usefulData.email);
+            setUserVerified(usefulData.verified);
+            setUserPermissions(usefulData.permissions);
 
             setLoading(false);//stop loading once data is fetched.
             
@@ -73,6 +77,8 @@ const EditUser = () => {
                     uid: idFromURL,
                     authid: userAuthId,
                     email: userEmail,
+                    verified: userVerified,
+                    permissions: userPermissions,
                 }
             )
         })
@@ -115,7 +121,7 @@ const EditUser = () => {
                 
 
                 <form onSubmit={handleEditUser} >
-                authid:
+                Authid:
                 <input 
                     type='text' 
                     value={userAuthId}
@@ -123,13 +129,23 @@ const EditUser = () => {
                     required
                     onChange={e=>setUserAuthId(e.target.value)}
                 />
-                email:
+                Email:
                 <input 
                     type='text' 
                     value={userEmail}
                     placeholder="Email"
                     required
                     onChange={e=>setUserEmail(e.target.value)}
+                />
+                Verified:
+                <div>{""+ userVerified} </div>
+                Permissions:
+                <input 
+                    type='text' 
+                    value={userPermissions}
+                    placeholder="Permissions"
+                    required
+                    onChange={e=>setUserPermissions(e.target.value)}
                 />
 
                 <Button variant="contained" type='submit'>Save changes</Button>
