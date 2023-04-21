@@ -4,7 +4,7 @@ import {signInWithEmailAndPassword, sendEmailVerification} from 'firebase/auth'
 import {auth} from '../firebase_config'
 import {useNavigate} from 'react-router-dom'
 import {useAuthValue} from './AuthContext'
-import {signOut} from 'firebase/auth'
+
 
 function Login(){
 
@@ -19,12 +19,10 @@ function Login(){
     signInWithEmailAndPassword(auth, email, password)
     .then(() => {
       if(!auth.currentUser.emailVerified) {
+        alert("Please verify your email!")
         sendEmailVerification(auth.currentUser)
-        signOut(auth)
-        window.location.reload(true)//quick fix profile login bug :-)
         .then(() => {
           setTimeActive(true)
-          
           // navigate('/verifyemail')
         })
       .catch(err => alert(err.message))
@@ -36,7 +34,7 @@ function Login(){
   }
 
   return(
-    <div style={{ color: 'white'}} className='center'>
+    <div style={{ color: 'white'}} zclassName='center'>
       <div className='auth'>
         <h1>Log in</h1>
         {error && <div className='auth__error'>{error}</div>}

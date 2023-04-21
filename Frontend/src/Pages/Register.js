@@ -67,8 +67,9 @@ function Register() {
           .then(async () => {
             setTimeActive(true)
             await signOut(auth)//sign out user, so he could only login when verified.
-            
-            navigate('/verifyemail')
+            signOut(auth)
+            window.location.reload(true)//quick fix profile login bug :-)
+            navigate('/login')
 
           }).catch((err) => alert(err.message))
         })
