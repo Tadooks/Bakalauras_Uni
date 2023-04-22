@@ -32,7 +32,9 @@ const UserAdminPanel = () => {
       });
     }
 
-
+    //Putting this here so we could use async in useEffect (and avoid refresh crash)
+    //Reason for this is that getCurrentUser function (Above) cant be executed without useEffect being called first.
+    //Header auth.current.User.uid was getting called to slow
     const tes= async ()=>{
       await getCurrentUser(auth);
         
