@@ -1,11 +1,12 @@
 import {useState} from 'react'
 import { Link } from 'react-router-dom'
-import {signInWithEmailAndPassword, sendEmailVerification} from 'firebase/auth'
+import {signInWithEmailAndPassword, sendEmailVerification, signOut} from 'firebase/auth'
 import {auth} from '../firebase_config'
 import {useNavigate} from 'react-router-dom'
 import {useAuthValue} from './AuthContext'
 
 
+//IF encountering issues with profile, REFRESH page when profile is clicked first thing.
 function Login(){
 
   const [email, setEmail] = useState('')
@@ -22,10 +23,15 @@ function Login(){
         alert("Please verify your email!")
         sendEmailVerification(auth.currentUser)
         .then(() => {
+          signOut(auth)
+          window.location.reload(true)
           setTimeActive(true)
+          
           // navigate('/verifyemail')
         })
-      .catch(err => alert(err.message))
+      // .catch(err => alert(err.message))
+      window.location.reload(true)
+      signOut(auth)
     }else{
       navigate('/')
     }

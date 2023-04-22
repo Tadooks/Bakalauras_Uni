@@ -35,8 +35,8 @@ const UserAdminPanel = () => {
           .then(response => response.json())
           .then((usefulData) => {
             console.log(usefulData);
-            setLoading(false);
             setData(usefulData);
+            setLoading(false);
           })
           .catch((e) => {
             console.error(`An error occurred: ${e}`)
@@ -50,7 +50,7 @@ const UserAdminPanel = () => {
 
 
 
-    //delete not always doing its delete thing
+    
     const handleDeleteUser=(user)=>{
         console.log("handleDeleteUser was clicked!");
         console.log(user.uid);
@@ -72,8 +72,9 @@ const UserAdminPanel = () => {
             .then(response => response.json())
             .then((usefulData) => {
                 //console.log(usefulData);
-                setLoading(false);
                 setData(usefulData);
+                setRefresh(true);
+                setLoading(false);
             })
             .catch((e) => {
                 setRefresh(true);
@@ -125,7 +126,10 @@ const UserAdminPanel = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {data != [] && 
+
+                      {console.log("Before mapping")}
+                      {console.log(data)}
+                      {Array.isArray(data) && data &&
                         data?.map((user) => (
                           <tr key={user.id}>
                             <td>{user.uid}</td>

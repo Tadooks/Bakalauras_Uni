@@ -8,7 +8,10 @@ import { Link } from 'react-router-dom'
 
 function Profile() {
   const navigate = useNavigate()
-
+  if(auth.currentUser==null)
+  {
+    navigate("/login")
+  }
   useEffect(() => {
     if(auth.currentUser==null)
     {
