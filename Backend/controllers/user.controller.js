@@ -2,7 +2,8 @@
 // import method but IT HAS TO BE UNIQUELY NAMED. Otherwise "export" does not know if you mean "let" or import.
 //Thus its best when you are importing to say "as SomeUniqueName". I call it usually <method>_fileWhereItCameFrom.
 import { getUsers as getUsers_service,
-    getSingleUser as getSingleUser_service,
+    getSingleUserByUID as getSingleUserUID_service,
+    getSingleUserByAuthID as getSingleUserAuthID_service,
     addUser as addUser_service,
     editUser as editUser_service,
     deleteUser as deleteUser_service,
@@ -19,8 +20,19 @@ let getUsers = function(request, response) {
 };
 
 
-let getSingleUser = function(request, response) {
-    getSingleUser_service(request, function(error, comment) {
+let getSingleUserUID = function(request, response) {
+    getSingleUserUID_service(request, function(error, comment) {
+        if (error){
+            response(error, null);
+        }else{
+            response(null, comment);
+        }
+    });
+};
+
+
+let getSingleUserByAuthID = function(request, response) {
+    getSingleUserAuthID_service(request, function(error, comment) {
         if (error){
             response(error, null);
         }else{
@@ -62,4 +74,4 @@ let deleteUser = function(request, response) {
     });
 };
 
-export {getUsers,getSingleUser, addUser, editUser, deleteUser};
+export {getUsers,getSingleUserUID, getSingleUserByAuthID, addUser, editUser, deleteUser};
