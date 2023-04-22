@@ -7,6 +7,7 @@ import { Link,useNavigate, useParams } from "react-router-dom";
 
 import { IconButton } from "@material-ui/core";
 
+import {auth} from '../../../firebase_config'
 
 const EditUser = () => {
 
@@ -71,6 +72,7 @@ const EditUser = () => {
             method: "PUT",
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',
+                'user': auth.currentUser.uid
             },
             body: JSON.stringify(
                 { 

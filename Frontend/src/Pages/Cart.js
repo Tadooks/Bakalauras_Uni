@@ -47,7 +47,10 @@ const Cart = () => {
 
         //---------Calculate total cart subtotal----------
         console.log("Calculating Subtotal")
-        const tempArray = JSON.parse(window.localStorage.getItem("cart"))[0];
+        let tempArray = [];
+        if(window.localStorage.getItem("cart")){
+            tempArray = JSON.parse(window.localStorage.getItem("cart"))[0];
+        }
 
         tempArray.forEach((value) =>{
             

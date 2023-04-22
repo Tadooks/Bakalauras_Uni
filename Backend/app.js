@@ -4,6 +4,7 @@ const require = createRequire(import.meta.url);
 //Controllers
 import { addComment, getAllCommentsOnSong} from './controllers/comment.controller.js'
 
+import { verifyUserIsAdmin} from './controllers/auth.controller.js'
 
 import { getProducts, getSingleProduct, addProduct, editProduct, deleteProduct} from './controllers/product.controller.js'
 import { getUsers, getSingleUserUID, getSingleUserByAuthID, addUser, editUser, deleteUser} from './controllers/user.controller.js'
@@ -71,27 +72,51 @@ app.get("/products/:id",function (req, res) {
 
 //create
 app.post("/products",function (req,res) {
+    let userToVerify = req.headers['user'];
     let product = req.body;
-    addProduct(product, function(err, responseAddProduct) {
+    verifyUserIsAdmin(userToVerify, function(err, isAdmin) {
         if (err){
             console.log(err);
         }
         else{
-            res.send(responseAddProduct);
+            if(isAdmin){
+                addProduct(product, function(err, responseAddProduct) {
+                    if (err){
+                        console.log(err);
+                    }
+                    else{
+                        res.send(responseAddProduct);
+                    }
+                });
+            }else{
+                res.send("No pablo");
+            }
         }
     });
 });
 
 //edit
 app.put("/products/:id",function(req,res) {
+    let userToVerify = req.headers['user'];
     const id = req.params.id;
-    let change = req.body;
-    editProduct({"uid": id, "product": change}, function(err, responseEditProduct) {
+    let product = req.body;
+    verifyUserIsAdmin(userToVerify, function(err, isAdmin) {
         if (err){
             console.log(err);
         }
         else{
-            res.send(responseEditProduct);
+            if(isAdmin){
+                editProduct({"uid": id, "product": product}, function(err, responseEditProduct) {
+                    if (err){
+                        console.log(err);
+                    }
+                    else{
+                        res.send(responseEditProduct);
+                    }
+                });
+            }else{
+                res.send("No pablo");
+            }
         }
     });
 });
@@ -99,13 +124,26 @@ app.put("/products/:id",function(req,res) {
 //delete 
 // To delete / edit / create you need to use admin account . Thus its important to send user object with product to verify that its admin that wants to delete/edit/create !
 app.delete("/products/:id",function(req,res) {
+    let userToVerify = req.headers['user'];
     const id = req.params.id;
-    deleteProduct(id, function(err, responseDeleteProduct) {
+    let product = req.body;
+    verifyUserIsAdmin(userToVerify, function(err, isAdmin) {
         if (err){
             console.log(err);
         }
         else{
-            res.send(responseDeleteProduct);
+            if(isAdmin){
+                deleteProduct(id, function(err, responseDeleteProduct) {
+                    if (err){
+                        console.log(err);
+                    }
+                    else{
+                        res.send(responseDeleteProduct);
+                    }
+                });
+            }else{
+                res.send("No pablo");
+            }
         }
     });
 });
@@ -116,14 +154,28 @@ app.delete("/products/:id",function(req,res) {
 //------------------USERS------------------
 //all
 app.get("/users",function (req,res) {
-    getUsers(null, function(err, all_users) {
+    let userToVerify = req.headers['user'];
+    console.log(userToVerify)
+    verifyUserIsAdmin(userToVerify, function(err, isAdmin) {
         if (err){
             console.log(err);
         }
         else{
-            res.send(all_users);
+            if(isAdmin){
+                getUsers(null, function(err, all_users) {
+                    if (err){
+                        console.log(err);
+                    }
+                    else{
+                        res.send(all_users);
+                    }
+                });
+            }else{
+                res.send("No pablo");
+            }
         }
     });
+
 });
 
 //single
@@ -154,27 +206,52 @@ app.get("/auth/:id",function (req, res) {
 
 //create
 app.post("/users",function (req,res) {
+    let userToVerify = req.headers['user'];
+    const uid = req.params.id;
     let user = req.body;
-    addUser(user, function(err, responseAddUser) {
+    verifyUserIsAdmin(userToVerify, function(err, isAdmin) {
         if (err){
             console.log(err);
         }
         else{
-            res.send(responseAddUser);
+            if(isAdmin){
+                addUser(user, function(err, responseAddUser) {
+                    if (err){
+                        console.log(err);
+                    }
+                    else{
+                        res.send(responseAddUser);
+                    }
+                });
+            }else{
+                res.send("No pablo");
+            }
         }
     });
 });
 
 //edit
 app.put("/users/:id",function(req,res) {
+    let userToVerify = req.headers['user'];
     const uid = req.params.id;
-    let change = req.body;
-    editUser({"uid": uid, "user": change}, function(err, responseEditUser) {
+    let user = req.body;
+    verifyUserIsAdmin(userToVerify, function(err, isAdmin) {
         if (err){
             console.log(err);
         }
         else{
-            res.send(responseEditUser);
+            if(isAdmin){
+                editUser({"uid": uid, "user": user}, function(err, responseEditUser) {
+                    if (err){
+                        console.log(err);
+                    }
+                    else{
+                        res.send(responseEditUser);
+                    }
+                });
+            }else{
+                res.send("No pablo");
+            }
         }
     });
 });
@@ -182,16 +259,26 @@ app.put("/users/:id",function(req,res) {
 //delete 
 // To delete / edit / create you need to use admin account . Thus its important to send user object with user to verify that its admin that wants to delete/edit/create !
 app.delete("/users/:id",function(req,res) {
+    let userToVerify = req.headers['user'];
     const uid = req.params.id;
-    let change = req.body;
-    console.log(uid);
-    console.log(change);
-    deleteUser({uid,change}, function(err, responseDeleteUser) {
+    let user = req.body;
+    verifyUserIsAdmin(userToVerify, function(err, isAdmin) {
         if (err){
             console.log(err);
         }
         else{
-            res.send(responseDeleteUser);
+            if(isAdmin){
+            deleteUser({uid,user}, function(err, responseDeleteUser) {
+                if (err){
+                    console.log(err);
+                }
+                else{
+                    res.send(responseDeleteUser);
+                }
+            });
+            }else{
+                res.send("No pablo");
+            }
         }
     });
 });

@@ -1,9 +1,9 @@
-import {useState} from 'react'
+import {useState, useContext} from 'react'
 import { Link } from 'react-router-dom'
 import {signInWithEmailAndPassword, sendEmailVerification, signOut} from 'firebase/auth'
 import {auth, signInWithGoogle} from '../firebase_config'
 import {useNavigate} from 'react-router-dom'
-import {useAuthValue} from './AuthContext'
+import { AuthContext } from './AuthContextNew'
 
 
 //IF encountering issues with profile, REFRESH page when profile is clicked first thing.
@@ -12,13 +12,38 @@ function Login(){
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('') 
   const [error, setError] = useState('')
-  const {setTimeActive} = useAuthValue()
   const navigate = useNavigate()
+
+  const { user, setUser  } = useContext(AuthContext);
 
   const login = e => {
     e.preventDefault()
     signInWithEmailAndPassword(auth, email, password)
     .then(() => {
+
+      console.log(auth.currentUser.uid)
+      //i need realtimedatabase id
+      fetch(`http://localhost:3001/auth/${auth.currentUser.uid}`,{
+        method: "GET"
+      })
+      .then(response => response.json())
+      .then((usefulData) => {
+        //setting fetched data
+        console.log(usefulData)
+        if(auth.currentUser.emailVerified) {
+          setUser([{authid: usefulData.authid,
+            email: usefulData.email,
+            permissions: usefulData.permissions,
+            uid: usefulData.uid,
+            verified: usefulData.verified}])
+            
+            window.localStorage.setItem("userAccount",JSON.stringify(usefulData) )
+        }
+      })
+      .catch((e) => {
+        console.error(`An error occurred: ${e}`)
+      });
+
       if(!auth.currentUser.emailVerified) {
         //doesnt send the verification fully for some reason
         // sendEmailVerification(auth.currentUser)
@@ -27,7 +52,9 @@ function Login(){
         //   signOut(auth)
           alert("Please verify your email!")
         //   window.location.reload(true)
+        setUser([{}])
           
+          window.localStorage.setItem("userAccount",JSON.stringify({}) )
         // })
       window.location.reload(true)
       signOut(auth)

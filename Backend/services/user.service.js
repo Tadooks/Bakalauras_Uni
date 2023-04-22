@@ -159,7 +159,7 @@ let editUser =  async function(user, result) {
 let deleteUser =  async function(user, result) {
     const dbRef = ref(database);
     console.log(user);
-    if(user.uid != null && user.change != null && user.uid == user.change.uid ){
+    if(user.uid != null && user.user != null && user.uid == user.user.uid ){
         
         const postData = {};
     
@@ -169,7 +169,7 @@ let deleteUser =  async function(user, result) {
 
         update(dbRef, updates);
  
-        auth.deleteUser(user.change.authid)
+        auth.deleteUser(user.user.authid)
             .then(() => {
                 console.log('Successfully deleted user');
             })
