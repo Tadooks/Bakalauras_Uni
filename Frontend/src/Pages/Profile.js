@@ -1,21 +1,28 @@
-import {useAuthValue} from './AuthContext'
+
 import { signOut } from 'firebase/auth' 
 import { auth } from '../firebase_config'
 import { useNavigate } from 'react-router-dom'
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { Link } from 'react-router-dom'
 
+import { AuthContext } from './AuthContextNew';
 
 function Profile() {
+  const { user, setUser  } = useContext(AuthContext);
+
   const navigate = useNavigate()
   if(auth.currentUser==null && auth.currentUser.emailVerified==false)
   {
-    navigate("/login")
+    navigate("/login");
+    setUser([{}]);
+    window.localStorage.setItem("userAccount",JSON.stringify({})) ;
   }
   useEffect(() => {
     if(auth.currentUser == null && auth.currentUser.emailVerified==false)
     {
-      navigate("/login")
+      navigate("/login");
+      setUser([{}]);
+      window.localStorage.setItem("userAccount",JSON.stringify({})) ;
     }
 
   }, [])
@@ -38,7 +45,14 @@ function Profile() {
             
           </p>
           <p><Link to='/changepassword'>Change password</Link></p>
-          <span onClick={() => {signOut(auth); navigate("/login"); window.location.reload(true)}}>Sign Out</span>
+          <span onClick={() => {
+            signOut(auth);
+            setUser([{}]);
+            window.localStorage.setItem("userAccount",JSON.stringify({}) );
+
+             navigate("/login");
+              window.location.reload(true);
+              }}>Sign Out</span>
         </div>
         
       </div>

@@ -2,8 +2,6 @@ import {useState} from 'react'
 import {auth} from '../firebase_config';
 import {useNavigate, Link} from 'react-router-dom'
 import {createUserWithEmailAndPassword, sendEmailVerification, onAuthStateChanged} from 'firebase/auth'
-import {useAuthValue} from './AuthContext'
-import userEvent from '@testing-library/user-event';
 import {signOut} from 'firebase/auth'
 
 
@@ -18,7 +16,6 @@ function Register() {
   const [confirmPassword, setConfirmPassword] = useState('')
   const [error, setError] = useState('')
   const navigate = useNavigate()
-  const {setTimeActive} = useAuthValue()
 
   const validatePassword = () => {
     let isValid = true
@@ -65,12 +62,10 @@ function Register() {
 
           sendEmailVerification(auth.currentUser)   
           .then(async () => {
-            setTimeActive(true)
             await signOut(auth)//sign out user, so he could only login when verified.
             signOut(auth)
-            window.location.reload(true)//quick fix profile login bug :-)
             navigate('/login')
-
+            window.location.reload(true)//quick fix profile login bug :-)
           }).catch((err) => alert(err.message))
         })
         .catch(err => setError(err.message))

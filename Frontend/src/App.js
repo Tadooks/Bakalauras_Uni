@@ -10,14 +10,16 @@ import Login from './Pages/Login';
 import { createContext, useEffect, useState,useContext,useMemo } from "react";
 import { auth } from './firebase_config';
 import { onAuthStateChanged } from 'firebase/auth';
-import { AuthProvider } from './Pages/AuthContext';
+//import { AuthProvider } from './Pages/AuthContext';
 import Register from './Pages/Register';
 import VerifyEmail from './Pages/VerifyEmail';
 import Profile from './Pages/Profile';
 import { async } from '@firebase/util';
 import ForgotPassword from './Pages/ForgotPassword';
 import ChangePassword from './Pages/ChangePassword';
-import Cert from './Pages/Testing';
+import Cert from './Pages/CartCount';
+import AdminPanelNav from './Pages/AdminNav';
+import ProfileNew from './Pages/ProfileWow';
 import {CartContext} from './Pages/CartContext';
 
 import Checkout from './Pages/Checkout';
@@ -27,6 +29,7 @@ import ProductAdminPanel from './Pages/AdminCRUD/Product/ProductAdminPanel';
 import UserAdminPanel from './Pages/AdminCRUD/User/UserAdminPanel';
 import EditUser from './Pages/AdminCRUD/User/EditUser';
 import CreateUser from './Pages/AdminCRUD/User/CreateUser';
+import { AuthContext } from './Pages/AuthContextNew';
 
 
 function App() {
@@ -39,6 +42,11 @@ function App() {
   );
   //--------------------------------------
 
+  const [user, setUser] = useState([window.localStorage.getItem("userAccount") ? JSON.parse(localStorage.getItem("userAccount")) : {}]);
+  const userValue = useMemo(
+    () => ({ user, setUser }), 
+    [user]
+  );
 
   //----------User data states----------
   const [data, setData] = useState(null)
@@ -54,12 +62,15 @@ function App() {
   const [loading, setLoading] = useState(true);
 
 
+
+
     ////Get current signed in user data
   //-------GET PRODUCT DATA FROM API------------
   useEffect(() => {
     if(currentUser){
         console.log("pries fetch")
         console.log(auth.currentUser.uid);
+        //i need realtimedatabase id
         fetch(`http://localhost:3001/users/${auth.currentUser.uid}`,{
           method: "GET"
         })
@@ -76,7 +87,7 @@ function App() {
         });
 
         setRefresh(false);
-    }
+  }
     
 }, [refresh]);
 // //------------------------------------------
@@ -186,7 +197,7 @@ function App() {
     
     <div className="App">
       <Router>
-      <AuthProvider value={{currentUser,timeActive,setTimeActive}}>
+      <AuthContext.Provider value={userValue}>
         <>
         <CartContext.Provider value={cartCountValue} >
 
@@ -200,18 +211,16 @@ function App() {
             <Link to="songs">Songs</Link>
             <Link to="shop">Shop</Link>
             <Link to="songrequest">Song Request</Link>
-            <Link to="productslist">Product list</Link>
-            <Link to="productadminpanel">Admin panel</Link>
-            <Link to="useradminpanel">Admin panel user</Link>
+            <AdminPanelNav/>
           </div>
 
           {/* Right */}
           <div>
-            <Cert />
+            <Cert/>
 
 
             {/* <Link to="login">Login</Link> */}
-            <Link to="profile">Profile</Link>
+            <ProfileNew/>
           </div>
           
         </nav>
@@ -307,7 +316,7 @@ function App() {
         </Routes>
         </CartContext.Provider>
         </>
-        </AuthProvider>
+        </AuthContext.Provider>
      </Router>
 
 

@@ -4,6 +4,7 @@ import Button from '@material-ui/core/Button';
 
 import { Link,useNavigate, useParams } from "react-router-dom";
 
+import {auth} from '../../../firebase_config'
 import { IconButton, useTheme } from "@material-ui/core";
 
 //https://www.npmjs.com/package/react-player
@@ -94,6 +95,7 @@ const EditProduct = () => {
                 method: "PUT",
                 headers: {
                     'Content-type': 'application/json; charset=UTF-8',
+                    'user': auth.currentUser.uid
                 },
                 body: JSON.stringify(
                     { 

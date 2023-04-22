@@ -5,7 +5,7 @@ import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import { Link } from "react-router-dom";
 
-import { IconButton } from "@material-ui/core";
+import {auth} from '../../../firebase_config'
 
 
 
@@ -14,8 +14,7 @@ const UserAdminPanel = () => {
 
     //Add states
 
-
-    //----------PRODUCT data states----------
+    //----------User data states----------
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -24,30 +23,43 @@ const UserAdminPanel = () => {
     const [refresh,setRefresh] = useState(false);
 
 
+    function getCurrentUser(auth) {
+      return new Promise((resolve, reject) => {
+         const unsubscribe = auth.onAuthStateChanged(user => {
+            unsubscribe();
+            resolve(user);
+         }, reject);
+      });
+    }
 
 
+    const tes= async ()=>{
+      await getCurrentUser(auth);
+        
+      fetch(`http://localhost:3001/users`,{
+          method: "GET",
+            headers: {
+            'Content-Type': 'application/json',
+            'user': auth.currentUser.uid
+          },
+        })
+        .then(response => response.json())
+        .then((usefulData) => {
+          console.log(usefulData);
+          setData(usefulData);
+          setLoading(false);
+        })
+        .catch((e) => {
+          console.error(`An error occurred: ${e}`)
+        });
+        setRefresh(false);
+  }
     // //-------GET PRODUCT DATA FROM API------------
     useEffect(() => {
-        
-        fetch(`http://localhost:3001/users`,{
-            method: "GET"
-        })
-          .then(response => response.json())
-          .then((usefulData) => {
-            console.log(usefulData);
-            setData(usefulData);
-            setLoading(false);
-          })
-          .catch((e) => {
-            console.error(`An error occurred: ${e}`)
-          });
-          setRefresh(false);
+
+        tes();
     }, [refresh]);
     // //------------------------------------------
-
-
-
-
 
 
     
@@ -60,12 +72,12 @@ const UserAdminPanel = () => {
                 method: "DELETE",
                 headers: {
                   'Content-Type': 'application/json',
+                  'user': auth.currentUser.uid
                 },
                 body: JSON.stringify(
                   { 
                     authid: user.authid,
                     uid: user.uid,
-                    userWhoDelete: "Tadus"
                   }
               )
             })

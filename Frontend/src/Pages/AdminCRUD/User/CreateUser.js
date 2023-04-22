@@ -7,6 +7,7 @@ import { Link,useNavigate } from "react-router-dom";
 
 import { IconButton } from "@material-ui/core";
 
+import {auth} from '../../../firebase_config'
 
 const CreateUser = () => {
 
@@ -57,6 +58,7 @@ const CreateUser = () => {
             method: "POST",
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',
+                'user': auth.currentUser.uid
             },
             body: JSON.stringify(
                 { 

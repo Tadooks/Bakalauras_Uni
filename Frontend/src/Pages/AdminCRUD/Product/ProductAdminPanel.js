@@ -4,9 +4,9 @@ import React,{useState, useEffect} from "react"
 
 
 import { Link } from "react-router-dom";
-
 import { IconButton } from "@material-ui/core";
 
+import {auth} from '../../../firebase_config'
 
 //https://www.npmjs.com/package/react-player
 import ReactPlayer from "react-player";
@@ -47,8 +47,8 @@ const ProductAdminPanel = () => {
           .then(response => response.json())
           .then((usefulData) => {
             //console.log(usefulData);
-            setLoading(false);
             setData(usefulData);
+            setLoading(false);
           })
           .catch((e) => {
             console.error(`An error occurred: ${e}`)
@@ -69,8 +69,12 @@ const ProductAdminPanel = () => {
         if(window.confirm("Are you sure you want to delete " + product.name + " ?")){
             
             fetch(`http://localhost:3001/products/${product.uid}`,{
-                method: "DELETE",
-            body: JSON.stringify({ uid: product.uid })
+              method: "DELETE",
+              headers: {
+                'Content-Type': 'application/json',
+                'user': auth.currentUser.uid
+              },
+              body: JSON.stringify({ uid: product.uid, user: auth.currentUser.uid })
             })
             .then(response => response.json())
             .then((usefulData) => {
