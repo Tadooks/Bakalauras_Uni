@@ -206,29 +206,17 @@ app.get("/auth/:id",function (req, res) {
 
 //create
 app.post("/users",function (req,res) {
-    let userToVerify = req.headers['user'];
-    const uid = req.params.id;
     let user = req.body;
-    verifyUserIsAdmin(userToVerify, function(err, isAdmin) {
+    addUser(user, function(err, responseAddUser) {
         if (err){
             console.log(err);
         }
         else{
-            if(isAdmin){
-                addUser(user, function(err, responseAddUser) {
-                    if (err){
-                        console.log(err);
-                    }
-                    else{
-                        res.send(responseAddUser);
-                    }
-                });
-            }else{
-                res.send("No pablo");
-            }
+            res.send(responseAddUser);
         }
     });
 });
+
 
 //edit
 app.put("/users/:id",function(req,res) {

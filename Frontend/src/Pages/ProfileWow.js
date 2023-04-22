@@ -13,7 +13,7 @@ export default function ProfileNew() {
                     <Link to="profile">Profile: {user[0].email}</Link>
                 ) :(
                 <>
-                    <Link to="login">Non no</Link>
+                    <Link to="login">Login</Link>
                 </>
                 )}
             </div>
