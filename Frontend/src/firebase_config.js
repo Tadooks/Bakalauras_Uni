@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
+import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { getStorage } from "firebase/storage";
 
 const firebaseConfig=({
@@ -22,3 +22,36 @@ export const auth = getAuth(app);
 
 // Initialize Cloud Storage and get a reference to the service
 export const storage = getStorage(app);
+
+const provider = new GoogleAuthProvider();
+
+
+// export const signInWithGoogle = () => {
+//   signInWithPopup(provider).then(function(result) {
+//     // code which runs on success
+//   }).catch(function(error) {
+//     // Handle Errors here.
+//     var errorCode = error.code;
+//     console.log(errorCode);
+//     alert(errorCode);
+  
+//     var errorMessage = error.message;
+//     console.log(errorMessage);
+//     alert(errorMessage);
+//   });
+  
+// };
+
+export const signInWithGoogle = () => {
+  signInWithPopup(auth, provider)
+    .then((result) => {
+      const name = result.user.displayName;
+      const email = result.user.email;
+      const profilePic = result.user.photoURL;
+
+      
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};

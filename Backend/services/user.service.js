@@ -48,7 +48,6 @@ let getSingleUser =  async function(uid, result) {
         if (snapshot.exists()) {
             let obj= snapshot.val()
             obj["verified"]  = (await auth.getUser(obj.authid)).emailVerified
-            console.log(obj)
             result(null, obj);
             
         } else {

@@ -40,6 +40,11 @@ function App() {
   //--------------------------------------
 
 
+  //----------User data states----------
+  const [data, setData] = useState(null)
+  const [error, setError] = useState(null);
+  //---------------------------------------
+
   const [currentUser, setCurrentUser] = useState(null)
   const [timeActive, setTimeActive] = useState(false)
   //const navigate = useNavigate()
@@ -47,6 +52,34 @@ function App() {
   const [refresh,setRefresh] = useState(false);
 
   const [loading, setLoading] = useState(true);
+
+
+    ////Get current signed in user data
+  //-------GET PRODUCT DATA FROM API------------
+  useEffect(() => {
+    if(currentUser){
+        console.log("pries fetch")
+        console.log(auth.currentUser.uid);
+        fetch(`http://localhost:3001/users/${auth.currentUser.uid}`,{
+          method: "GET"
+        })
+        .then(response => response.json())
+        .then((usefulData) => {
+          //setting fetched data
+          setData(usefulData);
+          setLoading(false);//stop loading once data is fetched.
+          console.log("Cia fetched data:")
+          console.log(usefulData);
+        })
+        .catch((e) => {
+          console.error(`An error occurred: ${e}`)
+        });
+
+        setRefresh(false);
+    }
+    
+}, [refresh]);
+// //------------------------------------------
 
 
   
@@ -76,12 +109,45 @@ function App() {
 
 
   //rerouting to login page if user not logged in
-  const ProtectedRoute = ({ children }) => {
+  const ProtectedRouteProfile = ({ children }) => {
     
     //Loading padaryt kaip product data 
+    // console.log("Protected Route current user:");
+    // console.log(currentUser);
+    // console.log(auth.currentUser.emailVerified);
+    // console.log(auth.currentUser.uid);
 
     if(currentUser==null){
       console.log("WOWWOWOWOWOWO")
+      alert("User is not logged");
+      return <Navigate to={"/login"}/>
+    }
+    else if(auth.currentUser.emailVerified==false){
+      alert("User email is not verified");
+      auth.signOut();
+      return <Navigate to={"/login"}/>
+    }
+    {
+      console.log("Signed in successfully")
+      console.log(auth.currentUser);
+
+      return children
+    }
+    
+  };
+
+
+  //protected route for admin panels
+  const ProtectedRouteAdmin = ({ children }) => {
+    
+    //Loading padaryt kaip product data 
+    console.log("Protected Route current user:");
+    console.log(currentUser);
+    console.log(auth.currentUser);
+    
+    if(currentUser==null ){
+      console.log("no perms to access this pagerino")
+      alert("No permissions")
       return <Navigate to={"/login"}/>
     }
     else
@@ -93,6 +159,27 @@ function App() {
     }
     
   };
+
+  // const ProtectedRouteShopper = ({ children }) => {
+    
+  //   //Loading padaryt kaip product data 
+  //   console.log("Protected Route current user:");
+  //   console.log(currentUser);
+  //   console.log(auth.currentUser);
+    
+  //   if(currentUser==null){
+  //     console.log("WOWWOWOWOWOWO")
+  //     return <Navigate to={"/login"}/>
+  //   }
+  //   else
+  //   {
+  //     console.log("Signed in successfully")
+  //     console.log(auth.currentUser);
+
+  //     return children
+  //   }
+    
+  // };
 
   
   return (
@@ -144,7 +231,7 @@ function App() {
           <Route path="checkout" element={<Checkout/>} />
 
           {/* Product admin */}
-          <Route path="productadminpanel" element={<ProductAdminPanel/>} />
+          {/* <Route path="productadminpanel" element={<ProductAdminPanel/>} /> */}
           <Route path="createproduct" element={<CreateProduct/>} />
           <Route path="editproduct/:id" element={<EditProduct/>} />
 
@@ -152,6 +239,50 @@ function App() {
           <Route path="useradminpanel" element={<UserAdminPanel/>} />
           <Route path="edituser/:id" element={<EditUser/>} />
           <Route path="createuser" element={<CreateUser/>} />
+
+          {/* Protected route product admin panel */}
+          <Route 
+            path="productadminpanel"
+            element={
+              loading ?(
+                // <p>Loading...</p>
+                <div>Loading...</div>
+            ) : (
+              <ProtectedRouteAdmin>  
+                <ProductAdminPanel/>
+              </ProtectedRouteAdmin>
+            )} 
+          />
+
+          {/* Protected route product admin panel */}
+          <Route 
+            path="productadminpanel"
+            element={
+              loading ?(
+                // <p>Loading...</p>
+                <div>Loading...</div>
+            ) : (
+              <ProtectedRouteAdmin>  
+                <ProductAdminPanel/>
+              </ProtectedRouteAdmin>
+            )} 
+          />
+          
+
+          <Route 
+            path="profile" 
+            element={
+              loading ?(
+                // <p>Loading...</p>
+                <div>Loading...</div>
+            ) : (
+              
+              <ProtectedRouteProfile>  
+                <Profile/>
+              </ProtectedRouteProfile>
+              
+            )} 
+          />
           
           {/* <Route path="profile" element={<Profile/>} /> */}
 
@@ -165,9 +296,9 @@ function App() {
                 <div>Loading...</div>
             ) : (
               
-              <ProtectedRoute>  
+              <ProtectedRouteProfile>  
                 <Profile/>
-              </ProtectedRoute>
+              </ProtectedRouteProfile>
               
             )} 
           />

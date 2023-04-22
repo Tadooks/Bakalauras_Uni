@@ -1,7 +1,7 @@
 import {useState} from 'react'
 import { Link } from 'react-router-dom'
 import {signInWithEmailAndPassword, sendEmailVerification, signOut} from 'firebase/auth'
-import {auth} from '../firebase_config'
+import {auth, signInWithGoogle} from '../firebase_config'
 import {useNavigate} from 'react-router-dom'
 import {useAuthValue} from './AuthContext'
 
@@ -20,16 +20,15 @@ function Login(){
     signInWithEmailAndPassword(auth, email, password)
     .then(() => {
       if(!auth.currentUser.emailVerified) {
-        alert("Please verify your email!")
-        sendEmailVerification(auth.currentUser)
-        .then(() => {
-          signOut(auth)
-          window.location.reload(true)
-          setTimeActive(true)
+        //doesnt send the verification fully for some reason
+        // sendEmailVerification(auth.currentUser)
+        // .then(() => {
+        //   setTimeActive(true)
+        //   signOut(auth)
+          alert("Please verify your email!")
+        //   window.location.reload(true)
           
-          // navigate('/verifyemail')
-        })
-      // .catch(err => alert(err.message))
+        // })
       window.location.reload(true)
       signOut(auth)
     }else{
@@ -40,7 +39,7 @@ function Login(){
   }
 
   return(
-    <div style={{ color: 'white'}} zclassName='center'>
+    <div style={{ color: 'white'}} className='center'>
       <div className='auth'>
         <h1>Log in</h1>
         {error && <div className='auth__error'>{error}</div>}
@@ -65,7 +64,15 @@ function Login(){
           Don't have and account? 
           <Link to='/register'>Create one here</Link>
         </p>
+
+        <div>Sign in with gmail</div>
+        <button class="login-with-google-btn" onClick={signInWithGoogle}>
+          Sign in with Google
+        </button>
+        
         <p>Forgot your password?</p> <Link to='/forgotpassword'>Reset password</Link>
+      
+        
       </div>
     </div>
   )
