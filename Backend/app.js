@@ -6,7 +6,7 @@ import { addComment, getAllCommentsOnSong} from './controllers/comment.controlle
 
 
 import { getProducts, getSingleProduct, addProduct, editProduct, deleteProduct} from './controllers/product.controller.js'
-import { getUsers, getSingleUser, addUser, editUser, deleteUser} from './controllers/user.controller.js'
+import { getUsers, getSingleUserUID, getSingleUserByAuthID, addUser, editUser, deleteUser} from './controllers/user.controller.js'
 
 
 // Express
@@ -129,7 +129,20 @@ app.get("/users",function (req,res) {
 //single
 app.get("/users/:id",function (req, res) {
     const id = req.params.id;
-    getSingleUser(id, function(err, single_user) {
+    getSingleUserUID(id, function(err, single_user) {
+        if (err){
+            console.log(err);
+        }
+        else{
+            res.send(single_user);
+        }
+    });
+});
+
+//single
+app.get("/auth/:id",function (req, res) {
+    const id = req.params.id;
+    getSingleUserByAuthID(id, function(err, single_user) {
         if (err){
             console.log(err);
         }

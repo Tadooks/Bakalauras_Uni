@@ -39,21 +39,58 @@ let getUsers =  async function(thingamabob, result) {
         });
 };
 
-let getSingleUser =  async function(uid, result) {
+let getSingleUserByUID =  async function(uid, result) {
 
     const dbRef = ref(database);
  
     get(child(dbRef, `/Users/`+uid)).then(async (snapshot) => {
  
         if (snapshot.exists()) {
-            let obj= snapshot.val()
-            obj["verified"]  = (await auth.getUser(obj.authid)).emailVerified
-            result(null, obj);
+            snapshot.val()["verified"]  = (await auth.getUser(snapshot.val().authid)).emailVerified
+            result(null, snapshot.val());
             
         } else {
 
             console.log("No data available");
             result(null, {error: "No data available"});
+        }
+
+        }).catch((error) => {
+            console.error(error);
+            result(error, null);
+        });
+};
+
+let getSingleUserByAuthID =  async function(uid, result) {
+
+    const dbRef = ref(database);
+
+    get(child(dbRef, `/Users/`)).then(async (snapshot) => {
+ 
+        if (snapshot.exists()) {
+            let obj = null;
+
+            const objectArray = Object.entries( snapshot.val());
+
+            for (let index = 0; index < objectArray.length; index++) {
+                const key = objectArray[index][0]; //([key, value])
+                const value = objectArray[index][1]; //([key, value])
+                if(value.authid == uid){
+                    obj = {
+                        uid: key,
+                        authid: value.authid,
+                        email: value.email,
+                        verified: (await auth.getUser(value.authid)).emailVerified,
+                        permissions: value.permissions
+                    };
+                    break;
+                }
+            }
+            result(null, obj);
+        } else {
+
+            console.log("No data available");
+            result(null, {});
         }
 
         }).catch((error) => {
@@ -150,4 +187,4 @@ let deleteUser =  async function(user, result) {
 
 
 
-export {getUsers, getSingleUser, addUser, editUser, deleteUser};
+export {getUsers, getSingleUserByUID, getSingleUserByAuthID, addUser, editUser, deleteUser};
