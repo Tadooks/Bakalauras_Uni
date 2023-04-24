@@ -621,6 +621,12 @@ td {
 
 
 
+.clickableText{
+  cursor: pointer;
+  color: rgb(111, 111, 224);
+  text-decoration: underline;
+}
+
 
 
 

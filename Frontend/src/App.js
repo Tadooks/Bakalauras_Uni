@@ -30,6 +30,8 @@ import UserAdminPanel from './Pages/AdminCRUD/User/UserAdminPanel';
 import EditUser from './Pages/AdminCRUD/User/EditUser';
 import CreateUser from './Pages/AdminCRUD/User/CreateUser';
 import { AuthContext } from './Pages/AuthContextNew';
+import OrderAdminPanel from './Pages/AdminCRUD/Orders/OrderAdminPanel';
+import EditOrder from './Pages/AdminCRUD/Orders/EditOrder';
 
 
 function App() {
@@ -247,7 +249,13 @@ function App() {
           {/* User admin */}
           <Route path="useradminpanel" element={<UserAdminPanel/>} />
           <Route path="edituser/:id" element={<EditUser/>} />
-          <Route path="createuser" element={<CreateUser/>} />
+          {/* <Route path="createuser" element={<CreateUser/>} /> */}
+
+          {/* Order admin */}
+          <Route path="orderadminpanel" element={<OrderAdminPanel/>} />
+          
+          <Route path="editorder/:id" element={<EditOrder/>} />
+          
 
           {/* Protected route product admin panel */}
           <Route 

@@ -13,17 +13,6 @@ import ReactPlayer from "react-player";
 
 const ProductAdminPanel = () => {
 
-    //Add states
-    const [productId, setProductId] = useState('');
-    const [productName, setProductName] = useState('');
-    const [productPrice, setProductPrice] = useState(0);
-    const [productDescription, setProductDescription] = useState('');
-    const [productImage, setProductImage] = useState('');
-    const [productAudio, setProductAudio] = useState('');
-    const [productDownload, setProductDownload] = useState('');
-    const [productType, setProductType] = useState('');
-
-
 
     //----------PRODUCT data states----------
     const [data, setData] = useState(null);
@@ -32,11 +21,6 @@ const ProductAdminPanel = () => {
     //---------------------------------------
 
     const [refresh,setRefresh] = useState(false);
-
-    const [dialogOpen, setDialogOpen] = useState(false);
-    const [dialogOpenEdit, setDialogOpenEdit] = useState(false);
-
-
 
     // //-------GET PRODUCT DATA FROM API------------
     useEffect(() => {
@@ -56,9 +40,6 @@ const ProductAdminPanel = () => {
           setRefresh(false);
     }, [refresh]);
     // //------------------------------------------
-
-
-
 
 
 
@@ -85,10 +66,7 @@ const ProductAdminPanel = () => {
             .catch((e) => {
                 setRefresh(true);
                 console.error(`An error occurred: ${e}`)
-            });
-
-        
-            
+            });      
         }
         setRefresh(true);
         
@@ -155,18 +133,12 @@ const ProductAdminPanel = () => {
                             </Link>
                             {/* <button onClick={()=>OpenEditDialogWindow(product)}>Edit</button>  */}
                             <button onClick={()=>handleDeleteProduct(product)}>Delete</button>
-                            
-                            
 
                             {/* <td>{product.image}</td> */}
                           </tr>
                         ))}
                     </tbody>
             </table>
-
-            
-            
-
             </>
             )}
         </div>
