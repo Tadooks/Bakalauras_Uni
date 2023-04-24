@@ -124,7 +124,7 @@ const ProductAdminPanel = () => {
                         <th>Product type</th>
                         <th>Image</th>
                         <th>Audio</th>
-                        <th>Download</th>
+                        
                       </tr>
                     </thead>
                     <tbody>
@@ -147,7 +147,6 @@ const ProductAdminPanel = () => {
                                 controls={true}
                               />
                             </td>
-                            <td><a href={product.download}>{product.download}</a></td>
                             {/* on edit, open Single product, with screen to edit it? */}
                             {/* Add the open single product  */}
 

@@ -21,11 +21,12 @@ let verifyUserIsAdmin = function(request, response) {
 
 //Kad negaletum kaip kitas user order
 let verifyUserIsUser = function(request, response) {
-    getSingleUserAuthID_service(request, function(error, user) {
+    console.log(request.authid)
+    getSingleUserAuthID_service(request.authid, function(error, user) {
         if (error){
             response(null, false);
         }else{
-            if(request==user.uid){
+            if(request.authid==user.authid && request.uid==user.uid && request.email==user.email){
                 response(null, true);
             }else{
                 response(null, false);

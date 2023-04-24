@@ -4,10 +4,11 @@ const require = createRequire(import.meta.url);
 //Controllers
 import { addComment, getAllCommentsOnSong} from './controllers/comment.controller.js'
 
-import { verifyUserIsAdmin} from './controllers/auth.controller.js'
+import { verifyUserIsAdmin, verifyUserIsUser} from './controllers/auth.controller.js'
 
 import { getProducts, getSingleProduct, addProduct, editProduct, deleteProduct} from './controllers/product.controller.js'
 import { getUsers, getSingleUserUID, getSingleUserByAuthID, addUser, editUser, deleteUser} from './controllers/user.controller.js'
+import {getOrders, getSingleOrder,addOrder,editOrder,deleteOrder} from './controllers/order.controller.js'
 
 
 // Express
@@ -50,6 +51,7 @@ app.get("/products",function (req,res) {
     getProducts(null, function(err, all_products) {
         if (err){
             console.log(err);
+            res.send(err);
         }
         else{
             res.send(all_products);
@@ -63,6 +65,7 @@ app.get("/products/:id",function (req, res) {
     getSingleProduct(id, function(err, single_product) {
         if (err){
             console.log(err);
+            res.send(err);
         }
         else{
             res.send(single_product);
@@ -77,19 +80,21 @@ app.post("/products",function (req,res) {
     verifyUserIsAdmin(userToVerify, function(err, isAdmin) {
         if (err){
             console.log(err);
+            res.send(err);
         }
         else{
             if(isAdmin){
                 addProduct(product, function(err, responseAddProduct) {
                     if (err){
                         console.log(err);
+                        res.send(err);
                     }
                     else{
                         res.send(responseAddProduct);
                     }
                 });
             }else{
-                res.send("No pablo");
+                res.send("No access");
             }
         }
     });
@@ -103,19 +108,21 @@ app.put("/products/:id",function(req,res) {
     verifyUserIsAdmin(userToVerify, function(err, isAdmin) {
         if (err){
             console.log(err);
+            res.send(err);
         }
         else{
             if(isAdmin){
                 editProduct({"uid": id, "product": product}, function(err, responseEditProduct) {
                     if (err){
                         console.log(err);
+                        res.send(err);
                     }
                     else{
                         res.send(responseEditProduct);
                     }
                 });
             }else{
-                res.send("No pablo");
+                res.send("No access");
             }
         }
     });
@@ -130,19 +137,21 @@ app.delete("/products/:id",function(req,res) {
     verifyUserIsAdmin(userToVerify, function(err, isAdmin) {
         if (err){
             console.log(err);
+            res.send(err);
         }
         else{
             if(isAdmin){
                 deleteProduct(id, function(err, responseDeleteProduct) {
                     if (err){
                         console.log(err);
+                        res.send(err);
                     }
                     else{
                         res.send(responseDeleteProduct);
                     }
                 });
             }else{
-                res.send("No pablo");
+                res.send("No access");
             }
         }
     });
@@ -159,19 +168,21 @@ app.get("/users",function (req,res) {
     verifyUserIsAdmin(userToVerify, function(err, isAdmin) {
         if (err){
             console.log(err);
+            res.send(err);
         }
         else{
             if(isAdmin){
                 getUsers(null, function(err, all_users) {
                     if (err){
                         console.log(err);
+                        res.send(err);
                     }
                     else{
                         res.send(all_users);
                     }
                 });
             }else{
-                res.send("No pablo");
+                res.send("No access");
             }
         }
     });
@@ -184,6 +195,7 @@ app.get("/users/:id",function (req, res) {
     getSingleUserUID(id, function(err, single_user) {
         if (err){
             console.log(err);
+            res.send(err);
         }
         else{
             res.send(single_user);
@@ -197,6 +209,7 @@ app.get("/auth/:id",function (req, res) {
     getSingleUserByAuthID(id, function(err, single_user) {
         if (err){
             console.log(err);
+            res.send(err);
         }
         else{
             res.send(single_user);
@@ -210,6 +223,7 @@ app.post("/users",function (req,res) {
     addUser(user, function(err, responseAddUser) {
         if (err){
             console.log(err);
+            res.send(err);
         }
         else{
             res.send(responseAddUser);
@@ -226,19 +240,21 @@ app.put("/users/:id",function(req,res) {
     verifyUserIsAdmin(userToVerify, function(err, isAdmin) {
         if (err){
             console.log(err);
+            res.send(err);
         }
         else{
             if(isAdmin){
                 editUser({"uid": uid, "user": user}, function(err, responseEditUser) {
                     if (err){
                         console.log(err);
+                        res.send(err);
                     }
                     else{
                         res.send(responseEditUser);
                     }
                 });
             }else{
-                res.send("No pablo");
+                res.send("No access");
             }
         }
     });
@@ -253,24 +269,172 @@ app.delete("/users/:id",function(req,res) {
     verifyUserIsAdmin(userToVerify, function(err, isAdmin) {
         if (err){
             console.log(err);
+            res.send(err);
         }
         else{
             if(isAdmin){
             deleteUser({uid,user}, function(err, responseDeleteUser) {
                 if (err){
                     console.log(err);
+                    res.send(err);
                 }
                 else{
                     res.send(responseDeleteUser);
                 }
             });
             }else{
-                res.send("No pablo");
+                res.send("No access");
             }
         }
     });
 });
-//-------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------Users end
+
+
+
+
+//------------------ORDERS---------------------
+//all
+app.get("/orders",function (req,res) {
+    let userToVerify = req.headers['user'];
+    const uid = req.params.id;
+    let user = req.body;
+    verifyUserIsAdmin(userToVerify, function(err, isAdmin) {
+        if (err){
+            console.log(err);
+            res.send(err);
+        }
+        else{
+            if(isAdmin){
+                getOrders(null, function(err, all_orders) {
+                    if (err){
+                        console.log(err);
+                        res.send(err);
+                    }
+                    else{
+                        res.send(all_orders);
+                    }
+                });
+            }else{
+                res.send("No access");
+            }
+        }
+    });
+    
+});
+
+//single
+app.get("/orders/:id",function (req, res) {
+    const id = req.params.id;
+    getSingleOrder(id, function(err, single_order) {
+        if (err){
+            console.log(err);
+            res.send(err);
+        }
+        else{
+            res.send(single_order);
+        }
+    });
+});
+
+//create
+app.post("/orders",function (req,res) {
+    let userToVerify = JSON.parse(req.headers['user']);
+    console.log(userToVerify.authid);
+    let order = req.body;
+    verifyUserIsUser(userToVerify, function(err, isUser) {
+        if (err){
+            console.log(err);
+            res.send(err);
+        }
+        else{
+            if(isUser){
+                addOrder(order, function(err, responseAddOrder) {
+                    if (err){
+                        console.log(err);
+                        res.send(err);
+                    }
+                    else{
+                        res.send(responseAddOrder);
+                    }
+                });
+            }else{
+                res.send("No access");
+            }
+        }
+    });
+});
+
+//edit
+app.put("/orders/:id",function(req,res) {
+    let userToVerify = req.headers['user'];
+    const id = req.params.id;
+    let order = req.body;
+    verifyUserIsAdmin(userToVerify, function(err, isAdmin) {
+        if (err){
+            console.log(err);
+            res.send(err);
+        }
+        else{
+            if(isAdmin){
+                editOrder({"uid": id, "order": order}, function(err, responseEditOrder) {
+                    if (err){
+                        console.log(err);
+                        res.send(err);
+                    }
+                    else{
+                        res.send(responseEditOrder);
+                    }
+                });
+            }else{
+                res.send("No access");
+            }
+        }
+    });
+});
+
+//delete 
+// To delete / edit / create you need to use admin account . 
+//Thus its important to send user object with order to verify that its admin that wants to delete/edit/create !
+app.delete("/orders/:id",function(req,res) {
+    let userToVerify = req.headers['user'];
+    const id = req.params.id;
+    let order = req.body;
+    verifyUserIsAdmin(userToVerify, function(err, isAdmin) {
+        if (err){
+            console.log(err);
+            res.send(err);
+        }
+        else{
+            if(isAdmin){
+                deleteOrder(id, function(err, responseDeleteOrder) {
+                    if (err){
+                        console.log(err);
+                        res.send(err);
+                    }
+                    else{
+                        res.send(responseDeleteOrder);
+                    }
+                });
+            }else{
+                res.send("No access");
+            }
+        }
+    });
+});
+//------------------------------------------------------------------------------------order end
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

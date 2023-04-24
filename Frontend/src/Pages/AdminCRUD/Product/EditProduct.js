@@ -25,7 +25,6 @@ const EditProduct = () => {
     const [productDescription, setProductDescription] = useState('');
     const [productImage, setProductImage] = useState('');
     const [productAudio, setProductAudio] = useState('');
-    const [productDownload, setProductDownload] = useState('');
     const [productType, setProductType] = useState('');
 
 
@@ -70,7 +69,6 @@ const EditProduct = () => {
             setProductImage(usefulData.image);
             setProductType(usefulData.type);
             setProductAudio(usefulData.audio);
-            setProductDownload(usefulData.download);
             
 
             setLoading(false);//stop loading once data is fetched.
@@ -106,7 +104,6 @@ const EditProduct = () => {
                         price: productPrice,
                         image: productImage,
                         audio: "none",
-                        download: "none",
                         type: productType
 
                     }
@@ -144,7 +141,6 @@ const EditProduct = () => {
                         price: productPrice,
                         image: productImage,
                         audio: productAudio,
-                        download: productDownload,
                         type: productType
 
                     }
@@ -202,12 +198,7 @@ const EditProduct = () => {
             alert("Please select a valid audio file."); // Display an error message if the selected file is not an audio file
         }
     };
-    //FILE UPLOADING rar archive file (i allow any file to be uploaded)
-    const handleFileChangeDownload = (e) => {
-        const selectedFile = e.target.files[0];
-        setFile({type:3, selectedFile});
 
-    };
     //--------------------------------------------------------
 
 
@@ -240,10 +231,6 @@ const EditProduct = () => {
             }
             else if(newFile.type.includes("audio")){
                 setProductAudio(naujasURL)
-                setFile(null);
-            }
-            else{
-                setProductDownload(naujasURL)
                 setFile(null);
             }
 
@@ -337,15 +324,6 @@ const EditProduct = () => {
                                 onChange={e=>setProductAudio(e.target.value)}
                                 
                             />
-                            Download url:
-                            <textarea 
-                                type='text' 
-                                value={productDownload}
-                                placeholder="Image"
-                                required
-                                onChange={e=>setProductDownload(e.target.value)}
-
-                            />
                             </>
                             )}
                             
@@ -419,30 +397,7 @@ const EditProduct = () => {
                                 </div>
 
                                 
-                                <div className="crudFilePreview">
-                                    <form onSubmit={e => {
-                                                e.preventDefault();
-                                        handleUpload(3);
-                                    }
-                                        }>
-                                        <div>
-                                            <div>Downloadable file</div>
-                                            <label htmlFor="downloadInput">Select a file:</label>
-                                            <input type="file" id="downloadInput" onChange={handleFileChangeDownload} />
-                                        </div>
-                                        <button type="submitDownload">Upload</button>
-                                    </form>
-                                    
-                                    Download file url:
-                                    {productDownload && (
-                                    <div>
-                                        
-                                        <a href={productDownload}>{productDownload}</a>
-
-                                        
-                                    </div>
-                                    )}
-                                </div>
+                        
                                 
                             </div>
                         </div>

@@ -554,6 +554,74 @@ td {
   border: 1px solid #dcdcdc;
 }
 
+/* new */
+.StyledCreateProduct{
+  display:flex;
+  justify-content: space-between;
+}
+
+.StyledForm {
+  display: flex;
+  flex-direction: column;
+  max-width: 300px;
+  margin-top: 2rem;
+}
+  
+.StyledForm select,
+  .StyledForm input {
+  padding: 7px;
+  min-height: 30px;
+  outline: none;
+  border-radius: 5px;
+  border: 1px solid rgb(182, 182, 182);
+  margin: 0.3rem 0;
+}
+  
+.StyledForm select:focus,
+  .StyledForm input:focus {
+  border: 2px solid rgb(0, 208, 255);
+}
+  
+.StyledForm select {
+  color: rgb(95, 95, 95);
+}
+
+
+
+.ImagePreview {
+  margin: 2rem 0 2rem 2rem;
+  padding: 2rem;
+  border: 1px solid rgb(183, 183, 183);
+  max-width: 80%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+  
+.ImagePreview img {
+  max-width: '300px';
+  max-height: '300px';
+}
+
+.preview-container {
+  width: 300px; /* Set the width of the container */
+  height: 300px; /* Set the height of the container */
+  border: 2px dashed gray; /* Add a dashed gray border */
+  display: flex; /* Use flexbox to center the image */
+  justify-content: center; /* Center the image horizontally */
+  align-items: center; /* Center the image vertically */
+}
+.preview-image {
+  max-width: 100%; /* Ensure the image fits within the container */
+  max-height: 100%; /* Ensure the image fits within the container */
+  object-fit: none; /* Do not maintain aspect ratio */
+  object-position: center; /* Center the image within the container */
+}
+
+
+
+
 
 
 

@@ -253,14 +253,14 @@ const CreateProduct = () => {
                 <p>An error occured</p>
             ):(
             <>
-                <div className='crudCenter'>
+                <div className='StyledCreateProduct'>
                     <div>
                         <div >Create window content</div>
 
                         
                         
 
-                        <form onSubmit={handleCreateProduct} >
+                        <form className="StyledForm" onSubmit={handleCreateProduct} >
                             Id:
                             <input 
                                 type='text' 
@@ -344,28 +344,29 @@ const CreateProduct = () => {
                         </div>
                         
                         {/* We always show image preview */}
-                        <div>
-                                <div className="crudFilePreview">
+                        <div >
+                                <div className="ImagePreview">
                                     <form onSubmit={e => {
                                         e.preventDefault();
                                         handleUpload(1);
-                                    }
-                                        }>
-                                        <div>
-                                        <label htmlFor="imageInput">Select an image file:</label>
+                                    }}>
+                                    <div>
+                                        <label htmlFor="imageInput">Select an image file 300x300:</label>
                                         <input type="file" id="imageInput" onChange={handleFileChangeImage} />
-                                        </div>
-                                        <button type="submitImage">Upload</button>
+                                    </div>
+                                    <button type="submitImage">Upload</button>
                                     </form>
                                     
-                                    Image preview:
-                                    {productImage && (
-                                    <div>
-                                        <a href={productImage}>{productImage}</a>
-                                        <img src={productImage} alt={productImage} width="400" height="300"></img>
-                                    </div>
+                                    <div className="preview-container">
+                                        Image preview:
+                                        {productImage && (
+                                        <div className="preview-container">
+                                            <a href={productImage}>
+                                                <img className=".preview-image" src={productImage} alt={productImage}></img>
+                                            </a>
+                                        </div>
                                     )}
-                                    
+                                    </div>
                                 </div>
                         </div>
                         
@@ -446,3 +447,5 @@ const CreateProduct = () => {
 }
 
 export default CreateProduct;
+
+
