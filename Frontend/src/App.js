@@ -32,6 +32,7 @@ import CreateUser from './Pages/AdminCRUD/User/CreateUser';
 import { AuthContext } from './Pages/AuthContextNew';
 import OrderAdminPanel from './Pages/AdminCRUD/Orders/OrderAdminPanel';
 import EditOrder from './Pages/AdminCRUD/Orders/EditOrder';
+import ProfileOrders from './Pages/ProfileOrders';
 
 
 function App() {
@@ -315,6 +316,20 @@ function App() {
               
               <ProtectedRouteProfile>  
                 <Profile/>
+              </ProtectedRouteProfile>
+              
+            )} 
+          />
+          <Route 
+            path="profileorders" 
+            element={
+              loading ?(
+                // <p>Loading...</p>
+                <div>Loading...</div>
+            ) : (
+              
+              <ProtectedRouteProfile>  
+                <ProfileOrders/>
               </ProtectedRouteProfile>
               
             )} 

@@ -63,11 +63,11 @@ const Shop = () => {
     //-------------add to cart button---------
 const handleAddToCart = (product) => {
 
-    if (cart[0].some((tempCart2) => tempCart2.id == product.id))//why? Checks for duplicates i guess, if theres a duplicate, +1 to amount, if not a new object is created.
+    if (cart[0].some((tempCart2) => tempCart2.uid == product.uid))//why? Checks for duplicates i guess, if theres a duplicate, +1 to amount, if not a new object is created.
     {
         //1. find product index inside cart, 2. get product based on index 3. product amount ++ 4. set cart with increased product.
         console.log("non-unique click");
-        var productIndex = cart[0].findIndex(item => item.id === product.id);
+        var productIndex = cart[0].findIndex(item => item.uid === product.uid);
         var k = cart;
         var n = k[0][productIndex];
 
@@ -153,12 +153,12 @@ const handleAddToCart = (product) => {
                 <div className="products">
                     {data && 
                         data?.map((product) => (
-                            <div key={product.id} className="product">
+                            <div key={product.uid} className="product">
                                 <Link
-                                    to={`/productDetails/${product.id}`}
+                                    to={`/productDetails/${product.uid}`}
                                 >
                                     <h2>Product name: {product.name}</h2>
-                                    <h2>Product id: {product.id}</h2>
+                                    <h2>Product uid: {product.uid}</h2>
                                     <div>
                                     <img className="productImg" src={product.image} alt={product.name}/>
                                     </div>

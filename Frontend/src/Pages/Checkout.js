@@ -1,8 +1,9 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState,useEffect,useContext } from 'react';
 import {Link,useNavigate, useParams} from "react-router-dom"
 import Button from '@material-ui/core/Button';
 import { auth } from '../firebase_config';
-
+import { AuthContext } from './AuthContextNew';
+import { CartContext } from './CartContext';
 //if success, clear cart. and show success transfer complete,
 //send receipt email with more info.
 
@@ -14,16 +15,27 @@ import { auth } from '../firebase_config';
 
 const Checkout=()=> {
   
-  
-  const [userAuthId, setUserAuthId] = useState('');
+  //getting user data from useContext
+  const { user } = useContext(AuthContext);
+
+
+  //visual cart change
+  const { cartCount, setCartCount } = useContext(CartContext);
+
+  // const [userAuthId, setUserAuthId] = useState('');
   //Add states
+
+  //Number generate orderNumber
   const [orderNumber, setOrderNumber] = useState('');
+
+
+
   const [email, setEmail] = useState('');
   
   const [totalProductCount, setTotalProductCount] = useState(0);
   const [paymentStatus, setPaymentStatus] = useState('unpaid');
   const [deliveryStatus, setDeliveryStatus] = useState('not shipped');
-  const [orderDate, setOrderDate] = useState('');
+  const [orderDate, setOrderDate] = useState(Date.now());
 
   //these kazkaip atskirai? Products i array sudet
   //for products i only need the uid and count.
@@ -47,8 +59,10 @@ const Checkout=()=> {
 
 
 
-  //set cart local storage to 0
+  //need to set cart local storage to 0 after successful checkout
   const [cart, setCart] = useState([window.localStorage.getItem("cart") ? JSON.parse(localStorage.getItem("cart")) : []]);
+
+  
 
   const [subtotal,setSubtotal] = useState();
 
@@ -63,9 +77,12 @@ const Checkout=()=> {
   //---------------------------------------
   
 
+  console.log("timestamp")
+  // console.log(Date.now())
+  
   const navigate = useNavigate()
 
-  // //-------GET PRODUCT DATA FROM API------------
+  
   useEffect(() => {
       if(window.localStorage.getItem("cart")){
           setCart(JSON.parse(window.localStorage.getItem("cart")));
@@ -114,31 +131,36 @@ const Checkout=()=> {
   };
 
 
+  console.log("UHHHHHHH")
+  console.log(JSON.stringify(user[0]))
+
+
   //------------BUTTON GOES CLICKTY CLICK--------------------------
   //------------Create product------------
   const handleCreateOrder=(e)=>{
     e.preventDefault()
     console.log("handleCreateOrder was clicked!");
 
-    
-    console.log("shippingInfo!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-    console.log(shippingInfo);
+    // Returns a random integer from 0 to 999:
+    const randomNumTxt = (Math.floor(Math.random() * 1000));
+
 
     
-
+    
 
     // console.log(order);
     fetch(`http://localhost:3001/orders`,{
         method: "POST",
         headers: {
             'Content-type': 'application/json; charset=UTF-8',
-            'user': auth.currentUser.uid
+            // backend requires whole object
+            'user': JSON.stringify(user[0])
         },
         body: JSON.stringify(
             { 
-                authid: userAuthId,
-                ordernumber: orderNumber,
-                email: email,
+                authid: auth.currentUser.uid,
+                ordernumber: Date.now().toString()+randomNumTxt,
+                email: auth.currentUser.email,
                 products: cart[0],
                 shippinginfo: shippingInfo,
                 totalproductcount: totalProductCount,
@@ -149,8 +171,16 @@ const Checkout=()=> {
         )
     })
       .then(response => {
-        alert('Created successfully');
-        navigate('/home')//PAYMENT INFO PAGE
+        alert('Order was sent successfully');
+        //we wipe local cart storage
+        const tempEmpty = [[]]
+        window.localStorage.setItem("cart", JSON.stringify(tempEmpty))
+        //-------visual header cart update-------
+        const c= Number(cartCount) *0;
+        setCartCount(c)
+        window.localStorage.setItem("cartVisualCount", c)
+        //---------------------------------------
+        navigate('/ProfileOrders')//PAYMENT INFO PAGE
       })
       .then((usefulData) => {
         setLoading(false);
@@ -196,43 +226,6 @@ const Checkout=()=> {
                     <div >Create window content</div>
 
                     <form className="StyledForm" onSubmit={handleCreateOrder} >
-                      <div style={{ background: 'grey'}} >
-                        authid:
-                        <input 
-                            type='text' 
-                            value={userAuthId}
-                            placeholder="Auth id xd"
-                            required
-                            onChange={e => setUserAuthId(e.target.value)}
-                        />
-                        <br></br>
-                        Order number:
-                        <input 
-                            type='text' 
-                            value={orderNumber}
-                            placeholder="Order number"
-                            required
-                            onChange={e => setOrderNumber(e.target.value)}
-                        />
-                        <br></br>
-                        Order date:
-                        <input 
-                            type='text' 
-                            value={orderDate}
-                            placeholder="Order date"
-                            required
-                            onChange={e=>setOrderDate(e.target.value)}
-                        />
-                        <br></br>
-                        Email:
-                        <input 
-                            type='text' 
-                            value={email}
-                            placeholder="Email"
-                            required
-                            onChange={e=>setEmail(e.target.value)}
-                        />
-                      </div>
 
                     
                         

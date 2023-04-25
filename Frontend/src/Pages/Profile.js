@@ -48,6 +48,7 @@ function Profile() {
           <span onClick={() => {
             signOut(auth);
             setUser([{}]);
+            
             window.localStorage.setItem("userAccount",JSON.stringify({}) );
 
              navigate("/login");
@@ -56,7 +57,10 @@ function Profile() {
         </div>
         
       </div>
-      My orders:
+      
+      <Link to="/ProfileOrders">
+        My orders:
+      </Link>
       </div>
   )
 }

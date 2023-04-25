@@ -21,11 +21,6 @@ const Cart = () => {
     //visual cart change
     const { cartCount, setCartCount } = useContext(CartContext);
     
-    function toggleTheme(){
-        setDarkTheme(prevDarkTheme=>!prevDarkTheme);
-    }
-    //pls work
-    const [darkTheme, setDarkTheme] = useState(true);
 
 
     const [cart, setCart] = useState([window.localStorage.getItem("cart") ? JSON.parse(localStorage.getItem("cart")) : []]);
@@ -89,9 +84,9 @@ const Cart = () => {
 
         var tempCart = cart;
         
-        var productIndex = cart[0].findIndex(item => item.id === cartItem.id);
+        var productIndex = cart[0].findIndex(item => item.uid === cartItem.uid);
         //we remove 
-        console.log("Splicing this:"+ cartItem.id);
+        console.log("Splicing this:"+ cartItem.uid);
         tempCart[0].splice(productIndex,1)
         //display all except that
     
@@ -126,8 +121,8 @@ const Cart = () => {
     const handleAmountAdd=(cartItem)=>{
         console.log("amountAdded");
 
-        var productIndex = cart[0].findIndex(item => item.id === cartItem.id);
-        console.log("amountAdd to productIndex: " + cartItem.id);
+        var productIndex = cart[0].findIndex(item => item.uid === cartItem.uid);
+        console.log("amountAdd to productIndex: " + cartItem.uid);
 
 
         var k = cart;
@@ -159,7 +154,7 @@ const Cart = () => {
         
         
 
-        var productIndex = cart[0].findIndex(item => item.id === cartItem.id);
+        var productIndex = cart[0].findIndex(item => item.uid === cartItem.uid);
         
         var k = cart;
         console.log(cart);
@@ -262,8 +257,8 @@ const Cart = () => {
                     {cart[0]?.map((cartItem) =>(
                         // <div className="cart-item" key={cartItem.id}>
                         <>
-                            <tr className="cart-item" key={cartItem.id}>
-                                <div>{cartItem.id}</div>
+                            <tr className="cart-item" key={cartItem.uid}>
+                                <div>{cartItem.uid}</div>
                                 <td class="first"> 
                                     <img style={{ width: '50px', height: '80px' }} src={cartItem.image} alt={cartItem.name}/>
                                 </td>

@@ -71,7 +71,7 @@ const CreateProduct = () => {
     // //------------------------------------------
     
 
-    //------------EDIT PRODUCT (save changes button)------------
+    //------------Create PRODUCT (save changes button)------------
     const handleCreateProduct=(e)=>{
         e.preventDefault()
         console.log("handleCreateProduct was clicked!");

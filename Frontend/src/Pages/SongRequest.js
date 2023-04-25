@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 // import emailjs from '@emailjs/browser'
 
-
+//data sent: email, genre selection, budget, song length, packs, include project file 
 const SongRequest = () => {
 
 
