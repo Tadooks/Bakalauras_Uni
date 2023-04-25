@@ -38,6 +38,7 @@ let getOrders =  async function(thingamabob, result) {
                     ordernumber: value.ordernumber,
                     email: value.email,
                     products: value.products,
+                    totalproductcount: value.totalproductcount,
                     paymentstatus: value.paymentstatus,
                     deliverystatus: value.deliverystatus,
                     shippinginfo: value.shippinginfo,

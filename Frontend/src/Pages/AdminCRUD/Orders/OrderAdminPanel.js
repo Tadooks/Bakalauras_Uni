@@ -75,7 +75,6 @@ const OrderAdminPanel = () => {
     //delete not always doing its delete thing
     const handleDeleteOrder=(order)=>{
         console.log("handleDeleteOrder was clicked!");
-        console.log(order.uid);
         if(window.confirm("Are you sure you want to delete " + order.ordernumber + " ?")){
             
             fetch(`http://localhost:3001/orders/${order.uid}`,{
@@ -115,16 +114,16 @@ const OrderAdminPanel = () => {
 
     const OpenProductsDialog=async(orderarray)=>{
 
-        setDialogOpenProducts(true);
-        
         await setProductDialogStuff(orderarray);
+        setDialogOpenProducts(true);
 
     }
-    const OpenShippingDialog=async(orderarray)=>{
+    const OpenShippingDialog=async(shippinginfo)=>{
 
-        setDialogOpenProducts(true);
-        
-        await setShippingDialogStuff(orderarray);
+      console.log("shippinginfo")
+      console.log(shippinginfo)
+      await setShippingDialogStuff(shippinginfo);
+      setDialogOpenShipping(true);
 
     }
 
@@ -140,7 +139,6 @@ const OrderAdminPanel = () => {
 
       return(
       <>
-        {/*-------------------Dialog EDIT window popup-------------------*/}
         <Dialog open={dialogOpenProducts} onClose={handleCloseProducts}>
             {/* Dialog content goes here */}
             
@@ -181,6 +179,7 @@ const OrderAdminPanel = () => {
 
     const ShippingVisual=()=>{
 
+
       return(
       <>
         {/*-------------------Dialog EDIT window popup-------------------*/}
@@ -203,18 +202,14 @@ const OrderAdminPanel = () => {
                       </tr>
                     </thead>
                     <tbody>
-                    {shippingDialogStuff && 
-                        shippingDialogStuff?.map((item) => (
-                          <tr>
-                            <td>{item.country}</td>
-                            <td>{item.city}</td>
-                            <td>{item.post}</td>
-                            <td>{item.name}</td>
-                            <td>{item.surname}</td>
-                            <td>{item.phone}</td>
-                          </tr>
-                        ))
-                      }
+                    <tr>
+                            <td>{shippingDialogStuff.country}</td>
+                            <td>{shippingDialogStuff.city}</td>
+                            <td>{shippingDialogStuff.post}</td>
+                            <td>{shippingDialogStuff.name}</td>
+                            <td>{shippingDialogStuff.surname}</td>
+                            <td>{shippingDialogStuff.phone}</td>
+                    </tr>
                     </tbody>
             </table>
         </Dialog>
@@ -223,14 +218,13 @@ const OrderAdminPanel = () => {
     }
 
 
-    // let tempTableSubtotal=0;
-    //   if(productDialogStuff){
-    //     productDialogStuff?.map((item) => (
-    //       tempTableSubtotal=order.totalprice+tempTableSubtotal
-    //     ))
-    //   }
-
-    let tempTableTotalPrice =0;
+    const CalculateTotal=(item) => {
+      let totalItemSum=0;
+      item.map((temp) =>{
+        totalItemSum=totalItemSum+temp.totalprice;
+      })
+      return totalItemSum
+    };
 
     return(
         <div style={{ color: 'white'}}>
@@ -242,9 +236,8 @@ const OrderAdminPanel = () => {
                 <p>An error occured</p>
             ):(
             <>
-            
+            {console.log(data)}
 
-            ????Search????
             <table>
                     <thead>
                       <tr>
@@ -254,6 +247,7 @@ const OrderAdminPanel = () => {
                         <th>Products</th>
                         <th>Shipping info</th>
                         <th>Total price</th>
+                        <th>Total product count</th>
                         <th>Payment status</th>
                         <th>Delivery status</th>
                         <th>Order date</th>
@@ -271,12 +265,9 @@ const OrderAdminPanel = () => {
                             <td><span className="clickableText" onClick={()=>OpenProductsDialog(order.products)}>Products info</span > </td>
                             <td><span className="clickableText" onClick={()=>OpenShippingDialog(order.shippinginfo)}>Shipping info</span > </td>
                             
-                            {/* {order.products.map((temp)=>(
-                              // {tempTableTotalPrice=temp.totalprice+tempTableTotalPrice}
-                              
-                            ))} */}
-                            <td>{(order.products[0].totalprice)} €</td>
-                            <td>{(tempTableTotalPrice)} €</td>
+                            
+                            <td>{CalculateTotal(order.products)} €</td>
+                            <td>{order.totalproductcount}</td>
   
                             <td>{order.paymentstatus}</td>
                             <td>{order.deliverystatus}</td>
@@ -289,7 +280,6 @@ const OrderAdminPanel = () => {
 
                             <button onClick={()=>handleDeleteOrder(order)}>Delete</button>
 
-                            {/* <td>{order.image}</td> */}
                           </tr>
                         ))}
                     </tbody>
