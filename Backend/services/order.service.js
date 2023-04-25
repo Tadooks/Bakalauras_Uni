@@ -5,17 +5,6 @@ import { auth } from "../db/firebaseDBAdmin.js";
 import { ref, child, get, push, update} from "firebase/database";
 
 
-    //Order number
-    //Ordered product list
-    //product, 
-    //product count
-    //shipping info (Name, address)
-    //Payment status
-    //Delivery status
-    //Email (user info)
-    //user auth id?
-    //ORDER DATE
-
 let getOrders =  async function(thingamabob, result) {
 
     const dbRef = ref(database);

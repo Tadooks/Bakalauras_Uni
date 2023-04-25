@@ -26,22 +26,24 @@ const Checkout=()=> {
   const [orderDate, setOrderDate] = useState('');
 
   //these kazkaip atskirai? Products i array sudet
-  const [products, setProducts] = useState('');
+  //for products i only need the uid and count.
+  const [products, setProducts] = useState([]);
 
 
   //shipping info stuff
-  const [shippingInfo, setShippingInfo] = useState('');
-  const [country, setCountry] = useState('');
-  const [city, setCity] = useState('');
-  const [post, setPost] = useState('');
-  const [address, setAddress] = useState('');
-  const [name, setName] = useState('');
-  const [surname, setSurname] = useState('');
-  const [phone, setPhone] = useState('');
+  const [shippingInfo, setShippingInfo] = useState({
+    country: '',
+    city: '',
+    address: '',
+    post: '',
+    name: '',
+    surname: '',
+    phone: ''
+  });
 
 
 
-
+  // item uid and count
 
 
 
@@ -89,8 +91,7 @@ const Checkout=()=> {
 
 
       })
-      console.log("Final total: "+tempTotalPrice);
-      console.log("Total: "+countTotal)
+
       setSubtotal(tempTotalPrice.toFixed(2));
       //saving subtotal to local storage (idk if its really needed)
       window.localStorage.setItem("Subtotal", JSON.stringify(tempTotalPrice))
@@ -105,11 +106,27 @@ const Checkout=()=> {
   // //------------------------------------------
   var tempCartSum;
 
+  const handleShippingChange = (value,name) => {
+    setShippingInfo(prevState => ({
+      ...prevState,
+      [name]: value
+    }));
+  };
 
+
+  //------------BUTTON GOES CLICKTY CLICK--------------------------
   //------------Create product------------
   const handleCreateOrder=(e)=>{
     e.preventDefault()
     console.log("handleCreateOrder was clicked!");
+
+    
+    console.log("shippingInfo!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+    console.log(shippingInfo);
+
+    
+
+
     // console.log(order);
     fetch(`http://localhost:3001/orders`,{
         method: "POST",
@@ -122,7 +139,7 @@ const Checkout=()=> {
                 authid: userAuthId,
                 ordernumber: orderNumber,
                 email: email,
-                products: products,
+                products: cart[0],
                 shippinginfo: shippingInfo,
                 totalproductcount: totalProductCount,
                 paymentstatus: paymentStatus,
@@ -148,9 +165,6 @@ const Checkout=()=> {
     return;
 }
 //------------------------------------
-  
-
-
 
 
   return(
@@ -163,6 +177,19 @@ const Checkout=()=> {
         ) : error ? (
             <p>An error occured</p>
         ):( */}
+
+        {/* if empty array */}
+        {cart==[] ? (
+                <div className="cartEmpty">
+                <p>Your cart is empty !</p>
+                <div className="startShopping">
+                    <Link to="/">
+
+                        Start Shopping
+                    </Link>
+                </div>
+                </div>
+            ) : (//LOADED cart
         <>
             <div className='StyledCreateOrder'>
                 <div>
@@ -214,58 +241,65 @@ const Checkout=()=> {
                         Country:
                         <input 
                             type='text' 
-                            value={country}
+                            value={shippingInfo.country}
                             placeholder="Country"
                             required
-                            onChange={e=>setCountry(e.target.value)}
+                            name="country"
+                            onChange={e=>handleShippingChange(e.target.value,e.target.name)}
                         />
                         City:
                         <input 
                             type='text' 
-                            value={city}
+                            value={shippingInfo.city}
                             placeholder="City"
                             required
-                            onChange={e=>setCity(e.target.value)}
+                            name="city"
+                            onChange={e=>handleShippingChange(e.target.value,e.target.name)}
                         />
                         Address:
                         <input 
                             type='text' 
-                            value={address}
+                            value={shippingInfo.address}
                             placeholder="Address"
                             required
-                            onChange={e=>setAddress(e.target.value)}
+                            name="address"
+                            onChange={e=>handleShippingChange(e.target.value,e.target.name)}
                         />
                         Postal code:
                         <input 
                             type='text' 
-                            value={post}
+                            value={shippingInfo.post}
                             placeholder="Postal code"
                             required
-                            onChange={e=>setPost(e.target.value)}
+                            name="post"
+                            onChange={e=>handleShippingChange(e.target.value,e.target.name)}
                         />
                         Name:
                         <input 
                             type='text' 
-                            value={name}
+                            value={shippingInfo.name}
                             placeholder="Name"
                             required
-                            onChange={e=>setName(e.target.value)}
+                            name="name"
+                            onChange={e=>handleShippingChange(e.target.value,e.target.name)}
                         />
                         Surname:
                         <input 
                             type='text' 
-                            value={surname}
+                            value={shippingInfo.surname}
                             placeholder="Surname"
                             required
-                            onChange={e=>setSurname(e.target.value)}
+                            name="surname"
+                            onChange={e=>handleShippingChange(e.target.value,e.target.name)}
                         />
                         Phone:
                         <input 
                             type='text' 
-                            value={phone}
+                            value={shippingInfo.phone}
                             placeholder="Phone"
                             required
-                            onChange={e=>setPhone(e.target.value)}
+                            name="phone"
+                            onChange={e=>handleShippingChange(e.target.value,e.target.name)}
                         />
                         
 
@@ -344,15 +378,12 @@ const Checkout=()=> {
 
                 </div>
             )}
-
-
-</div>
+  </div>
 {/* ------------------------------------------------------------------order summary end */}
 
         </>
-
-        
-    </div>
+)}
+</div>
 )
 
 }
