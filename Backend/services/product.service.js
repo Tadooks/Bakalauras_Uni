@@ -19,13 +19,12 @@ let getProducts =  async function(thingamabob, result) {
             objectArray.forEach(([key, value]) => {
                 arrayOfProducts.push({
                     uid: key,
-                    id: value.id,
+
                     name: value.name,
                     desc: value.desc,
                     price: value.price,
                     image: value.image,
                     audio: value.audio,
-                    download: value.download,
                     type: value.type
                 });
             });
@@ -72,13 +71,11 @@ let addProduct =  async function(product, result) {
 
         const postData = {
             uid: newPostKey,
-            id: product.id,
             name: product.name,
             desc: product.desc,
             price: product.price,
             image: product.image,
             audio: product.audio,
-            download: product.download,
             type: product.type
         };
     
@@ -104,13 +101,11 @@ let editProduct =  async function(product, result) {
 
         const postData = {
             uid: product.uid,
-            id: product.product.id,
             name: product.product.name,
             desc: product.product.desc,
             price: product.product.price,
             image: product.product.image,
             audio: product.product.audio,
-            download: product.product.download,
             type: product.product.type
         };
     

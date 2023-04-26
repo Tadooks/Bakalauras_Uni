@@ -56,6 +56,9 @@ const OrderAdminPanel = () => {
           .then(response => response.json())
           .then((usefulData) => {
             setData(usefulData);
+            console.log("MMmm watcha saaaay aaay, ");
+            console.log(usefulData[0]);
+
             setLoading(false);
           })
           .catch((e) => {

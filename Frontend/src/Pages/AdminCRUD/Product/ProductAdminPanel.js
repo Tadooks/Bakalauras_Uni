@@ -62,6 +62,7 @@ const ProductAdminPanel = () => {
                 //console.log(usefulData);
                 setLoading(false);
                 setData(usefulData);
+                setRefresh(true);
             })
             .catch((e) => {
                 setRefresh(true);
@@ -95,7 +96,6 @@ const ProductAdminPanel = () => {
                     <thead>
                       <tr>
                         <th>Firebase uid</th>
-                        <th>Product id</th>
                         <th>Product name</th>
                         <th>Price</th>
                         <th>Description</th>
@@ -110,7 +110,6 @@ const ProductAdminPanel = () => {
                         data?.map((product) => (
                           <tr key={product.id}>
                             <td>{product.uid}</td>
-                            <td>{product.id}</td>
                             <td>{product.name}</td>
                             <td>{product.price}</td>
                             <td>{product.desc}</td>

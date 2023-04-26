@@ -454,7 +454,7 @@ app.delete("/orders/:id",function(req,res) {
 
 
 
-//------------------ORDERS---------------------
+//------------------REVIEWS---------------------
 //all
 app.get("/review",function (req,res) {
     let userToVerify = req.headers['user'];

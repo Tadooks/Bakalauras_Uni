@@ -87,13 +87,11 @@ const CreateProduct = () => {
                 
                 body: JSON.stringify(
                     { 
-                        id: productId,
                         name: productName,
                         desc: productDescription,
                         price: productPrice,
                         image: productImage,
                         audio: "none",
-                        download: "none",
                         type: productType
 
                     }
@@ -122,16 +120,15 @@ const CreateProduct = () => {
                 method: "POST",
                 headers: {
                     'Content-type': 'application/json; charset=UTF-8',
+                    'user': auth.currentUser.uid
                 },
                 body: JSON.stringify(
                     { 
-                        id: productId,
                         name: productName,
                         desc: productDescription,
                         price: productPrice,
                         image: productImage,
                         audio: productAudio,
-                        download: productDownload,
                         type: productType
 
                     }
@@ -261,14 +258,6 @@ const CreateProduct = () => {
                         
 
                         <form className="StyledForm" onSubmit={handleCreateProduct} >
-                            Id:
-                            <input 
-                                type='text' 
-                                value={productId}
-                                placeholder="Product id"
-                                required
-                                onChange={e => setProductId(e.target.value)}
-                            />
                             Name:
                             <input 
                                 type='text' 
@@ -319,12 +308,12 @@ const CreateProduct = () => {
                             <textarea 
                                 type='text' 
                                 value={productAudio}
-                                placeholder="Image"
+                                placeholder="Audio"
                                 required
                                 onChange={e=>setProductAudio(e.target.value)}
                                 
                             />
-                            Download url:
+                            {/* Download url:
                             <textarea 
                                 type='text' 
                                 value={productDownload}
@@ -332,7 +321,7 @@ const CreateProduct = () => {
                                 required
                                 onChange={e=>setProductDownload(e.target.value)}
 
-                            />
+                            /> */}
                             </>
                             )}
                             
@@ -407,7 +396,7 @@ const CreateProduct = () => {
                                 </div>
 
                                 
-                                <div className="crudFilePreview">
+                                {/* <div className="crudFilePreview">
                                     <form onSubmit={e => {
                                                 e.preventDefault();
                                         handleUpload(3);
@@ -430,7 +419,7 @@ const CreateProduct = () => {
                                         
                                     </div>
                                     )}
-                                </div>
+                                </div> */}
                                 
                             </div>
                         </div>

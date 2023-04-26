@@ -34,6 +34,7 @@ import OrderAdminPanel from './Pages/AdminCRUD/Orders/OrderAdminPanel';
 import EditOrder from './Pages/AdminCRUD/Orders/EditOrder';
 import ProfileOrders from './Pages/ProfileOrders';
 import io from 'socket.io-client';
+import ReviewAdminPanel from './Pages/AdminCRUD/Reviews/ReviewAdminPanel';
 
 function App() {
 
@@ -227,7 +228,10 @@ function App() {
             {/* <Link to="songs">Songs</Link> */}
             <Link to="shop">Shop</Link>
             <Link to="songrequest">Song Request</Link>
+
+            {/* ALL ADMIN PANEL Link GO HERE */}
             <AdminPanelNav/>
+          
           </div>
 
           {/* Right */}
@@ -270,7 +274,8 @@ function App() {
           
           <Route path="editorder/:id" element={<EditOrder/>} />
           
-
+          {/* Review admin panel */}
+          <Route path="reviewadminpanel" element={<ReviewAdminPanel/>}/>
           
 
           {/* Protected route product admin panel */}
@@ -296,7 +301,7 @@ function App() {
                 <div>Loading...</div>
             ) : (
               <ProtectedRouteAdmin>  
-                <ProductAdminPanel/>
+                <ReviewAdminPanel/>
               </ProtectedRouteAdmin>
             )} 
           />

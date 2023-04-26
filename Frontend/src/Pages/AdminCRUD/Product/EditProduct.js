@@ -98,7 +98,6 @@ const EditProduct = () => {
                 body: JSON.stringify(
                     { 
                         uid: idFromURL,
-                        id: productId,
                         name: productName,
                         desc: productDescription,
                         price: productPrice,
@@ -261,14 +260,6 @@ const EditProduct = () => {
                         
 
                         <form onSubmit={handleEditProduct} >
-                            Id:
-                            <input 
-                                type='text' 
-                                value={productId}
-                                placeholder="Product id"
-                                required
-                                onChange={e => setProductId(e.target.value)}
-                            />
                             Name:
                             <input 
                                 type='text' 

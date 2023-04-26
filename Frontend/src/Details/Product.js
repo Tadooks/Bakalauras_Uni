@@ -216,7 +216,7 @@ const Product = ({socket}) => {
             console.log(user[0].verified)//other way, i guess the more correct way
 
             //hiding if user is not logged in or already posted comment
-            if(auth.currentUser==null || user[0].verified ||  hasComment==true){
+            if(auth.currentUser==null ||  hasComment==true){
                 setShowForm(false)
                 
             }

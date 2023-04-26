@@ -15,6 +15,7 @@ export default function AdminPanelNav() {
                         <Link to="productadminpanel">Admin panel</Link>
                         <Link to="useradminpanel">Admin panel user</Link>
                         <Link to="orderadminpanel">Order admin panel</Link>
+                        <Link to="reviewadminpanel">Review admin panel</Link>
                     
                     </>
                 ) :(

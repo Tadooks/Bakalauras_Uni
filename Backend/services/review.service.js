@@ -69,7 +69,7 @@ let add_review =  async function(review, result) {
             name: review.name,
             rating: review.rating,
             review: review.review,
-            visable: false
+            visable: true//if implement confirm comment function change to false
         };
         
         //We will create an object of updates
@@ -86,7 +86,7 @@ let add_review =  async function(review, result) {
             name: review.name,
             rating: review.rating,
             review: review.review,
-            visable: false
+            visable: true
         });
 
     }else{
@@ -120,7 +120,7 @@ let get_all_reviews =  async function(thingamabob, result) {
 
 let delete_review =  async function(review, result) {
     const dbRef = ref(database);
-
+    console.log(review)
     if(review.productID != null && review.reviewID != null){
         
         const postData = {};
