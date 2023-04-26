@@ -155,7 +155,7 @@ const handleAddToCart = (product) => {
                         data?.map((product) => (
                             <div key={product.uid} className="product">
                                 <Link
-                                    to={`/productDetails/${product.uid}`}
+                                    to={`/productdetails/${product.uid}`}
                                 >
                                     <h2>Product name: {product.name}</h2>
                                     <h2>Product uid: {product.uid}</h2>

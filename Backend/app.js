@@ -8,7 +8,7 @@ import { verifyUserIsAdmin, verifyUserIsUser} from './controllers/auth.controlle
 
 import { getProducts, getSingleProduct, addProduct, editProduct, deleteProduct} from './controllers/product.controller.js'
 import { getUsers, getSingleUserUID, getSingleUserByAuthID, addUser, editUser, deleteUser} from './controllers/user.controller.js'
-import {getOrders, getSingleOrder,addOrder,editOrder,deleteOrder} from './controllers/order.controller.js'
+import { getUserAllOrders, getOrders, getSingleOrder,addOrder,editOrder,deleteOrder} from './controllers/order.controller.js'
 
 
 // Express
@@ -333,6 +333,34 @@ app.get("/orders/:id",function (req, res) {
         }
         else{
             res.send(single_order);
+        }
+    });
+});
+
+
+//single
+app.get("/userOrders/:id",function (req, res) {
+    const id = req.params.id;
+    let userToVerify = JSON.parse(req.headers['user']);
+    verifyUserIsUser(userToVerify, function(err, isUser) {
+        if (err){
+            console.log(err);
+            res.send(err);
+        }
+        else{
+            if(isUser){
+                getUserAllOrders(id, function(err, single_order) {
+                    if (err){
+                        console.log(err);
+                        res.send(err);
+                    }
+                    else{
+                        res.send(single_order);
+                    }
+                });
+            }else{
+                res.send("No access");
+            }
         }
     });
 });

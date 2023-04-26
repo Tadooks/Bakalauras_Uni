@@ -33,6 +33,17 @@ let getSingleOrder = function(request, response) {
     });
 };
 
+let getUserAllOrders = function(request, response) {
+    getOrders_service(request, function(error, allOrders) {
+        if (error){
+            response(error, null);
+        }else{
+            const userOrders = allOrders.filter(item => item.authid === request);
+            response(null, userOrders);
+        }
+    });
+};
+
 
 //--------------------------------Add order--------------------------------------------
 //we recalculate price according to the gotten id that is matched to the product from db.
@@ -113,4 +124,4 @@ let deleteOrder = function(request, response) {
     });
 };
 
-export {getOrders,getSingleOrder, addOrder, editOrder, deleteOrder};
+export {getUserAllOrders, getOrders,getSingleOrder, addOrder, editOrder, deleteOrder};

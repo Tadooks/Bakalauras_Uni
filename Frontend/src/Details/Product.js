@@ -15,7 +15,7 @@ const Product = ({}) => {
     
     //-------GET PRODUCT DATA FROM API------------
     useEffect(() => {
-        fetch(`http://localhost:3001/products`)
+        fetch(`http://localhost:3001/products/` + id)
           .then(response => response.json())
           .then((usefulData) => {
             setLoading(false);
@@ -27,39 +27,30 @@ const Product = ({}) => {
           });
     }, [id]);
 
-
-    let currentProduct ="null";
-    if(loading == true)
-    {
-        console.log("it hasnt loaded yet");
-    }
-    else if( error!=null )
-    {
-        console.log("error");
-    }
-    else
-    {
-        console.log(dataID-1);
-        console.log(data[dataID-1]);
-        currentProduct = data[dataID-1];
-    }
-    
-    
-
     
     
     return(
-        <div style={{ color: 'white'}}> Cia bus id: {dataID}
-        <Link to={`/shop`} >
-            <button>BACK</button>
-        </Link>
-        <div>Product name: {currentProduct.name}</div>
-        <div>Product image: {currentProduct.image}</div>
-        <div>Product description: {currentProduct.desc}</div>
-        <div>Product price: {currentProduct.price} europiniu moneys</div>
-        
-        <div>Amount: + 0 - </div>
-        <button>Add to cart</button>
+        <div style={{ color: 'white'}}>
+        {loading ?(
+            <p>Loading...</p>
+        ) : error ? (
+            <p>An error occured</p>
+        ):(
+        <>
+            <div> Cia bus id: {dataID}
+            <Link to={`/shop`} >
+                <button>BACK</button>
+            </Link>
+            <div>Product name: {data.name}</div>
+            <div>Product image: {data.image}</div>
+            <div>Product description: {data.desc}</div>
+            <div>Product price: {data.price} europiniu moneys</div>
+            
+            <div>Amount: + 0 - </div>
+            <button>Add to cart</button>
+            </div>
+        </>
+        )}
         </div>
     );
 };

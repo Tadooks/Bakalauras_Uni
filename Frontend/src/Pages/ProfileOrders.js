@@ -48,16 +48,15 @@ const ProfileOrders = () => {
       const tes= async ()=>{
         await getCurrentUser(auth);
           
-        fetch(`http://localhost:3001/orders`,{
+        fetch(`http://localhost:3001/userOrders/`+auth.currentUser.uid ,{
             method: "GET",
               headers: {
               'Content-Type': 'application/json',
-              'user': auth.currentUser.uid
+              'user': JSON.stringify(user[0])
             },
           })
           .then(response => response.json())
           .then((usefulData) => {
-            console.log("amungas")
             usefulData?.map((item) => {
                 console.log(item)
                 if (item.email==user[0].email) {

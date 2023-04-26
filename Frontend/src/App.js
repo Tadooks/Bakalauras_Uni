@@ -234,7 +234,7 @@ function App() {
           <Route path="shop" element={<Shop />} />
           <Route path="productslist" element={<ProductsList />} />
           <Route path="cart" element={<Cart />} />
-          <Route path="productDetails/:id" element={<Product/>} />
+          <Route path="productdetails/:id" element={<Product/>} />
           <Route path="login" element={<Login/>} />
           <Route path="register" element={<Register/>} />
           <Route path="verifyemail" element={<VerifyEmail/>} />
