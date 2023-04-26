@@ -33,9 +33,21 @@ import { AuthContext } from './Pages/AuthContextNew';
 import OrderAdminPanel from './Pages/AdminCRUD/Orders/OrderAdminPanel';
 import EditOrder from './Pages/AdminCRUD/Orders/EditOrder';
 import ProfileOrders from './Pages/ProfileOrders';
-
+import io from 'socket.io-client';
 
 function App() {
+
+  const [socket, setSocket] = useState(null);
+  useEffect(() => {
+    const newSocket = io("www.localhost:3001/");
+    setSocket(newSocket);
+    return () => newSocket.close();
+  }, [setSocket]);
+
+
+
+
+
 
   //-------visual header cart update-------
   const [cartCount, setCartCount] = useState([window.localStorage.getItem("cartVisualCount") ? localStorage.getItem("cartVisualCount") : 0]);
@@ -211,7 +223,7 @@ function App() {
           </div>
           {/* Center */}
           <div>
-            <Link to="songs">Songs</Link>
+            {/* <Link to="songs">Songs</Link> */}
             <Link to="shop">Shop</Link>
             <Link to="songrequest">Song Request</Link>
             <AdminPanelNav/>
@@ -234,7 +246,7 @@ function App() {
           <Route path="shop" element={<Shop />} />
           <Route path="productslist" element={<ProductsList />} />
           <Route path="cart" element={<Cart />} />
-          <Route path="productdetails/:id" element={<Product/>} />
+          <Route path="productdetails/:id" element={<Product socket={socket}/>} />
           <Route path="login" element={<Login/>} />
           <Route path="register" element={<Register/>} />
           <Route path="verifyemail" element={<VerifyEmail/>} />

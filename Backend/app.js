@@ -2,14 +2,13 @@ import { createRequire } from 'module'
 const require = createRequire(import.meta.url);
 
 //Controllers
-import { addComment, getAllCommentsOnSong} from './controllers/comment.controller.js'
+import { addReview, getAllReviewsOnProduct, getAllReviews, deleteReview, editReview} from './controllers/review.controller.js'
 
 import { verifyUserIsAdmin, verifyUserIsUser} from './controllers/auth.controller.js'
 
 import { getProducts, getSingleProduct, addProduct, editProduct, deleteProduct} from './controllers/product.controller.js'
 import { getUsers, getSingleUserUID, getSingleUserByAuthID, addUser, editUser, deleteUser} from './controllers/user.controller.js'
 import { getUserAllOrders, getOrders, getSingleOrder,addOrder,editOrder,deleteOrder} from './controllers/order.controller.js'
-
 
 // Express
 const bodyParser = require('body-parser');
@@ -455,7 +454,94 @@ app.delete("/orders/:id",function(req,res) {
 
 
 
+//------------------ORDERS---------------------
+//all
+app.get("/review",function (req,res) {
+    let userToVerify = req.headers['user'];
+    const uid = req.params.id;
+    let user = req.body;
+    verifyUserIsAdmin(userToVerify, function(err, isAdmin) {
+        if (err){
+            console.log(err);
+            res.send(err);
+        }
+        else{
+            if(isAdmin){
+                getAllReviews(null, function(err, allReviews) {
+                    if (err){
+                        console.log(err);
+                        res.send(err);
+                    }
+                    else{
+                        res.send(allReviews);
+                    }
+                });
+            }else{
+                res.send("No access");
+            }
+        }
+    });
+    
+});
 
+//edit
+app.put("/review/:id",function(req,res) {
+    let userToVerify = req.headers['user'];
+    const id = req.params.id;
+    let review = req.body;
+    verifyUserIsAdmin(userToVerify, function(err, isAdmin) {
+        if (err){
+            console.log(err);
+            res.send(err);
+        }
+        else{
+            if(isAdmin){
+                editReview({"uid": id, "review": review}, function(err, responseEditOrder) {
+                    if (err){
+                        console.log(err);
+                        res.send(err);
+                    }
+                    else{
+                        res.send(responseEditOrder);
+                    }
+                });
+            }else{
+                res.send("No access");
+            }
+        }
+    });
+});
+
+//delete 
+// To delete / edit / create you need to use admin account . 
+//Thus its important to send user object with order to verify that its admin that wants to delete/edit/create !
+app.delete("/review/:id",function(req,res) {
+    let userToVerify = req.headers['user'];
+    const id = req.params.id;
+    let review = req.body;
+    verifyUserIsAdmin(userToVerify, function(err, isAdmin) {
+        if (err){
+            console.log(err);
+            res.send(err);
+        }
+        else{
+            if(isAdmin){
+                deleteReview(review, function(err, responseDeleteOrder) {
+                    if (err){
+                        console.log(err);
+                        res.send(err);
+                    }
+                    else{
+                        res.send(responseDeleteOrder);
+                    }
+                });
+            }else{
+                res.send("No access");
+            }
+        }
+    });
+});
+//------------------------------------------------------------------------------------review end
 
 
 
@@ -513,34 +599,36 @@ io.on("connection", function (socket) {
     console.log("Made socket connection 2 here wooo");
 
 
-    //gets all comments on  a song based on its ID (songID) or console logs error and sends an error message back. 
-    socket.on('get_all_comments', (songID) => {
-        getAllCommentsOnSong(songID, function(err, all_comments) {
+    //gets all reviews on  a product based on its ID (productID) or console logs error and sends an error message back. 
+    socket.on('get_all_reviews', (review) => {
+        getAllReviewsOnProduct(review, function(err, all_reviews) {
             if (err){
                 console.log(err);
                 socket.emit("error", err);
             }
             else{
-                socket.emit("get_all_comments_react", all_comments.reverse());
+                socket.emit("get_all_reviews_react", all_reviews.reverse());
             }
         });
     });
 
-    //adds a comment object to a specific song or console logs error and sends an error message back. 
+    //adds a review object to a specific product or console logs error and sends an error message back. 
     /*{
-        Id: SongID,
+        Id: ProductID,
         Who:
         Rating:
-        Comment:
+        Review:
+        Visable: true vs false
     }*/
-    socket.on('add_comment', (comment) => {
-        addComment(comment, function(err, addedComment) {
+    socket.on('add_review', (review) => {
+        console.log(review)
+        addReview(review, function(err, addedReview) {
             if (err){
                 console.log(err);
                 socket.emit("error", err);
             }
             else{
-                io.emit("added_comment", addedComment);
+                socket.emit("added_review", addedReview);
             }
         });
     });
