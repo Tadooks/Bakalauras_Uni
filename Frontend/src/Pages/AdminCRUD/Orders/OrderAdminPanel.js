@@ -61,7 +61,7 @@ const OrderAdminPanel = () => {
           .catch((e) => {
             console.error(`An error occurred: ${e}`)
           });
-          //setRefresh(false);
+          setRefresh(false);//needed for value refresh after clicking delete.
     }
       // //-------GET PRODUCT DATA FROM API------------
       useEffect(() => {

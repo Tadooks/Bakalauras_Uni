@@ -13,10 +13,15 @@ const SongRequest = () => {
         <div className="temp2">
         <div className='songrequest'>
         {  hide && 
-                    <div>Thanks for the email!</div>
+                    <div>
+                      Your song request has been sent!<br></br>
+                      Once your request is reviewed, you will receive an email with more info 
+                    </div>
         }
         {  !hide && 
-                    <form onSubmit={""}>
+                  <>
+                      <div>email, genre selection, budget, song length, packs, include project file</div>
+                  <form onSubmit={""}>
                     <label>Name:</label> &nbsp;
                     <input type='text' name="name" className='textboxName'/>
                     <br></br>
@@ -32,6 +37,7 @@ const SongRequest = () => {
                     <input type='submit' value='Send' className='button2 button1'></input>
       
                 </form>
+                </>
         }
         </div>
         </div>
