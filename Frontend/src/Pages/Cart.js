@@ -117,7 +117,6 @@ const Cart = () => {
     }
 
     //Need to add data saving cuz editing cart like in Shop.js
-    //cart doesnt update live.
     const handleAmountAdd=(cartItem)=>{
         console.log("amountAdded");
 
@@ -138,7 +137,7 @@ const Cart = () => {
         window.localStorage.setItem("cart", JSON.stringify(cart))
 
         toast("Count of " + cartItem.name+ " was increased" +" !", {
-            position: toast.POSITION.BOTTOM_LEFT,
+            position: toast.POSITION.BOTTOM_RIGHT,
             className: 'foo-bar'
         });
 
@@ -212,7 +211,7 @@ const Cart = () => {
         });
 
         //-------visual header cart update-------
-        const c= Number(cartCount) *0;
+        const c= Number(0);
         setCartCount(c)
         window.localStorage.setItem("cartVisualCount", c)
         //---------------------------------------

@@ -62,7 +62,9 @@ const Shop = () => {
 
     //-------------add to cart button---------
 const handleAddToCart = (product) => {
-
+    
+    console.log("BRUUUUUUUUUUUUUUUUUHHHHHHHH");
+    console.log(product);
     if (cart[0].some((tempCart2) => tempCart2.uid == product.uid))//why? Checks for duplicates i guess, if theres a duplicate, +1 to amount, if not a new object is created.
     {
         //1. find product index inside cart, 2. get product based on index 3. product amount ++ 4. set cart with increased product.
@@ -126,7 +128,7 @@ const handleAddToCart = (product) => {
         //---------------------------------------
 
         toast(product.name+" was added to the cart!", {
-            position: toast.POSITION.BOTTOM_LEFT,
+            position: toast.POSITION.BOTTOM_RIGHT,
             className: 'foo-bar'
         });
     }
@@ -134,7 +136,6 @@ const handleAddToCart = (product) => {
     console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAa");
     console.log(data);
     
-
 };
 //----------------------------------------
 

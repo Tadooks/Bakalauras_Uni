@@ -144,8 +144,8 @@ function App() {
     // console.log(auth.currentUser.uid);
 
     if(currentUser==null){
-      console.log("WOWWOWOWOWOWO")
       alert("User is not logged");
+      console.log("Not logged in")
       return <Navigate to={"/login"}/>
     }
     else if(auth.currentUser.emailVerified==false){
@@ -153,6 +153,7 @@ function App() {
       auth.signOut();
       return <Navigate to={"/login"}/>
     }
+    else
     {
       console.log("Signed in successfully")
       console.log(auth.currentUser);
@@ -252,7 +253,7 @@ function App() {
           <Route path="verifyemail" element={<VerifyEmail/>} />
           <Route path="forgotpassword" element={<ForgotPassword/>} />
           <Route path="changepassword" element={<ChangePassword/>} />
-          <Route path="checkout" element={<Checkout/>} />
+          {/* <Route path="checkout" element={<Checkout/>} /> */}
 
           {/* Product admin */}
           {/* <Route path="productadminpanel" element={<ProductAdminPanel/>} /> */}
@@ -268,6 +269,8 @@ function App() {
           <Route path="orderadminpanel" element={<OrderAdminPanel/>} />
           
           <Route path="editorder/:id" element={<EditOrder/>} />
+          
+
           
 
           {/* Protected route product admin panel */}
@@ -313,6 +316,22 @@ function App() {
               
             )} 
           />
+          
+          <Route 
+            path="checkout" 
+            element={
+              loading ?(
+                // <p>Loading...</p>
+                <div>Loading...</div>
+            ) : (
+              
+              <ProtectedRouteProfile>  
+                <Checkout/>
+              </ProtectedRouteProfile>
+              
+            )} 
+          />
+
           
           {/* <Route path="profile" element={<Profile/>} /> */}
 
