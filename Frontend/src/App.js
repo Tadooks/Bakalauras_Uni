@@ -1,7 +1,7 @@
 import './App.css';
 import {BrowserRouter as Router, Link, Routes, Route, useNavigate, Navigate} from 'react-router-dom'
 import Home from './Pages/Home';
-import SongRequest from './Pages/SongRequest';
+import Request from './Pages/Request';
 import Shop from './Pages/Shop';
 import ProductsList from './Pages/ProductList';
 import Cart from './Pages/Cart';
@@ -227,7 +227,7 @@ function App() {
           <div>
             {/* <Link to="songs">Songs</Link> */}
             <Link to="shop">Shop</Link>
-            <Link to="songrequest">Song Request</Link>
+            <Link to="request">Request</Link>
 
             {/* ALL ADMIN PANEL Link GO HERE */}
             <AdminPanelNav/>
@@ -247,7 +247,7 @@ function App() {
         <Routes>
           
           <Route path="/" element={<Home />} />
-          <Route path="songrequest" element={<SongRequest />} />
+          <Route path="request" element={<Request />} />
           <Route path="shop" element={<Shop />} />
           <Route path="productslist" element={<ProductsList />} />
           <Route path="cart" element={<Cart />} />

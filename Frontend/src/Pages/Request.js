@@ -2,25 +2,32 @@ import React, {useState} from 'react'
 // import emailjs from '@emailjs/browser'
 
 //data sent: email, genre selection, budget, song length, packs, include project file 
-const SongRequest = () => {
+const Request = () => {
 
 
   const [hide, setHide] = useState(false);
 
   return (
     <div>
-        <h1 className="temp">Song request form</h1>
+        <h1 className="temp">Request form</h1>
         <div className="temp2">
         <div className='songrequest'>
         {  hide && 
                     <div>
-                      Your song request has been sent!<br></br>
+                      Your request has been sent!<br></br>
                       Once your request is reviewed, you will receive an email with more info 
                     </div>
         }
         {  !hide && 
                   <>
-                      <div>email, genre selection, budget, song length, packs, include project file</div>
+                      <div>
+                        email,<br></br>
+                        budget, <br></br>
+                        description, <br></br>
+                        type ( song request/ghost production, soundpack, synthpreset pack), <br></br>
+                        genre selection (for music), <br></br>
+                        
+                      </div>
                   <form onSubmit={""}>
                     <label>Name:</label> &nbsp;
                     <input type='text' name="name" className='textboxName'/>
@@ -47,4 +54,4 @@ const SongRequest = () => {
 )
 }
   
-export default SongRequest
+export default Request

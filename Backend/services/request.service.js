@@ -19,14 +19,16 @@ let getRequests =  async function(thingamabob, result) {
             objectArray.forEach(([key, value]) => {
                 arrayOfRequests.push({
                     uid: key,
-                    id: value.id,
-                    name: value.name,
-                    desc: value.desc,
-                    price: value.price,
-                    image: value.image,
-                    audio: value.audio,
-                    download: value.download,
-                    type: value.type
+                    
+                    email: value.email,
+                    budget: value.budget,
+                    description: value.description,
+                    type: value.type,
+                    genre: value.genre,
+                    soundpacktype: value.soundpacktype,
+                    synthpresetpack: value.synthpresetpack,
+                    includeproject: value.includeproject,
+                    
                 });
             });
             result(null, arrayOfRequests);
@@ -42,25 +44,6 @@ let getRequests =  async function(thingamabob, result) {
         });
 };
 
-let getSingleRequest =  async function(uid, result) {
-
-    const dbRef = ref(database);
- 
-    get(child(dbRef, `/Requests/`+uid)).then((snapshot) => {
- 
-        if (snapshot.exists()) {
-            result(null, snapshot.val());
-        } else {
-
-            console.log("No data available");
-            result(null, {error: "No data available"});
-        }
-
-        }).catch((error) => {
-            console.error(error);
-            result(error, null);
-        });
-};
 
 let addRequest =  async function(request, result) {
     const dbRef = ref(database);
@@ -71,15 +54,17 @@ let addRequest =  async function(request, result) {
         const newPostKey = push(child(dbRef, '/Requests/' + request.uid)).key;
 
         const postData = {
+
             uid: newPostKey,
-            id: request.id,
-            name: request.name,
-            desc: request.desc,
-            price: request.price,
-            image: request.image,
-            audio: request.audio,
-            download: request.download,
-            type: request.type
+                    
+            email: request.email,
+            budget: request.budget,
+            description: request.description,
+            type: request.type,
+            genre: request.genre,
+            soundpacktype: request.soundpacktype,
+            synthpresetpack: request.synthpresetpack,
+            includeproject: request.includeproject,
         };
     
         const updates = {};
@@ -91,63 +76,110 @@ let addRequest =  async function(request, result) {
         result(null, postData);
 
     }else{
-        result("Bad Request", null);
+        result("Bad Add request", null);
     }
 };
 
-let editRequest =  async function(request, result) {
-    const dbRef = ref(database);
-    //db ref - > firebase storage 
-    if(request.request != null){
-        
-        //we reuse key
 
-        const postData = {
-            uid: request.uid,
-            id: request.request.id,
-            name: request.request.name,
-            desc: request.request.desc,
-            price: request.request.price,
-            image: request.request.image,
-            audio: request.request.audio,
-            download: request.request.download,
-            type: request.request.type
-        };
-    
-        const updates = {};
 
-        updates['/Requests/'+ request.uid] = postData;
-
-        update(dbRef, updates);
- 
-        result(null, postData);
-
-    }else{
-        result("Bad Request", null);
-    }
-};
-
-let deleteRequest =  async function(requestUID, result) {
+let deleteRequest =  async function(request, result) {
     const dbRef = ref(database);
 
-    if(requestUID != null){
+    if(request != null){
         
         const postData = {};
     
         const updates = {};
 
-        updates['/Requests/'+ requestUID] = postData;
+        updates['/Requests/'+ request] = postData;
 
         update(dbRef, updates);
  
-        result(null, requestUID);
+        result(null, request);
 
     }else{
-        result("Bad comment", null);
+        result("Bad delete Request", null);
     }
 };
 
 
 
 
-export {getRequests, getSingleRequest, addRequest, editRequest, deleteRequest};
+export {getRequests, addRequest, deleteRequest};
+
+
+
+
+
+
+
+
+
+
+
+
+
+// let addRequest =  async function(request, result) {
+//     const dbRef = ref(database);
+//     //db ref - > firebase storage 
+//     if(request != null){
+        
+//         //we create a new key
+//         const newPostKey = push(child(dbRef, '/Requests/' + request.uid)).key;
+
+//         const postData = {
+//             uid: newPostKey,
+//             id: request.id,
+//             name: request.name,
+//             desc: request.desc,
+//             price: request.price,
+//             image: request.image,
+//             audio: request.audio,
+//             download: request.download,
+//             type: request.type
+//         };
+    
+//         const updates = {};
+
+//         updates['/Requests/'+ newPostKey] = postData;
+
+//         update(dbRef, updates);
+ 
+//         result(null, postData);
+
+//     }else{
+//         result("Bad Request", null);
+//     }
+// };
+
+// let editRequest =  async function(request, result) {
+//     const dbRef = ref(database);
+//     //db ref - > firebase storage 
+//     if(request.request != null){
+        
+//         //we reuse key
+
+//         const postData = {
+//             uid: request.uid,
+//             id: request.request.id,
+//             name: request.request.name,
+//             desc: request.request.desc,
+//             price: request.request.price,
+//             image: request.request.image,
+//             audio: request.request.audio,
+//             download: request.request.download,
+//             type: request.request.type
+//         };
+    
+//         const updates = {};
+
+//         updates['/Requests/'+ request.uid] = postData;
+
+//         update(dbRef, updates);
+ 
+//         result(null, postData);
+
+//     }else{
+//         result("Bad Request", null);
+//     }
+// };

@@ -9,6 +9,7 @@ import { verifyUserIsAdmin, verifyUserIsUser} from './controllers/auth.controlle
 import { getProducts, getSingleProduct, addProduct, editProduct, deleteProduct} from './controllers/product.controller.js'
 import { getUsers, getSingleUserUID, getSingleUserByAuthID, addUser, editUser, deleteUser} from './controllers/user.controller.js'
 import { getUserAllOrders, getOrders, getSingleOrder,addOrder,editOrder,deleteOrder} from './controllers/order.controller.js'
+import { getRequests, addRequest,deleteRequest } from './controllers/request.controller.js';
 
 // Express
 const bodyParser = require('body-parser');
@@ -638,3 +639,106 @@ io.on("connection", function (socket) {
     });
 
   });
+
+
+
+
+
+
+
+
+
+
+//---------------REQUESTS---------------------
+//needs to be admin to get all
+app.get("/requests",function (req,res) {
+    
+
+    let userToVerify = req.headers['user'];
+    console.log(userToVerify)
+    verifyUserIsAdmin(userToVerify, function(err, isAdmin) {
+        if (err){
+            console.log(err);
+            res.send(err);
+        }
+        else{
+            if(isAdmin){
+                getRequests(null, function(err, all_requests) {
+                    if (err){
+                        console.log(err);
+                        res.send(err);
+                    }
+                    else{
+                        res.send(all_requests);
+                    }
+                });
+            }else{
+                res.send("No access");
+            }
+        }
+    });
+});
+
+
+
+//create from requests, Only registered can make a request
+//create
+app.post("/requests",function (req,res) {
+    let userToVerify = JSON.parse(req.headers['user']);
+    console.log(userToVerify.authid);
+    let request = req.body;
+    verifyUserIsUser(userToVerify, function(err, isUser) {
+        if (err){
+            console.log(err);
+            res.send(err);
+        }
+        else{
+            if(isUser){
+                addRequest(request, function(err, responseAddRequest) {
+                    if (err){
+                        console.log(err);
+                        res.send(err);
+                    }
+                    else{
+                        res.send(responseAddRequest);
+                    }
+                });
+            }else{
+                res.send("No access");
+            }
+        }
+    });
+});
+
+
+
+//delete 
+// To delete / edit / create i need to use admin account . 
+//Thus its important to send user object with request to verify that its admin that wants to delete/edit/create !
+app.delete("/requests/:id",function(req,res) {
+    let userToVerify = req.headers['user'];
+    const id = req.params.id;
+    let request = req.body;
+    verifyUserIsAdmin(userToVerify, function(err, isAdmin) {
+        if (err){
+            console.log(err);
+            res.send(err);
+        }
+        else{
+            if(isAdmin){
+                deleteRequest(id, function(err, responseDeleteRequest) {
+                    if (err){
+                        console.log(err);
+                        res.send(err);
+                    }
+                    else{
+                        res.send(responseDeleteRequest);
+                    }
+                });
+            }else{
+                res.send("No access");
+            }
+        }
+    });
+});
+//------------------------------------------------------------------------------------request end
