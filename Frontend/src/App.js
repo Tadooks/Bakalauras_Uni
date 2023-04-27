@@ -35,6 +35,7 @@ import EditOrder from './Pages/AdminCRUD/Orders/EditOrder';
 import ProfileOrders from './Pages/ProfileOrders';
 import io from 'socket.io-client';
 import ReviewAdminPanel from './Pages/AdminCRUD/Reviews/ReviewAdminPanel';
+import RequestAdminPanel from './Pages/AdminCRUD/Request/RequestAdminPanel';
 
 function App() {
 
@@ -219,11 +220,12 @@ function App() {
         <CartContext.Provider value={cartCountValue} >
 
         <nav>
-          {/* Left */}
+          {/* Left navbar items */}
           <div>
           <Link to="/">Melonter</Link>
           </div>
-          {/* Center */}
+
+          {/* Center navbar items */}
           <div>
             {/* <Link to="songs">Songs</Link> */}
             <Link to="shop">Shop</Link>
@@ -234,7 +236,7 @@ function App() {
           
           </div>
 
-          {/* Right */}
+          {/* Right navbar items */}
           <div>
             <Cert/>
 
@@ -269,16 +271,15 @@ function App() {
           <Route path="edituser/:id" element={<EditUser/>} />
           {/* <Route path="createuser" element={<CreateUser/>} /> */}
 
-          {/* Order admin */}
-          <Route path="orderadminpanel" element={<OrderAdminPanel/>} />
           
           <Route path="editorder/:id" element={<EditOrder/>} />
           
-          {/* Review admin panel */}
-          <Route path="reviewadminpanel" element={<ReviewAdminPanel/>}/>
           
-
+          
+          {/* ------------------------PROTECTED ADMIN PANELS-------------- */}
           {/* Protected route product admin panel */}
+
+          {/* Product admin */}
           <Route 
             path="productadminpanel"
             element={
@@ -292,9 +293,23 @@ function App() {
             )} 
           />
 
-          {/* Protected route product admin panel */}
+          {/* Order admin */}
           <Route 
-            path="productadminpanel"
+            path="orderadminpanel"
+            element={
+              loading ?(
+                // <p>Loading...</p>
+                <div>Loading...</div>
+            ) : (
+              <ProtectedRouteAdmin>  
+                <OrderAdminPanel/>
+              </ProtectedRouteAdmin>
+            )} 
+          />
+         
+          {/* Review admin */}
+          <Route 
+            path="reviewadminpanel"
             element={
               loading ?(
                 // <p>Loading...</p>
@@ -305,6 +320,22 @@ function App() {
               </ProtectedRouteAdmin>
             )} 
           />
+
+          
+          {/* Request admin */}
+          <Route 
+            path="requestadminpanel"
+            element={
+              loading ?(
+                // <p>Loading...</p>
+                <div>Loading...</div>
+            ) : (
+              <ProtectedRouteAdmin>  
+                <RequestAdminPanel/>
+              </ProtectedRouteAdmin>
+            )} 
+          />
+          {/* ------------------------------------------End of protected admin-------------- */}
           
 
           <Route 

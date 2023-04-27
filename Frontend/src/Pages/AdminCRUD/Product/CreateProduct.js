@@ -60,8 +60,9 @@ const CreateProduct = () => {
           .then(response => response.json())
           .then((usefulData) => {
             //console.log(usefulData);
-            setLoading(false);
             setData(usefulData);
+            setLoading(false);
+            
           })
           .catch((e) => {
             console.error(`An error occurred: ${e}`)
