@@ -159,7 +159,7 @@ const handleAddToCart = (product) => {
                                     to={`/productdetails/${product.uid}`}
                                 >
                                     <h2>Product name: {product.name}</h2>
-                                    <h2>Product uid: {product.uid}</h2>
+                                    {/* <h2>Product uid: {product.uid}</h2> */}
                                     <div>
                                     <img className="productImg" src={product.image} alt={product.name}/>
                                     </div>

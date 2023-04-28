@@ -279,7 +279,7 @@ const Product = ({socket}) => {
             <div>Product name: {data.name}</div>
             <div>Product image: {data.image}</div>
             <div>Product description: {data.desc}</div>
-            <div>Product price: {data.price} europiniu moneys</div>
+            <div>Product price: {data.price} €</div>
             
             {showAudio && (
             <>

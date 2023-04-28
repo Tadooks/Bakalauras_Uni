@@ -44,6 +44,11 @@ function Profile() {
             {`${auth.currentUser.emailVerified}`}
             
           </p>
+
+          <Link to="/ProfileOrders">
+          My orders:
+          </Link>
+
           <p><Link to='/changepassword'>Change password</Link></p>
           <span onClick={() => {
             signOut(auth);
@@ -58,9 +63,7 @@ function Profile() {
         
       </div>
       
-      <Link to="/ProfileOrders">
-        My orders:
-      </Link>
+      
       </div>
   )
 }

@@ -171,7 +171,7 @@ console.log(user[0])
                   budget: requestBudget,
                   type: requestType,
                   description: requestDescription,
-                  genre: "",
+                  genre: "None",
                   includeproject: "No",
                   soundpacktype: "None",
                   synthpresetpack: requestSynthPresetPack
@@ -243,7 +243,7 @@ const handlePriceChange = (e) => {
                             </select>
                             
                             {/* Minimum and maximum budget */}
-                            Budget:
+                            Budget €:
                             <input 
                                 type='number' 
                                 value={requestBudget}
@@ -311,7 +311,7 @@ const handlePriceChange = (e) => {
                                 onChange={e=>setRequestDescription(e.target.value)}
                             />
 
-                            <button variant="contained" type='submit'>Create product</button>
+                            <button variant="contained" type='submit'>Send request</button>
                         </form>
                         </div>
                         
