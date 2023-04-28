@@ -411,9 +411,9 @@ function App() {
 
 
 
-      <footer className='footerbar'>
+      {/* <footer className='footerbar'>
         Footer
-      </footer>
+      </footer> */}
     </div>
   );
 }

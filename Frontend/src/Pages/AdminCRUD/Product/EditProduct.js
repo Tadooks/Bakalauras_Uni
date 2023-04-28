@@ -83,9 +83,10 @@ const EditProduct = () => {
     
 
     //------------EDIT PRODUCT (save changes button)------------
-    const handleEditProduct=(e,product)=>{
+    const handleEditProduct=(e)=>{
         e.preventDefault()
         console.log("handleEditProduct was clicked!");
+        console.log(productName);
 
         //clearing AUDIO and DOWNLOAD if type was Merch
         if(productType=="Merch"){
@@ -124,17 +125,18 @@ const EditProduct = () => {
             return;
             
         }
-        else{
-            // console.log(product);
+        else if(productType=="Audio"){
+            console.log("HELLOOOO?????????");
+            console.log(productName);
             fetch(`http://localhost:3001/products/${idFromURL}`,{
                 method: "PUT",
                 headers: {
                     'Content-type': 'application/json; charset=UTF-8',
+                    'user': auth.currentUser.uid
                 },
                 body: JSON.stringify(
                     { 
                         uid: idFromURL,
-                        id: productId,
                         name: productName,
                         desc: productDescription,
                         price: productPrice,

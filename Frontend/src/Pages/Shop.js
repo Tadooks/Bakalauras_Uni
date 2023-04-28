@@ -166,9 +166,9 @@ const handleAddToCart = (product) => {
                                     <div>
                                         <span className="productPrice">Price:{product.price}</span>
                                     </div>
-                                    <div>
+                                    {/* <div>
                                         <span className="productPrice">description: {product.desc}</span>
-                                    </div>
+                                    </div> */}
                                 </Link>
                                 
                                 <button onClick={()=> handleAddToCart(product)} className="productButton">Add To Cart</button>

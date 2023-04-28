@@ -132,7 +132,7 @@ const OrderAdminPanel = () => {
 
     const ProductsVisual=()=>{
 
-      let tempSubtotal=0;
+      let tempSubtotal=0.00;
       if(productDialogStuff){
         productDialogStuff?.map((item) => (
           tempSubtotal=item.totalprice+tempSubtotal
@@ -167,7 +167,7 @@ const OrderAdminPanel = () => {
                             <td>{item.type}</td>
                             <td>{item.amount}</td>
                             <td>{item.price} €</td>
-                            <td>{item.totalprice} €</td>
+                            <td>{item.totalprice.toFixed(2)} €</td>
                           </tr>
                         ))
                       }
@@ -226,7 +226,7 @@ const OrderAdminPanel = () => {
       item.map((temp) =>{
         totalItemSum=totalItemSum+temp.totalprice;
       })
-      return totalItemSum
+      return totalItemSum.toFixed(2);
     };
 
     return(
