@@ -588,4 +588,6 @@ a:active {
 }
 
 
-
+.vertical-line {
+  border-right: 1px solid black;
+}
