@@ -12,11 +12,11 @@ export default function AdminPanelNav() {
                 {user[0] && Object.keys(user[0]).length !== 0 && user[0].permissions == "admin"?(
                     <>
                     <div>
-                        <Link to="productadminpanel">Product Admin panel</Link>
-                        <Link to="useradminpanel">User Admin user</Link>
-                        <Link to="orderadminpanel">Order Admin panel</Link>
-                        <Link to="reviewadminpanel">Review Admin panel</Link>
-                        <Link to="requestadminpanel">Request admin panel</Link>
+                        <Link to="productadminpanel">Product panel</Link>
+                        <Link to="useradminpanel">User panel</Link>
+                        <Link to="orderadminpanel">Order panel</Link>
+                        <Link to="reviewadminpanel">Review panel</Link>
+                        <Link to="requestadminpanel">Request panel</Link>
                     </div>    
                     
                     </>

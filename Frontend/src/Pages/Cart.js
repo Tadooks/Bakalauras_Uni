@@ -84,7 +84,13 @@ const Cart = () => {
 
         var tempCart = cart;
         
-        var productIndex = cart[0].findIndex(item => item.uid === cartItem.uid);
+        var productIndex = cart[0].findIndex(item => {
+            if(item.productSize != "None"){
+                return item.productSize == cartItem.productSize && item.uid == cartItem.uid
+            }else{
+                return item.uid == cartItem.uid
+            }
+        });
         //we remove 
         console.log("Splicing this:"+ cartItem.uid);
         tempCart[0].splice(productIndex,1)
@@ -120,7 +126,13 @@ const Cart = () => {
     const handleAmountAdd=(cartItem)=>{
         console.log("amountAdded");
 
-        var productIndex = cart[0].findIndex(item => item.uid === cartItem.uid);
+        var productIndex = cart[0].findIndex(item => {
+                if(item.productSize != "None"){
+                    return item.productSize == cartItem.productSize && item.uid == cartItem.uid
+                }else{
+                    return item.uid == cartItem.uid
+                }
+            });
         console.log("amountAdd to productIndex: " + cartItem.uid);
 
 
@@ -153,7 +165,13 @@ const Cart = () => {
         
         
 
-        var productIndex = cart[0].findIndex(item => item.uid === cartItem.uid);
+        var productIndex = cart[0].findIndex(item => {
+            if(item.productSize != "None"){
+                return item.productSize == cartItem.productSize && item.uid == cartItem.uid
+            }else{
+                return item.uid == cartItem.uid
+            }
+        });
         
         var k = cart;
         console.log(cart);
@@ -266,6 +284,10 @@ const Cart = () => {
                                     <div>
                                         Name: 
                                         {cartItem.name}
+                                    </div>
+                                    <div>
+                                        Name: 
+                                        {cartItem.productSize}
                                     </div>
                                     <div>
                                         Price:

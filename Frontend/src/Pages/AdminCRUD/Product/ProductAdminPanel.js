@@ -97,6 +97,7 @@ const ProductAdminPanel = () => {
                       <tr>
                         <th>Firebase uid</th>
                         <th>Product name</th>
+
                         <th>Price</th>
                         <th>Description</th>
                         <th>Product type</th>
@@ -111,6 +112,7 @@ const ProductAdminPanel = () => {
                           <tr key={product.id}>
                             <td>{product.uid}</td>
                             <td>{product.name}</td>
+
                             <td>{product.price}</td>
                             <td>{product.desc}</td>
                             <td>{product.type}</td>

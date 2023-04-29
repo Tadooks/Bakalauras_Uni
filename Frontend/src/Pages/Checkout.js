@@ -340,6 +340,10 @@ const Checkout=()=> {
                                             {cartItem.name}
                                         </div>
                                         <div>
+                                            Size: 
+                                            {cartItem.productSize}
+                                        </div>
+                                        <div>
                                             Price:
                                             {tempCartSum=(cartItem.price*cartItem.amount).toFixed(2)} €
                                         </div>

@@ -29,6 +29,7 @@ const CreateProduct = () => {
     const [productType, setProductType] = useState('Merch');
 
 
+
     const [file, setFile] = useState(null);
 
 
@@ -92,7 +93,7 @@ const CreateProduct = () => {
                         desc: productDescription,
                         price: productPrice,
                         image: productImage,
-                        audio: "none",
+                        audio: "None",
                         type: productType
 
                     }
@@ -115,7 +116,7 @@ const CreateProduct = () => {
             
         }
         //if its Audio type
-        else{
+        else if(productType=="Audio"){
             // console.log(product);
             fetch(`http://localhost:3001/products`,{
                 method: "POST",
@@ -130,6 +131,41 @@ const CreateProduct = () => {
                         price: productPrice,
                         image: productImage,
                         audio: productAudio,
+                        type: productType
+
+                    }
+                )
+            })
+            .then(response => {
+                alert('Created successfully');
+                navigate('/productadminpanel')
+            })
+            .then((usefulData) => {
+                setLoading(false);
+                setData(usefulData);
+            })
+            .catch((e) => {
+                console.error(`An error occurred: ${e}`)
+            });
+
+            
+            return;
+        }
+        else if(productType=="Misc"){
+            // console.log(product);
+            fetch(`http://localhost:3001/products`,{
+                method: "POST",
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                    'user': auth.currentUser.uid
+                },
+                body: JSON.stringify(
+                    { 
+                        name: productName,
+                        desc: productDescription,
+                        price: productPrice,
+                        image: productImage,
+                        audio: "None",
                         type: productType
 
                     }
@@ -301,6 +337,7 @@ const CreateProduct = () => {
                             <select id="product-type" name="product-type" value={productType} onChange={e => setProductType(e.target.value)}>
                                 <option selected value="Merch">Merch</option>
                                 <option value="Audio">Audio</option>
+                                <option value="Misc">Miscellaneous</option>
                             </select>
 
                             {productType == "Audio" && (

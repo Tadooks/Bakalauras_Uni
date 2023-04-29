@@ -89,6 +89,10 @@ var calculatePrice = function (product) {
                 //Total price does not work if product does not exist
                 if(!productFromDB|| productFromDB.error || product.amount < 1) reject("No product")
 
+                if(product.productSize){
+                    productFromDB.productSize =product.productSize;
+                }
+
                 productFromDB.amount = product.amount;
                 productFromDB.totalprice = productFromDB.price * product.amount;
                 productFromDB.totalprice = productFromDB.totalprice;

@@ -103,8 +103,8 @@ const EditProduct = () => {
                         desc: productDescription,
                         price: productPrice,
                         image: productImage,
-                        audio: "none",
-                        type: productType
+                        audio: "None",
+                        type: productType,
 
                     }
                 )
@@ -126,8 +126,6 @@ const EditProduct = () => {
             
         }
         else if(productType=="Audio"){
-            console.log("HELLOOOO?????????");
-            console.log(productName);
             fetch(`http://localhost:3001/products/${idFromURL}`,{
                 method: "PUT",
                 headers: {
@@ -142,7 +140,7 @@ const EditProduct = () => {
                         price: productPrice,
                         image: productImage,
                         audio: productAudio,
-                        type: productType
+                        type: productType,
 
                     }
                 )
@@ -158,10 +156,44 @@ const EditProduct = () => {
             .catch((e) => {
                 console.error(`An error occurred: ${e}`)
             });
-
         
             return;
         }
+        else if(productType=="Misc"){
+            fetch(`http://localhost:3001/products/${idFromURL}`,{
+                method: "PUT",
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                    'user': auth.currentUser.uid
+                },
+                body: JSON.stringify(
+                    { 
+                        uid: idFromURL,
+                        name: productName,
+                        desc: productDescription,
+                        price: productPrice,
+                        image: productImage,
+                        audio: "None",
+                        type: productType,
+
+                    }
+                )
+            })
+            .then(response => {
+                alert('Edited successfully');
+                navigate('/productadminpanel')
+            })
+            .then((usefulData) => {
+                setLoading(false);
+                setData(usefulData);
+            })
+            .catch((e) => {
+                console.error(`An error occurred: ${e}`)
+            });
+        
+            return;
+        }
+        
         
     }
     //------------------------------------
@@ -304,7 +336,9 @@ const EditProduct = () => {
                             <select id="product-type" name="product-type" value={productType} onChange={e => setProductType(e.target.value)}>
                                 <option value="Merch">Merch</option>
                                 <option value="Audio">Audio</option>
+                                <option value="Misc">Miscellaneous</option>
                             </select>
+                            
 
                             {productType == "Audio" && (
                             <>

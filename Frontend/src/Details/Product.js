@@ -25,6 +25,7 @@ const Product = ({socket}) => {
     //visual cart change
     const { cartCount, setCartCount } = useContext(CartContext);
     
+    const [productSize, setProductSize] = useState('None');
     
     //cart data
     //if cart is empty 
@@ -89,11 +90,30 @@ const Product = ({socket}) => {
     const handleAddToCart = (product) => {
 
         
-        if (cart[0].some((tempCart2) => tempCart2.uid == product.uid))//why? Checks for duplicates i guess, if theres a duplicate, +1 to amount, if not a new object is created.
+        if (cart[0].some((tempCart2) => {
+            if(productSize != "None"){
+                console.log(productSize);
+                return productSize == tempCart2.productSize && tempCart2.uid == product.uid
+            }else{
+                console.log(productSize);
+                return tempCart2.uid == product.uid
+            }
+        }))//why? Checks for duplicates i guess, if theres a duplicate, +1 to amount, if not a new object is created.
         {
             //1. find product index inside cart, 2. get product based on index 3. product amount ++ 4. set cart with increased product.
             console.log("non-unique click");
-            var productIndex = cart[0].findIndex(item => item.uid === product.uid);
+            var productIndex = cart[0].findIndex(item => {
+                if(productSize != "None"){
+                    console.log(product);
+                    return productSize == item.productSize && item.uid == product.uid
+                }else{
+                    console.log(productSize);
+                    return item.uid == product.uid
+                }
+            });
+            if(productSize != "None"){
+                product.productSize = productSize;
+            }
             var k = cart;
             var n = k[0][productIndex];
     
@@ -123,13 +143,17 @@ const Product = ({socket}) => {
         }
         else
         {
+
+            const clone = {...product}
             //setting first cart value.
-    
-            product.amount = 1;
+            if(productSize != "None"){
+                clone.productSize = productSize;
+            }
+            clone.amount = 1;
             var tempCart = cart;
             
             //we push product into first array
-            tempCart[0].push(product);
+            tempCart[0].push(clone);
             
     
             
@@ -149,7 +173,7 @@ const Product = ({socket}) => {
             window.localStorage.setItem("cartVisualCount", c)
             //---------------------------------------
     
-            toast(product.name+" was added to the cart!", {
+            toast(clone.name+" was added to the cart!", {
                 position: toast.POSITION.BOTTOM_RIGHT,
                 className: 'foo-bar'
             });
@@ -280,9 +304,20 @@ const Product = ({socket}) => {
             <div>Product image: {data.image}</div>
             <div>Product description: {data.desc}</div>
             <div>Product price: {data.price} €</div>
+            {data.type == "Merch" && (
+                <>
+                Merch size:
+                <select id="product-type" name="product-type" value={productSize} onChange={e => setProductSize(e.target.value)}>
+                    <option default disabled value="None">Please select size</option>
+                    <option value="Extra Small">Extra Small</option>
+                    <option value="Small">Small</option>
+                    <option value="Medium">Medium</option>
+                    <option value="Large">Large</option>
+                    <option value="Extra Large">Extra Large</option>
+                </select>
+                </>
+            )}
             
-            {console.log("DATA AUDIO CIA !!!!!!!!!!!!!!")}
-            {console.log(data.audio)}
             {data.audio !="none" && (
             <>
             Audio Preview:

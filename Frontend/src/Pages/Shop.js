@@ -145,6 +145,7 @@ const handleAddToCart = (product) => {
             <h1>Music shop!</h1>
             Filter
             Sort
+            Vienas array visi, kitas array kur displayinu ir filter,sort
             {loading ?(
                 <p>Loading...</p>
             ) : error ? (
@@ -171,7 +172,7 @@ const handleAddToCart = (product) => {
                                     </div> */}
                                 </Link>
                                 
-                                <button onClick={()=> handleAddToCart(product)} className="productButton">Add To Cart</button>
+                                {/* <button onClick={()=> handleAddToCart(product)} className="productButton">Add To Cart</button> */}
                                 
                             </div>
                         ))}

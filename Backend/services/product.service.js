@@ -26,7 +26,6 @@ let getProducts =  async function(thingamabob, result) {
                     image: value.image,
                     audio: value.audio,
                     type: value.type,
-                    size: value.size
                 });
             });
             result(null, arrayOfProducts);
@@ -78,7 +77,6 @@ let addProduct =  async function(product, result) {
             image: product.image,
             audio: product.audio,
             type: product.type,
-            size: product.size
         };
     
         const updates = {};
@@ -109,7 +107,6 @@ let editProduct =  async function(product, result) {
             image: product.product.image,
             audio: product.product.audio,
             type: product.product.type,
-            size: product.product.size
         };
     
         const updates = {};

@@ -154,6 +154,7 @@ const OrderAdminPanel = () => {
                         <th>Name</th>
                         <th>Type</th>
                         <th>Amount</th>
+                        <th>Size</th>
                         <th>Single product price</th>
                         <th>Combined price</th>
                         
@@ -166,6 +167,7 @@ const OrderAdminPanel = () => {
                             <td>{item.name}</td>
                             <td>{item.type}</td>
                             <td>{item.amount}</td>
+                            <td>{item.productSize}</td>
                             <td>{item.price} €</td>
                             <td>{item.totalprice.toFixed(2)} €</td>
                           </tr>
@@ -173,7 +175,7 @@ const OrderAdminPanel = () => {
                       }
                     </tbody>
             </table>
-            Subtotal of all products: {tempSubtotal} €
+            Subtotal of all products: {tempSubtotal.toFixed(2)} €
         </Dialog>
       </>
       );

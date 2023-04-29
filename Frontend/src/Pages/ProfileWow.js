@@ -5,8 +5,6 @@ import { AuthContext } from './AuthContextNew';
 
 export default function ProfileNew() {
     const { user } = useContext(AuthContext);
-    console.log(user[0])
-    console.log(Object.keys(user[0]).length)
     return (
             <div>
                 {user[0] && Object.keys(user[0]).length !== 0?(

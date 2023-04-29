@@ -138,6 +138,7 @@ const ProfileOrders = () => {
                         <th>Name</th>
                         <th>Type</th>
                         <th>Amount</th>
+                        <th>Size</th>
                         <th>Single product price</th>
                         <th>Combined price</th>
                         
@@ -150,14 +151,15 @@ const ProfileOrders = () => {
                             <td>{item.name}</td>
                             <td>{item.type}</td>
                             <td>{item.amount}</td>
+                            <td>{item.productSize}</td>
                             <td>{item.price} €</td>
-                            <td>{item.totalprice} €</td>
+                            <td>{item.totalprice.toFixed(2)} €</td>
                           </tr>
                         ))
                       }
                     </tbody>
             </table>
-            Subtotal of all products: {tempSubtotal} €
+            Subtotal of all products: {tempSubtotal.toFixed(2)} €
         </Dialog>
       </>
       );
@@ -210,7 +212,7 @@ const ProfileOrders = () => {
       item.map((temp) =>{
         totalItemSum=totalItemSum+temp.totalprice;
       })
-      return totalItemSum
+      return totalItemSum.toFixed(2)
     };
 
 
