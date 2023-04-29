@@ -7,6 +7,12 @@ import { DataGrid,
   GridToolbarExport,
   GridToolbarDensitySelector } from '@mui/x-data-grid';
 
+  import { DataGridPro,GridToolbarContainer,
+    GridToolbarColumnsButton,
+    GridToolbarFilterButton,
+    GridToolbarExport,
+    GridToolbarDensitySelector } from '@mui/x-data-grid-pro';
+
 
 import { Link } from "react-router-dom";
 import { Button } from "@mui/material";
@@ -96,7 +102,13 @@ const ProductAdminPanel = () => {
       { field: 'id', headerName: 'Count', width: 120 },
       { field: 'uid', headerName: 'Firebase uid', width: 210 },
       { field: 'name', headerName: 'Product name', width: 200 },
-      { field: 'price', headerName: 'Price', type: 'number', width: 200 },
+      { 
+        field: 'price', 
+        headerName: 'Price', 
+        type: 'number', 
+        width: 200,
+        valueFormatter: ({ value }) => `${value} €` 
+      },
       { field: 'desc', headerName: 'Description',  width: 200},
       { field: 'type', headerName: 'Product type', width: 200},
       { field: 'image', headerName: 'Image', width: 200},
@@ -129,6 +141,9 @@ const ProductAdminPanel = () => {
         <GridToolbarFilterButton />
         <GridToolbarDensitySelector />
         <GridToolbarExport />
+        <Link to='/createproduct'>
+          <Button>Add product</Button>
+        </Link>
       </GridToolbarContainer>
     );
   }
@@ -141,7 +156,7 @@ console.log(displayData);
         <div style={{ color: 'white'}}>
 
             <Link to='/createproduct'>
-                <button>Add product</button>
+                <Button>Add product</Button>
             </Link>
             {/* when empty this will get stuck on loading. */}
             {loading ?(
@@ -159,6 +174,7 @@ console.log(displayData);
                   pageSize={10}
                   rowsPerPageOptions={[10]}
                   slots={{ toolbar: CustomToolbar }}
+                  enableColumnResize={true}
                 />
               </div>
 
