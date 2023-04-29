@@ -232,7 +232,7 @@ function App() {
             <Link to="shop">Shop</Link>
             <Link to="request">CUSTOM Request</Link>
             <Link to="infopage">Info</Link>
-
+            
             {/* ALL ADMIN PANEL Link GO HERE */}
             <AdminPanelNav/>
           
@@ -261,6 +261,7 @@ function App() {
           <Route path="forgotpassword" element={<ForgotPassword/>} />
           <Route path="changepassword" element={<ChangePassword/>} />
           <Route path="infopage" element={<InfoPage/>} />
+          <Route path="productlist" element={<ProductsList/>} />
           {/* <Route path="checkout" element={<Checkout/>} /> */}
 
           {/* Product admin */}
