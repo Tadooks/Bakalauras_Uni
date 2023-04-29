@@ -233,7 +233,7 @@ const OrderAdminPanel = () => {
 
     return(
         <div style={{ color: 'white'}}>
-
+            <h1>Orders</h1>
             {/* when empty this will get stuck on loading. */}
             {loading ?(
                 <p>Loading...</p>

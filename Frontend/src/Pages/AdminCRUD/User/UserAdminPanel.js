@@ -7,13 +7,20 @@ import { Link } from "react-router-dom";
 
 import {auth} from '../../../firebase_config'
 
-
+import { DataGrid,
+  GridToolbarContainer,
+  GridToolbarColumnsButton,
+  GridToolbarFilterButton,
+  GridToolbarExport,
+  GridToolbarDensitySelector } from '@mui/x-data-grid';
 
 
 const UserAdminPanel = () => {
 
     //Add states
 
+
+    const [displayData, setDisplayData] = useState(null);
     //----------User data states----------
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -50,6 +57,14 @@ const UserAdminPanel = () => {
         .then((usefulData) => {
           console.log(usefulData);
           setData(usefulData);
+
+          //add id number for data displays
+          const dataWithIds = usefulData.map((item, index) => {
+            return { ...item, id: index + 1 };
+          });
+          setDisplayData(dataWithIds);
+
+
           setLoading(false);
         })
         .catch((e) => {
@@ -107,6 +122,52 @@ const UserAdminPanel = () => {
 
 
 
+    var columns = [
+      
+      { field: 'id', headerName: 'Count', width: 150, cellClassName: 'vertical-line' },
+      // { field: 'uid', headerName: 'Firebase uid', width: 210, cellClassName: 'vertical-line' },
+      // { field: 'authid', headerName: 'Auth id', width: 200, cellClassName: 'vertical-line' },
+      { field: 'email', headerName: 'Email',  width: 200, cellClassName: 'vertical-line'},
+      { field: 'verified', headerName: 'Verified', width: 200, cellClassName: 'vertical-line'},
+      { field: 'permissions', headerName: 'Permissions', width: 200, cellClassName: 'vertical-line'},
+      
+    
+      {
+        field: 'actions',
+        headerName: 'Actions',
+        width: 150,
+        
+        renderCell: (params) => {
+          return (
+            <div>
+              <Link to={`/edituser/${params.row.uid}`}>
+              <Button>Edit</Button>
+              </Link>
+
+              {/* params.row gives the object */}
+              <Button onClick={() => handleDeleteUser(params.row)}>Delete</Button>
+            </div>
+          );
+        },
+        
+      },
+    ];
+
+    function CustomToolbar() {
+      return (
+        <GridToolbarContainer>
+          <GridToolbarColumnsButton />
+          <GridToolbarFilterButton />
+          <GridToolbarDensitySelector />
+          <GridToolbarExport />
+
+        </GridToolbarContainer>
+      );
+    }
+
+
+
+
 
 
 
@@ -114,7 +175,7 @@ const UserAdminPanel = () => {
 
     return(
         <div style={{ color: 'white'}}>
-
+            <h1>Users</h1>
             {/* <Link to='/createuser'>
                 <button>Add neeeew user</button>
             </Link> */}
@@ -125,52 +186,19 @@ const UserAdminPanel = () => {
                 <p>An error occured</p>
             ):(
             <>
-            
-
-            <br></br>Commands su users: ?? reikia susiet su firebase, kad keiciant keistus ir auth database
-            <br></br> Priskirt admin permissions
-            <br></br> email verification status bool
-            <table>
-                    <thead>
-                      <tr>
-                        <th>Firebase uid</th>
-                        <th>Auth id</th>
-                        <th>Email</th>
-                        <th>Verified</th>
-                        <th>Permissions</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-
-                      {console.log("Before mapping")}
-                      {console.log(data)}
-                      {Array.isArray(data) && data &&
-                        data?.map((user) => (
-                          <tr key={user.id}>
-                            <td>{user.uid}</td>
-                            <td>{user.authid}</td>
-                            <td>{user.email}</td>
-                            <td>{""+user.verified}</td>
-                            <td>{user.permissions}</td>
-
-
-
-                            <Link to={`/edituser/${user.uid}`}>
-                                <button>Edit</button>
-                            </Link>
-                            {/* <button onClick={()=>OpenEditDialogWindow(user)}>Edit</button>  */}
-                            <button onClick={()=>handleDeleteUser(user)}>Delete</button>
-                            
-                            
-
-                          </tr>
-                        ))}
-                    </tbody>
-            </table>
+              <div style={{ minheight:300, height: 700, width: '100%', background: 'rgba(255, 255, 255, 1)'}}>
+                <DataGrid style={{ }}
+                   checkboxSelection={false}
+                  rows={displayData}
+                  bulkActionButtons={false}
+                  columns={columns}
+                  pageSize={10}
+                  rowsPerPageOptions={[10]}
+                  slots={{ toolbar: CustomToolbar }}
+                />
+              </div>
 
             
-            
-
             </>
             )}
         </div>

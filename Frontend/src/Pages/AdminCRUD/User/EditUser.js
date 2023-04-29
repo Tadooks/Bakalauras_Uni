@@ -123,32 +123,31 @@ const EditUser = () => {
                 
 
                 <form onSubmit={handleEditUser} >
-                Authid:
-                <input 
+                {/* Authid:
+                {userAuthId}<br></br> */}
+                {/* <input 
                     type='text' 
                     value={userAuthId}
                     placeholder="Auth ID"
                     required
                     onChange={e=>setUserAuthId(e.target.value)}
-                />
+                /> */}
                 Email:
-                <input 
+                {userEmail}<br></br>
+                {/* <input 
                     type='text' 
                     value={userEmail}
                     placeholder="Email"
                     required
                     onChange={e=>setUserEmail(e.target.value)}
-                />
-                Verified:
-                <div>{""+ userVerified} </div>
+                /> */}
+                Verified:{""+ userVerified}<br></br>
+
                 Permissions:
-                <input 
-                    type='text' 
-                    value={userPermissions}
-                    placeholder="Permissions"
-                    required
-                    onChange={e=>setUserPermissions(e.target.value)}
-                />
+                <select id="permissions" name="permissions" value={userPermissions} onChange={e => setUserPermissions(e.target.value)}>
+                    <option value="None">None</option>
+                    <option value="admin">admin</option>
+                </select>
 
                 <Button variant="contained" type='submit'>Save changes</Button>
                 </form>

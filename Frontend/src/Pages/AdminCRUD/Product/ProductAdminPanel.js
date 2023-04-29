@@ -45,9 +45,8 @@ const ProductAdminPanel = () => {
             const dataWithIds = usefulData.map((item, index) => {
               return { ...item, id: index + 1 };
             });
-    
-
             setDisplayData(dataWithIds);
+
             setLoading(false);
           })
           .catch((e) => {
@@ -94,7 +93,7 @@ const ProductAdminPanel = () => {
 
     var columns = [
       
-      { field: 'id', headerName: 'Count', width: 80, cellClassName: 'vertical-line' },
+      { field: 'id', headerName: 'Count', width: 150, cellClassName: 'vertical-line' },
       { field: 'uid', headerName: 'Firebase uid', width: 210, cellClassName: 'vertical-line' },
       { field: 'name', headerName: 'Product name', width: 200, cellClassName: 'vertical-line' },
 
@@ -201,7 +200,7 @@ console.log(displayData);
                 <p>An error occured</p>
             ):(
             <>
-              <div style={{ height: '100%', width: '100%', background: 'rgba(255, 255, 255, 1)'}}>
+              <div style={{ height: 800, width: '100%', background: 'rgba(255, 255, 255, 1)'}}>
                 <DataGrid style={{ }}
                    checkboxSelection={false}
                   rows={displayData}
@@ -210,7 +209,6 @@ console.log(displayData);
                   pageSize={10}
                   rowsPerPageOptions={[10]}
                   slots={{ toolbar: CustomToolbar }}
-                  enableColumnResize={true}
                 />
               </div>
 
