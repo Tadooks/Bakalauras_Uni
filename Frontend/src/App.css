@@ -60,7 +60,7 @@ body{
   min-width: 25%;
   text-align: center;
   padding: 10px;
-
+  /* box-shadow: 3px 3px 15px rgba(239, 11, 247, 0.5); */
 }
 
 
@@ -74,6 +74,7 @@ tag and Course component nav element anchor tag */
   text-transform: uppercase;
   text-decoration: none;
   color: #ffffff;
+  
 }
 
 

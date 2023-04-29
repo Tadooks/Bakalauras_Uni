@@ -84,6 +84,7 @@ const Cart = () => {
 
         var tempCart = cart;
         
+        //--------Setting clothing product size---------
         var productIndex = cart[0].findIndex(item => {
             if(item.productSize != "None"){
                 return item.productSize == cartItem.productSize && item.uid == cartItem.uid
@@ -126,6 +127,7 @@ const Cart = () => {
     const handleAmountAdd=(cartItem)=>{
         console.log("amountAdded");
 
+        //--------Setting clothing product size---------
         var productIndex = cart[0].findIndex(item => {
                 if(item.productSize != "None"){
                     return item.productSize == cartItem.productSize && item.uid == cartItem.uid
@@ -164,7 +166,7 @@ const Cart = () => {
         console.log("amountRemove");
         
         
-
+        //--------Setting clothing product size---------
         var productIndex = cart[0].findIndex(item => {
             if(item.productSize != "None"){
                 return item.productSize == cartItem.productSize && item.uid == cartItem.uid

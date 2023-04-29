@@ -79,6 +79,7 @@ let addOrder = async function(request, response) {
     });
 };
 
+//calculate price AND setting product.productSize in the products object that gets added from cart
 var calculatePrice = function (product) {
     return new Promise(function (resolve, reject) {
   
@@ -89,6 +90,7 @@ var calculatePrice = function (product) {
                 //Total price does not work if product does not exist
                 if(!productFromDB|| productFromDB.error || product.amount < 1) reject("No product")
 
+                //!!! for setting product merch size !!! from frontend to backend for later use for admin for panels and stuff
                 if(product.productSize){
                     productFromDB.productSize =product.productSize;
                 }

@@ -113,7 +113,7 @@ const ProductAdminPanel = () => {
                             <td>{product.uid}</td>
                             <td>{product.name}</td>
 
-                            <td>{product.price}</td>
+                            <td>{product.price} €</td>
                             <td>{product.desc}</td>
                             <td>{product.type}</td>
                             <td><a href={product.image}>{product.image}</a></td>

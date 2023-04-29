@@ -91,6 +91,8 @@ const Product = ({socket}) => {
 
         
         if (cart[0].some((tempCart2) => {
+
+            //--------Setting clothing product size---------
             if(productSize != "None"){
                 console.log(productSize);
                 return productSize == tempCart2.productSize && tempCart2.uid == product.uid
@@ -98,11 +100,16 @@ const Product = ({socket}) => {
                 console.log(productSize);
                 return tempCart2.uid == product.uid
             }
-        }))//why? Checks for duplicates i guess, if theres a duplicate, +1 to amount, if not a new object is created.
+            //---------------------------------------------
+
+        }))
         {
             //1. find product index inside cart, 2. get product based on index 3. product amount ++ 4. set cart with increased product.
             console.log("non-unique click");
             var productIndex = cart[0].findIndex(item => {
+
+
+                //--------Setting clothing product size---------
                 if(productSize != "None"){
                     console.log(product);
                     return productSize == item.productSize && item.uid == product.uid
@@ -110,6 +117,9 @@ const Product = ({socket}) => {
                     console.log(productSize);
                     return item.uid == product.uid
                 }
+                //---------------------------------------------
+
+
             });
             if(productSize != "None"){
                 product.productSize = productSize;
