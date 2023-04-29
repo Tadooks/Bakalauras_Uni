@@ -1,10 +1,13 @@
 import * as React from 'react';
-// import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
+import { DataGrid,
+  GridToolbarContainer,
+  GridToolbarColumnsButton,
+  GridToolbarFilterButton,
+  GridToolbarExport,
+  GridToolbarDensitySelector } from '@mui/x-data-grid';
 // import Button from '@mui/material-ui/core/Button';
-// import Dialog from '@material-ui/core/Dialog';
-// import DialogTitle from '@material-ui/core/DialogTitle';
-// import DialogContent from '@material-ui/core/DialogContent';
-// import DialogActions from '@material-ui/core/DialogActions';
+
+
 
 // Admin crud panel for deleting adding editing products.
 
@@ -32,6 +35,18 @@ var columns = [
     },
 ];
 
+function CustomToolbar() {
+  return (
+    <GridToolbarContainer>
+      <GridToolbarColumnsButton />
+      <GridToolbarFilterButton />
+      <GridToolbarDensitySelector />
+      <GridToolbarExport />
+    </GridToolbarContainer>
+  );
+}
+
+
 
 const rows = [
   { id: 1, lastName: 'Snow', firstName: 'Jon', age: 35 },
@@ -44,18 +59,21 @@ const rows = [
   { id: 8, lastName: 'Frances', firstName: 'Rossini', age: 36 },
   { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
 ];
-
+console.log("Pavyzdys columns");
+console.log(columns);
+console.log("Pavyzdys rows");
+console.log(rows);
 export default function ProductsList() {
   return (
     <div style={{ height: 400, width: '100%', background: 'white'}}>
-      {/* <DataGrid style={{ }}
+      <DataGrid style={{ }}
         rows={rows}
         columns={columns}
         pageSize={5}
         rowsPerPageOptions={[5]}
         checkboxSelection
-      /> */}
-      Labas
+        slots={{ toolbar: CustomToolbar }}
+      />
     </div>
   );
 }
