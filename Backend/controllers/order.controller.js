@@ -91,6 +91,7 @@ var calculatePrice = function (product) {
 
                 productFromDB.amount = product.amount;
                 productFromDB.totalprice = productFromDB.price * product.amount;
+                productFromDB.totalprice = productFromDB.totalprice;
                 resolve(productFromDB)
             }
         });
