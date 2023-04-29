@@ -36,6 +36,7 @@ import ProfileOrders from './Pages/ProfileOrders';
 import io from 'socket.io-client';
 import ReviewAdminPanel from './Pages/AdminCRUD/Reviews/ReviewAdminPanel';
 import RequestAdminPanel from './Pages/AdminCRUD/Request/RequestAdminPanel';
+import InfoPage from './Pages/InfoPage';
 
 function App() {
 
@@ -229,7 +230,8 @@ function App() {
           <div>
             {/* <Link to="songs">Songs</Link> */}
             <Link to="shop">Shop</Link>
-            <Link to="request">Request</Link>
+            <Link to="request">CUSTOM Request</Link>
+            <Link to="infopage">Info</Link>
 
             {/* ALL ADMIN PANEL Link GO HERE */}
             <AdminPanelNav/>
@@ -251,7 +253,6 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="request" element={<Request />} />
           <Route path="shop" element={<Shop />} />
-          <Route path="productslist" element={<ProductsList />} />
           <Route path="cart" element={<Cart />} />
           <Route path="productdetails/:id" element={<Product socket={socket}/>} />
           <Route path="login" element={<Login/>} />
@@ -259,6 +260,7 @@ function App() {
           <Route path="verifyemail" element={<VerifyEmail/>} />
           <Route path="forgotpassword" element={<ForgotPassword/>} />
           <Route path="changepassword" element={<ChangePassword/>} />
+          <Route path="infopage" element={<InfoPage/>} />
           {/* <Route path="checkout" element={<Checkout/>} /> */}
 
           {/* Product admin */}

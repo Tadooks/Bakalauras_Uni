@@ -231,8 +231,13 @@ const ProfileOrders = () => {
             ):(
             <>
             {console.log(data)}
-            You will receive your product once your payment is received<br></br>
-            Send the money here and please write the order number you are paying for
+            After every order you make, you will receive a order confirmation email which will include payment information.
+            <Link to='/InfoPage'>
+              MORE INFO
+            </Link>
+            <b>Please write your order number what you are paying for</b><br></br><br></br>
+            If you are having trouble with your order, contact support here: tadastadas81@gmail.com
+            <br></br><br></br>
             <table>
                     <thead>
                       <tr>

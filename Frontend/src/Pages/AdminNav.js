@@ -8,15 +8,16 @@ export default function AdminPanelNav() {
     console.log(user[0])
     console.log(Object.keys(user[0]).length)
     return (
-            <div>
+            <div className="AdminNav">
                 {user[0] && Object.keys(user[0]).length !== 0 && user[0].permissions == "admin"?(
                     <>
-                        <Link to="productslist">Product list</Link>
+                    <div>
                         <Link to="productadminpanel">Product Admin panel</Link>
                         <Link to="useradminpanel">User Admin user</Link>
                         <Link to="orderadminpanel">Order Admin panel</Link>
                         <Link to="reviewadminpanel">Review Admin panel</Link>
                         <Link to="requestadminpanel">Request admin panel</Link>
+                    </div>    
                     
                     </>
                 ) :(

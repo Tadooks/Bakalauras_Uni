@@ -281,7 +281,9 @@ const Product = ({socket}) => {
             <div>Product description: {data.desc}</div>
             <div>Product price: {data.price} €</div>
             
-            {showAudio && (
+            {console.log("DATA AUDIO CIA !!!!!!!!!!!!!!")}
+            {console.log(data.audio)}
+            {data.audio !="none" && (
             <>
             Audio Preview:
                 <div>

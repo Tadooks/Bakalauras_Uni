@@ -54,7 +54,7 @@ function Register() {
             )
         })
           .then(response => {
-            alert('Created successfully');
+            alert('Created successfully, please verify your email!');
           })
           .catch((e) => {
             console.error(`An error occurred: ${e}`)
