@@ -33,7 +33,7 @@ let get_all_for_product_reviews =  async function(reviewData, result) {
             objectArray.forEach(([key, value]) => {
                 arrayOfReviews.push({
                     reviewID: key,
-                    authid: value.authid,
+                    // authid: value.authid,
                     name: value.name,
                     rating: value.rating,
                     review: value.review,
@@ -66,7 +66,7 @@ let add_review =  async function(review, result) {
         const postData = {
             productID: review.productID,
             reviewID: newPostKey,
-            authid: review.authid,
+            // authid: review.authid,
             name: review.name,
             rating: review.rating,
             review: review.review,
@@ -84,7 +84,7 @@ let add_review =  async function(review, result) {
         result(null, {
             productID: review.productID,
             reviewID: newPostKey,
-            authid: review.authid,
+            // authid: review.authid,
             name: review.name,
             rating: review.rating,
             review: review.review,
@@ -151,7 +151,7 @@ let edit_review =  async function(review, result) {
         const postData = {
             productID: review.review.productID,
             reviewID: review.review.reviewID,
-            authid: review.review.authid,
+            // authid: review.review.authid,
             name: review.review.name,
             rating: review.review.rating,
             review: review.review.review,
