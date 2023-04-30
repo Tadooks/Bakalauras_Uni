@@ -221,9 +221,9 @@ const handlePriceChange = (e) => {
 
 
 
-
+// style="color: white; display: flex; align-items: center; justify-content: center;"
   return (
-    <div>
+    <div >
         <h1 className="temp">Request form</h1>
         <div className="temp2">
         <div className='songrequest'>

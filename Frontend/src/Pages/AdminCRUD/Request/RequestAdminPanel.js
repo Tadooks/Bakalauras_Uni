@@ -7,7 +7,12 @@ import { Link } from "react-router-dom";
 
 import {auth} from '../../../firebase_config'
 
-
+import { DataGrid,
+  GridToolbarContainer,
+  GridToolbarColumnsButton,
+  GridToolbarFilterButton,
+  GridToolbarExport,
+  GridToolbarDensitySelector } from '@mui/x-data-grid';
 
 
 const RequestAdminPanel = () => {
@@ -21,6 +26,8 @@ const RequestAdminPanel = () => {
     //---------------------------------------
 
     const [refresh,setRefresh] = useState(false);
+
+    const [displayData, setDisplayData] = useState(null);
 
 
     ///------------part of get
@@ -50,6 +57,14 @@ const RequestAdminPanel = () => {
         .then((usefulData) => {
           console.log(usefulData);
           setData(usefulData);
+
+          //add id number for data displays
+          const dataWithIds = usefulData.map((item, index) => {
+            return { ...item, id: index + 1 };
+          });
+          setDisplayData(dataWithIds);
+
+
           setLoading(false);
         })
         .catch((e) => {
@@ -64,7 +79,7 @@ const RequestAdminPanel = () => {
     }, [refresh]);
     // //------------------------------------------
 
-
+    
     
     const handleDeleteRequest=(request)=>{
         console.log("handleDeleteRequest was clicked!");
@@ -106,15 +121,57 @@ const RequestAdminPanel = () => {
 
 
 
+    var columns = [
+      
+      { field: 'id', headerName: 'Count',  flex: 1,minWidth: 250, cellClassName: 'vertical-line' },
+      { field: 'email', headerName: 'Email',  flex: 1,minWidth: 250, cellClassName: 'vertical-line' },
+      { 
+        field: 'budget', 
+        headerName: 'Budget', 
+        type: 'number', 
+        flex: 1,minWidth: 250,
+        valueFormatter: ({ value }) => `${value} €`,
+        cellClassName: 'vertical-line'
+      },
+      { field: 'type', headerName: 'Type',  flex: 1, minWidth: 250, cellClassName: 'vertical-line' },
+      { field: 'description', headerName: 'Description',  flex: 1, minWidth: 250, cellClassName: 'vertical-line' },
+      { field: 'genre', headerName: 'Genre',  flex: 1, minWidth: 250, cellClassName: 'vertical-line' },
+      { field: 'synthpresetpack', headerName: 'Synth Preset Pack',  flex: 1, minWidth: 250, cellClassName: 'vertical-line' },
+      { field: 'includeproject', headerName: 'Include project',  flex: 1, minWidth: 250, cellClassName: 'vertical-line' },
+      
+      {
+        field: 'actions',
+        headerName: 'Actions',
+        flex: 1,minWidth: 250,
+        
+        renderCell: (params) => {
+          return (
+            <div>
+              <Button onClick={() => handleDeleteRequest(params.row)}>Delete</Button>
+            </div>
+          );
+        },
+        
+      },
+    ];
 
-
+    function CustomToolbar() {
+      return (
+        <GridToolbarContainer>
+          <GridToolbarColumnsButton />
+          <GridToolbarFilterButton />
+          <GridToolbarDensitySelector />
+          <GridToolbarExport />
+        </GridToolbarContainer>
+      );
+    }
 
 
 
 
     return(
         <div style={{ color: 'white'}}>
-
+            <h1>Requests</h1>
             {/* <Link to='/createrequest'>
                 <button>Add neeeew request</button>
             </Link> */}
@@ -125,57 +182,19 @@ const RequestAdminPanel = () => {
                 <p>An error occured</p>
             ):(
             <>
-            
-
-            <br></br>Commands su requests: ?? reikia susiet su firebase, kad keiciant keistus ir auth database
-            <br></br> Priskirt admin permissions
-            <br></br> email verification status bool
-            <table>
-                    <thead>
-                      <tr>
-                        <th>Firebase uid</th>
-                        <th>Email</th>
-                        <th>Budget</th>
-                        <th>Type</th>
-                        <th>Description</th>
-                        <th>Genre</th>
-                        <th>Sound pack type</th>
-                        <th>Synth preset pack</th>
-                        <th>Include project</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-
-                      {console.log("Before mapping")}
-                      {console.log(data)}
-                      {Array.isArray(data) && data &&
-                        data?.map((request) => (
-                          <tr>
-                            <td>{request.uid}</td>
-                            <td>{request.email}</td>
-                            <td>{request.budget}</td>
-                            <td>{request.type}</td>
-                            <td>{request.description}</td>
-                            <td>{request.genre}</td>
-                            <td>{request.soundpacktype}</td>
-                            <td>{request.synthpresetpack}</td>
-                            <td>{request.includeproject}</td>
-                            
-                            
-
-
-                            <button onClick={()=>handleDeleteRequest(request)}>Delete</button>
-                            
-                            
-
-                          </tr>
-                        ))}
-                    </tbody>
-            </table>
+              <div style={{ height: 800, width: '100%', background: 'rgba(255, 255, 255, 1)'}}>
+                <DataGrid style={{ }}
+                   checkboxSelection={false}
+                  rows={displayData}
+                  bulkActionButtons={false}
+                  columns={columns}
+                  pageSize={10}
+                  rowsPerPageOptions={[10]}
+                  slots={{ toolbar: CustomToolbar }}
+                />
+              </div>
 
             
-            
-
             </>
             )}
         </div>

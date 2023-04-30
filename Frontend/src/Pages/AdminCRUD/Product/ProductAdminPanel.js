@@ -93,25 +93,25 @@ const ProductAdminPanel = () => {
 
     var columns = [
       
-      { field: 'id', headerName: 'Count', width: 150, cellClassName: 'vertical-line' },
-      { field: 'uid', headerName: 'Firebase uid', width: 210, cellClassName: 'vertical-line' },
-      { field: 'name', headerName: 'Product name', width: 200, cellClassName: 'vertical-line' },
+      { field: 'id', headerName: 'Count',  flex: 1,minWidth: 200, cellClassName: 'vertical-line' },
+      { field: 'uid', headerName: 'Firebase uid',  flex: 1,minWidth: 210, cellClassName: 'vertical-line' },
+      { field: 'name', headerName: 'Product name',  flex: 1,minWidth: 150, cellClassName: 'vertical-line' },
 
       { 
         field: 'price', 
         headerName: 'Price', 
         type: 'number', 
-        width: 120,
+        flex: 1,minWidth: 90,
         valueFormatter: ({ value }) => `${value} €`,
         cellClassName: 'vertical-line'
       },
 
-      { field: 'desc', headerName: 'Description',  width: 200, cellClassName: 'vertical-line'},
-      { field: 'type', headerName: 'Product type', width: 200, cellClassName: 'vertical-line'},
+      { field: 'desc', headerName: 'Description',   flex: 1,minWidth: 250, cellClassName: 'vertical-line'},
+      { field: 'type', headerName: 'Product type',  flex: 1,minWidth: 250, cellClassName: 'vertical-line'},
       { 
         field: 'image', 
         headerName: 'Image', 
-        width: 70, 
+        flex: 1,minWidth: 100, 
         cellClassName: 'vertical-line',
         renderCell: (params) => (
           
@@ -123,7 +123,7 @@ const ProductAdminPanel = () => {
       {
         field: 'audio', 
         headerName: 'Audio', 
-        width: 350, 
+        flex: 1,minWidth: 200, 
         cellClassName: 'vertical-line',
         renderCell: (params) => {
           if (params.value != "None") {
@@ -148,7 +148,7 @@ const ProductAdminPanel = () => {
       {
         field: 'actions',
         headerName: 'Actions',
-        width: 150,
+        flex: 1,minWidth: 250,
         
         renderCell: (params) => {
           return (
@@ -188,10 +188,7 @@ console.log(displayData);
 
     return(
         <div style={{ color: 'white'}}>
-{/* 
-            <Link to='/createproduct'>
-                <Button>Add product</Button>
-            </Link> */}
+
             {/* when empty this will get stuck on loading. */}
             <h1>Products</h1>
             {loading ?(
@@ -200,8 +197,11 @@ console.log(displayData);
                 <p>An error occured</p>
             ):(
             <>
-              <div style={{ height: 800, width: '100%', background: 'rgba(255, 255, 255, 1)'}}>
-                <DataGrid style={{ }}
+              <div style={{ height: 800, width: '100%'}}>
+                <DataGrid style={{ 
+                  background: 'rgba(255, 255, 255, 1)',
+                  color: '#333'
+                }}
                    checkboxSelection={false}
                   rows={displayData}
                   bulkActionButtons={false}

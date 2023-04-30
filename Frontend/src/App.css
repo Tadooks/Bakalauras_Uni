@@ -9,7 +9,7 @@ html{
 body{
   margin: 0;
   font-family: Arial;
-  background: linear-gradient(-40deg,#6e127a,#000) fixed;
+  background: linear-gradient(-0deg,#2b0031,#000) fixed;
   height: 100%;
   min-height: 100%;
   /* background: linear-gradient(-40deg,#6e127a,#000); */
@@ -56,7 +56,7 @@ body{
   /* background-size: 100% auto; */
   display: flex;
   justify-content: space-between;
-  background: #33003994;
+  background: #2a002f94;
   min-width: 25%;
   text-align: center;
   padding: 10px;

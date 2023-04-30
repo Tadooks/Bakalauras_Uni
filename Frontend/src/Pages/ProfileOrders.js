@@ -5,6 +5,14 @@ import Dialog from '@material-ui/core/Dialog';
 import { Link } from "react-router-dom";
 import {auth} from '../firebase_config'
 import { AuthContext } from './AuthContextNew';
+import { Button } from "@mui/material";
+
+import { DataGrid,
+  GridToolbarContainer,
+  GridToolbarColumnsButton,
+  GridToolbarFilterButton,
+  GridToolbarExport,
+  GridToolbarDensitySelector } from '@mui/x-data-grid';
 
 const ProfileOrders = () => {
     
@@ -13,6 +21,7 @@ const ProfileOrders = () => {
     
     //if email matches, show the order
 
+    const [displayData, setDisplayData] = useState(null);
 
     //----------PRODUCT data states----------
     const [data, setData] = useState(null);
@@ -57,16 +66,14 @@ const ProfileOrders = () => {
           })
           .then(response => response.json())
           .then((usefulData) => {
-            usefulData?.map((item) => {
-                console.log(item)
-                if (item.email==user[0].email) {
-                    
-                }   
-                
-            })
-            console.log(usefulData)
 
-            setData(usefulData);
+
+            //add id number for data displays
+            const dataWithIds = usefulData.map((item, index) => {
+              return { ...item, id: index + 1 };
+            });
+            setDisplayData(dataWithIds);
+
             setLoading(false);
           })
           .catch((e) => {
@@ -130,7 +137,7 @@ const ProfileOrders = () => {
             {/* Dialog content goes here */}
             
             <button variant="contained" onClick={handleCloseProducts}>Close</button>
-            Order number:
+            Products
             <table>
                     <thead>
                       <tr>
@@ -176,7 +183,7 @@ const ProfileOrders = () => {
             {/* Dialog content goes here */}
             
             <button variant="contained" onClick={handleCloseShipping}>Close</button>
-            Order number:
+            Shipping info
             <table>
                     <thead>
                       <tr>
@@ -216,15 +223,73 @@ const ProfileOrders = () => {
     };
 
 
+    var columns = [
+      
+      { field: 'id', headerName: 'Count', flex: 1, cellClassName: 'vertical-line' },
+      { field: 'ordernumber', headerName: 'Order number', flex: 1, autoWidth: true, cellClassName: 'vertical-line' },
+      { field: 'email', headerName: 'Email', flex: 1,minWidth: 250, cellClassName: 'vertical-line' },
+      { field: 'products', headerName: 'Products', flex: 1, cellClassName: 'vertical-line',
+        renderCell: (params) => (
+              
+          <span className="clickableText" onClick={()=>OpenProductsDialog(params.row.products)}>Products</span >
+        ),
+    
+      },
+      { field: 'shippinginfo', headerName: 'Shipping info', flex: 1, cellClassName: 'vertical-line',
+        renderCell: (params) => (
+            
+          <span className="clickableText" onClick={()=>OpenShippingDialog(params.row.shippinginfo)}>Shipping info</span >
+        ),
+      },
 
 
+      // <span className="clickableText" onClick={()=>OpenShippingDialog(order.shippinginfo)}>Shipping info</span >
+      { field: 'totalprice', headerName: 'Total price', flex: 1, type: 'number', sortable: false,
+      renderCell: (params) => {
+        
+        return(
+          <>
+            {CalculateTotal(params.row.products)}
+          </>
+        );
+      },
+      cellClassName: 'vertical-line'
+      },
 
 
+      { field: 'totalproductcount', headerName: 'Total product count',type: 'number' ,flex: 1, cellClassName: 'vertical-line' },
+      { field: 'paymentstatus', headerName: 'Payment status', flex: 1, cellClassName: 'vertical-line' },
+      { field: 'deliverystatus', headerName: 'Delivery status', flex: 1, cellClassName: 'vertical-line' },
+      { field: 'orderdate', headerName: 'Order date', flex: 1, cellClassName: 'vertical-line',
+      renderCell: (params) => {
+        
+        return(
+          <>
+            {new Date(params.row.orderdate).toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric', hour:"numeric",minute:"numeric"}).replace(/([\d]+:[\d]{2})(:[\d]{2})(.*)/, "$1$3")}
+          </>
+        );
+      },
+      },
+
+
+    ];
+
+
+      function CustomToolbar() {
+        return (
+          <GridToolbarContainer>
+            <GridToolbarColumnsButton />
+            <GridToolbarFilterButton />
+            <GridToolbarDensitySelector />
+            <GridToolbarExport />
+          </GridToolbarContainer>
+        );
+      }
     
     
       return(
         <div style={{ color: 'white'}}>
-
+            <h1>My orders</h1>
             {/* when empty this will get stuck on loading. */}
             {loading ?(
                 <p>Loading...</p>
@@ -233,54 +298,26 @@ const ProfileOrders = () => {
             ):(
             <>
             {console.log(data)}
-            After every order you make, you will receive a order confirmation email which will include payment information.
+            After every order you make, you will receive a order confirmation email which will include payment information.<br></br>
             <Link to='/InfoPage'>
               MORE INFO
             </Link>
-            <b>Please write your order number what you are paying for</b><br></br><br></br>
+            <br></br>
+            <b>Please write your order number which you are paying for</b><br></br><br></br>
             If you are having trouble with your order, contact support here: tadastadas81@gmail.com
             <br></br><br></br>
-            <table>
-                    <thead>
-                      <tr>
-                        
-                        <th>Order number</th>
-                        <th>Email</th>
-                        <th>Products</th>
-                        <th>Shipping info</th>
-                        <th>Total price</th>
-                        <th>Total product count</th>
-                        <th>Payment status</th>
-                        <th>Delivery status</th>
-                        <th>Order date</th>
-                        
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {data && 
-                        data?.map((order) => (
-                          
-                          <tr key={order.id}>
-                            <td>{order.ordernumber}</td>
-                            <td>{order.email}</td>
-
-                            <td><span className="clickableText" onClick={()=>OpenProductsDialog(order.products)}>Products info</span > </td>
-                            <td><span className="clickableText" onClick={()=>OpenShippingDialog(order.shippinginfo)}>Shipping info</span > </td>
-                            
-                            
-                            <td>{CalculateTotal(order.products)} €</td>
-                            <td>{order.totalproductcount}</td>
-  
-                            <td>{order.paymentstatus}</td>
-                            <td>{order.deliverystatus}</td>
-                            <td>{new Date(order.orderdate).toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric', hour:"numeric",minute:"numeric"}).replace(/([\d]+:[\d]{2})(:[\d]{2})(.*)/, "$1$3")}</td>
-                            {/* Add the open single order  */}
-
-
-                          </tr>
-                        ))}
-                    </tbody>
-            </table>
+            <div style={{ height: 800, width: '100%', background: 'rgba(255, 255, 255, 1)'}}>
+                <DataGrid style={{ }}
+                   checkboxSelection={false}
+                  rows={displayData}
+                  bulkActionButtons={false}
+                  columns={columns}
+                  pageSize={10}
+                  rowsPerPageOptions={[10]}
+                  slots={{ toolbar: CustomToolbar }}
+                  
+                />
+            </div>
             <ProductsVisual/>
             <ShippingVisual/>
             </>

@@ -1,7 +1,13 @@
 import { firebaseDatabase } from "../../../firebase_config"
 import React,{useState, useEffect} from "react"
 
-
+import { DataGrid,
+  GridToolbarContainer,
+  GridToolbarColumnsButton,
+  GridToolbarFilterButton,
+  GridToolbarExport,
+  GridToolbarDensitySelector } from '@mui/x-data-grid';
+  import { Button } from "@mui/material";
 
 import { Link } from "react-router-dom";
 import { IconButton } from "@material-ui/core";
@@ -21,6 +27,8 @@ const ReviewAdminPanel = () => {
     //---------------------------------------
 
     const [refresh,setRefresh] = useState(false);
+
+    const [displayData, setDisplayData] = useState(null);
 
     ///------------part of get
     function getCurrentUser(auth) {
@@ -50,6 +58,32 @@ const ReviewAdminPanel = () => {
           setData(usefulData);
           console.log("DIS IS UZSEFUL ZDATA");
           console.log(usefulData);
+
+          const rows = [];
+          let idCounter = 1;
+          Object.keys(usefulData).forEach((productId) => {
+            Object.keys(usefulData[productId]).forEach((tempreviewId) => {
+              rows.push({
+                id: idCounter,
+                name: usefulData[productId][tempreviewId].name,
+                productID: usefulData[productId][tempreviewId].productID,
+                reviewID: usefulData[productId][tempreviewId].reviewID,
+                rating: usefulData[productId][tempreviewId].rating,
+                review: usefulData[productId][tempreviewId].review,
+                email: usefulData[productId][tempreviewId].email,
+              });
+              idCounter++;
+            });
+          });
+
+          //add id number for data displays
+          const dataWithIds = rows.map((item, index) => {
+            return { ...item, id: index + 1 };
+          });
+          setDisplayData(dataWithIds);
+
+
+          
           setLoading(false);
         })
         .catch((e) => {
@@ -69,8 +103,12 @@ const ReviewAdminPanel = () => {
     
     const handleDeleteReview=(tempReview)=>{
         console.log("handleDeleteReview was clicked!");
+        console.log("tempReview");
         console.log(tempReview);
-        const combineForDelete={productID: tempReview.productID,reviewID:tempReview.reviewID}
+        const combineForDelete={
+          productID: tempReview.productID,
+          reviewID:tempReview.reviewID
+        }
         console.log(combineForDelete);
         if(window.confirm("Are you sure you want to delete " + tempReview + " ?")){
             
@@ -99,54 +137,68 @@ const ReviewAdminPanel = () => {
     }
 
 
+    var columns = [
+      
+      { field: 'id', headerName: 'Count', flex: 1, minWidth: 250, cellClassName: 'vertical-line' },
+      { field: 'productID', headerName: 'Product ID', flex: 1, minWidth: 250, autoWidth: true, cellClassName: 'vertical-line' },
+      { field: 'name', headerName: 'Name', flex: 1, minWidth: 250, autoWidth: true, cellClassName: 'vertical-line' },
+      { field: 'rating', headerName: 'Rating', flex: 1, minWidth: 250, autoWidth: true, cellClassName: 'vertical-line' },
+      { field: 'review', headerName: 'Review', flex: 1, minWidth: 250, autoWidth: true, cellClassName: 'vertical-line' },
+      { field: 'email', headerName: 'Email', flex: 1, minWidth: 250, autoWidth: true, cellClassName: 'vertical-line' },
+      {
+        field: 'actions',
+        headerName: 'Actions',
+        flex: 1,minWidth: 250,
+        
+        renderCell: (params) => {
+          return (
+            <div>
+
+              {/* params.row gives the object */}
+              {console.log(params.row)}
+              <Button onClick={() => handleDeleteReview(params.row)}>Delete</Button>
+            </div>
+          );
+        },
+        
+      },
+    ];
+
+    function CustomToolbar() {
+      return (
+        <GridToolbarContainer>
+          <GridToolbarColumnsButton />
+          <GridToolbarFilterButton />
+          <GridToolbarDensitySelector />
+          <GridToolbarExport />
+        </GridToolbarContainer>
+      );
+    }
+
+
 
     return(
         <div style={{ color: 'white'}}>
-
-            
+            <h1>Reviews</h1>
             {loading ?(
                 <p>Loading...</p>
             ) : error ? (
                 <p>An error occured</p>
             ):(
-            <>
+              <>
+              <div style={{ height: 800, width: '100%', background: 'rgba(255, 255, 255, 1)'}}>
+                <DataGrid style={{ }}
+                   checkboxSelection={false}
+                  rows={displayData}
+                  bulkActionButtons={false}
+                  columns={columns}
+                  pageSize={10}
+                  rowsPerPageOptions={[10]}
+                  slots={{ toolbar: CustomToolbar }}
+                />
+              </div>
+
             
-
-            ????Search????
-            <table>
-                    <thead>
-                      <tr>
-                        <th>Name</th>
-                        <th>productID</th>
-                        <th>Rating</th>
-                        <th>Review</th>
-                        {/* <th>ReviewID</th> */}
-                        {/* <th>Visable</th> */}
-                        <th>Email</th>
-
-                      </tr>
-                    </thead>
-                    <tbody>
-
-                    {Object.keys(data).map((productId) => (
-                    Object.keys(data[productId]).map((tempreviewId) => (
-                    <tr>
-                      <td>{data[productId][tempreviewId].name}</td>
-                      {/* <td>{data[productId][tempreviewId].reviewID}</td> */}
-                      <td>{data[productId][tempreviewId].productID}</td>
-                      <td>{data[productId][tempreviewId].rating}</td>
-                      <td>{data[productId][tempreviewId].review}</td>
-                      {/* <td>{data[productId][tempreviewId].reviewID}</td> */}
-                      {/* <td>{data[productId][tempreviewId].visable.toString()}</td> */}
-                      <td>{data[productId][tempreviewId].email}</td>
-
-                      <button onClick={()=>handleDeleteReview(data[productId][tempreviewId])}>Delete</button>
-
-                    </tr>
-                      ))
-                    ))}
-                    </tbody>
-            </table>
             </>
             )}
         </div>
@@ -155,20 +207,3 @@ const ReviewAdminPanel = () => {
 
 export default ReviewAdminPanel;
 
-// {data && 
-//   data?.map((review) => (
-//     <tr key={review.name}>
-//       <td>{review.uid}</td>
-//       <td>{review.productID}</td>
-//       <td>{review.rating}</td>
-//       <td>{review.review}</td>
-//       <td>{review.reviewID}</td>
-//       <td>{review.visable}</td>
-
-//       {/* <button onClick={()=>OpenEditDialogWindow(review)}>Edit</button>  */}
-//       <button onClick={()=>handleDeleteReview(review)}>Delete</button>
-
-//       {/* <td>{review.image}</td> */}
-//     </tr>
-//   ))
-// }
