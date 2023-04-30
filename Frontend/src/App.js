@@ -240,6 +240,7 @@ function App() {
 
           {/* Right navbar items */}
           <div>
+            {/* Cart button and count stuff */}
             <Cert/>
 
 

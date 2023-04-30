@@ -280,12 +280,40 @@ li{
 
 
 /*---------------------SHOP CSS-------------------------*/
+
+/* filter button */
+.filterButton{
+  border: none;
+  background-color: transparent;
+  outline: none;
+  padding: 0;
+  cursor: pointer;
+  text-decoration: none;
+  color: white;
+  font-size: large;
+  font-weight: bold;
+}
+
+.filterButton:hover{
+  border: none;
+  background-color: transparent;
+  outline: none;
+  padding: 0;
+  cursor: pointer;
+  text-decoration: none;
+  color: rgb(215, 96, 219);
+  font-size:large;
+  font-weight: bold;
+}
+
 .products{
-  color:white;
+  color: white;
   display: flex;
-  justify-content: space-between;
+  justify-content: start;
   flex-wrap: wrap;
   margin-top: 2rem;
+  gap: 8rem;
+  padding: 30px;
 }
 
 .product{
@@ -295,11 +323,17 @@ li{
   padding-left: 3%;
   padding-right: 3%;
   padding-bottom: 3%;
-  box-shadow: 3px 3px 15px rgba(239, 11, 247, 0.5);
+  box-shadow: 5px 5px 55px rgba(0, 0, 0, 0.5);
+  
+}
+
+.productPrice{
+  padding: 5px;
+  text-align: center;
 }
 
 .productImg{
-  width: 80%;
+  width: 100%;
   margin-top: 1rem;
   margin-left: auto;
   margin-right: auto;
@@ -500,16 +534,17 @@ td {
   margin: 2rem 0 2rem 2rem;
   padding: 2rem;
   border: 1px solid rgb(183, 183, 183);
-  max-width: 80%;
-  width: 100%;
+  width: 250px;
+  max-width: 100%;
+  height: 400px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
   
 .ImagePreview img {
-  max-width: '300px';
-  max-height: '300px';
+  max-width: 300px;
+  max-height: 300px;
 }
 
 .preview-container {
@@ -563,17 +598,17 @@ td {
 
 
 a:link {
-  color: rgb(255, 172, 241);
+  color: rgb(255, 255, 255);
   background-color: transparent;
   text-decoration: none;
 }
 a:visited {
-  color: rgb(255, 207, 255);
+  color: rgb(255, 255, 255);
   background-color: transparent;
   text-decoration: none;
 }
 a:hover {
-  color: rgb(134, 41, 143);
+  color: rgb(251, 193, 255);
   background-color: transparent;
   text-decoration: underline;
 }
@@ -607,4 +642,9 @@ a:active {
 .DialogPopup{
   padding: 10px;
 }
+
+
+
+
+
 

@@ -1,7 +1,8 @@
 import { firebaseDatabase } from "../../../firebase_config"
 import React,{useState, useEffect} from "react"
 import { set,ref,child, Database } from "firebase/database"
-import Button from '@material-ui/core/Button';
+import { Button } from "@mui/material";
+
 import Dialog from '@material-ui/core/Dialog';
 import { Link } from "react-router-dom";
 

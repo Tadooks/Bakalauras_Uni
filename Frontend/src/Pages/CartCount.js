@@ -5,5 +5,5 @@ import {Link} from 'react-router-dom'
 
 export default function Cert() {
     const { cartCount } = useContext(CartContext);
-    return <Link to="cart">Cart count: {cartCount}  </Link>;
+    return <Link to="cart">Cart: {cartCount}  </Link>;
   }

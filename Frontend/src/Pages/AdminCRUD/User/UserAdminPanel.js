@@ -9,7 +9,7 @@ import {auth} from '../../../firebase_config'
 
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 
-import Button from '@material-ui/core/Button';
+import { Button } from "@mui/material";
 
 import { DataGrid,
   GridToolbarContainer,

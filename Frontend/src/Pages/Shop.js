@@ -6,7 +6,10 @@ import Cookies from 'universal-cookie';
 import { CartContext } from './CartContext';
 
 import { ToastContainer, toast } from 'react-toastify';
+import { Button } from "@mui/material";
 import 'react-toastify/dist/ReactToastify.css';
+
+
 //https://fkhadra.github.io/react-toastify/introduction
 
 const Shop = () => {
@@ -24,8 +27,9 @@ const Shop = () => {
     const [cart, setCart] = useState([window.localStorage.getItem("cart") ? JSON.parse(localStorage.getItem("cart")) : []]);
     //---------------------------------------
 
-
-
+    //display data for sort
+    const [displayData, setDisplayData] = useState(null);
+    const [selectedType, setSelectedType] = useState('');
     
     // //-------GET PRODUCT DATA FROM API------------
     useEffect(() => {
@@ -41,6 +45,11 @@ const Shop = () => {
             //console.log(usefulData);
             setLoading(false);
             setData(usefulData);
+
+            //setting data for displaying
+            setDisplayData(usefulData)
+            console.log(usefulData);
+
           })
           .catch((e) => {
             console.error(`An error occurred: ${e}`)
@@ -60,92 +69,32 @@ const Shop = () => {
 
     
 
-    //-------------add to cart button---------
-const handleAddToCart = (product) => {
-    
-    console.log("BRUUUUUUUUUUUUUUUUUHHHHHHHH");
-    console.log(product);
-    if (cart[0].some((tempCart2) => tempCart2.uid == product.uid))//why? Checks for duplicates i guess, if theres a duplicate, +1 to amount, if not a new object is created.
-    {
-        //1. find product index inside cart, 2. get product based on index 3. product amount ++ 4. set cart with increased product.
-        console.log("non-unique click");
-        var productIndex = cart[0].findIndex(item => item.uid === product.uid);
-        var k = cart;
-        var n = k[0][productIndex];
+//filter 
+const handleTypeClick = (type) => {
+    setSelectedType(type);
+  };
 
-        n.amount++;
-        k[0][productIndex] = n;
-        setCart(k);
-        
-        
-        console.log("Table of cart[0]:");
-        console.table(cart[0]);
-        // console.table(product);
+  const handleClearClick = () => {
+    setSelectedType('');
+  };
 
-        //setting the new cart to be saved in local storage
-        window.localStorage.setItem("cart", JSON.stringify(k))
-        console.table(window.localStorage);
-        toast(product.name+" was added to the cart!", {
-            position: toast.POSITION.BOTTOM_LEFT,
-            className: 'foo-bar'
-        });
-
-        //-------visual header cart update-------
-        const c= Number(cartCount) +1;
-        setCartCount(c)
-        window.localStorage.setItem("cartVisualCount", c)
-        //---------------------------------------
-
-        return;
-    }
-    else
-    {
-        //setting first cart value.
-        console.log("first unique click")
-
-        product.amount = 1;
-        var tempCart = cart;
-        
-        //we push product into first array
-        tempCart[0].push(product);
-        
-
-        
-        console.log("Table of tempCart[0]:")
-        console.table(tempCart[0])
-        setCart(tempCart);
-
-        
-        //setting the new cart to be saved in local storage
-        window.localStorage.setItem("cart", JSON.stringify(tempCart))
-        console.log("table window.localStorage (but non table :sadge: )")
-        console.table(window.localStorage);
-
-        //-------visual header cart update-------
-        const c= Number(cartCount) +1;
-        setCartCount(c)
-        window.localStorage.setItem("cartVisualCount", c)
-        //---------------------------------------
-
-        toast(product.name+" was added to the cart!", {
-            position: toast.POSITION.BOTTOM_RIGHT,
-            className: 'foo-bar'
-        });
-    }
-
-    console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAa");
-    console.log(data);
-    
-};
-//----------------------------------------
 
     return (
         <div style={{ color: 'white'}}>
             <ToastContainer/>
-            <h1>Music shop!</h1>
-            Filter
-            Sort
-            Vienas array visi, kitas array kur displayinu ir filter,sort
+            <h1 style={{ textAlign: 'center' }}>Shop</h1>
+            <div style={{ textAlign: 'center' }}>
+            <h2>
+                <button className='filterButton' onClick={() => handleClearClick()} >All</button>  
+                &nbsp; &nbsp; &nbsp; &nbsp; 
+                <button className='filterButton'   onClick={() => handleTypeClick('Clothing')} >Clothing</button>  
+                &nbsp; &nbsp; &nbsp; &nbsp; 
+                <button className='filterButton'  onClick={() => handleTypeClick('Misc')} > Misc </button>
+                &nbsp; &nbsp; &nbsp; &nbsp;  
+                <button className='filterButton'  onClick={() => handleTypeClick('Audio')} >Audio </button>
+
+            </h2>
+            </div>
             {loading ?(
                 <p>Loading...</p>
             ) : error ? (
@@ -153,29 +102,22 @@ const handleAddToCart = (product) => {
             ):(
             <>
                 <div className="products">
-                    {data && 
-                        data?.map((product) => (
-                            <div key={product.uid} className="product">
-                                <Link
-                                    to={`/productdetails/${product.uid}`}
-                                >
-                                    <h2>Product name: {product.name}</h2>
-                                    {/* <h2>Product uid: {product.uid}</h2> */}
-                                    <div>
-                                    <img className="productImg" src={product.image} alt={product.name}/>
-                                    </div>
-                                    <div>
-                                        <span className="productPrice">Price:{product.price}</span>
-                                    </div>
-                                    {/* <div>
-                                        <span className="productPrice">description: {product.desc}</span>
-                                    </div> */}
-                                </Link>
-                                
-                                {/* <button onClick={()=> handleAddToCart(product)} className="productButton">Add To Cart</button> */}
-                                
+                {displayData &&
+                    displayData
+                    .filter((product) => !selectedType || product.type == selectedType) // Filter products by selected type
+                    .map((product) => (
+                        <div key={product.uid} className="product">
+                        <Link className="productCard" to={`/productdetails/${product.uid}`}>
+                            <h2 style={{ textAlign: 'center' }}>{product.name}</h2>
+                            <div>
+                            <img className="productImg" src={product.image} alt={product.name} />
                             </div>
-                        ))}
+                            <div className="productPrice">
+                            <span>{product.price} € </span>
+                            </div>
+                        </Link>
+                        </div>
+                    ))}
                 </div>
             </>
             )}

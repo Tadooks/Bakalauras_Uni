@@ -88,8 +88,8 @@ const EditProduct = () => {
         console.log("handleEditProduct was clicked!");
         console.log(productName);
 
-        //clearing AUDIO and DOWNLOAD if type was Merch
-        if(productType=="Merch"){
+        //clearing AUDIO and DOWNLOAD if type was Clothing
+        if(productType=="Clothing"){
             fetch(`http://localhost:3001/products/${idFromURL}`,{
                 method: "PUT",
                 headers: {
@@ -334,7 +334,7 @@ const EditProduct = () => {
 
                             Type:
                             <select id="product-type" name="product-type" value={productType} onChange={e => setProductType(e.target.value)}>
-                                <option value="Merch">Merch</option>
+                                <option value="Clothing">Clothing</option>
                                 <option value="Audio">Audio</option>
                                 <option value="Misc">Miscellaneous</option>
                             </select>

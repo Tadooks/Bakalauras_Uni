@@ -26,7 +26,7 @@ const CreateProduct = () => {
     const [productImage, setProductImage] = useState('');
     const [productAudio, setProductAudio] = useState('');
     const [productDownload, setProductDownload] = useState('');
-    const [productType, setProductType] = useState('Merch');
+    const [productType, setProductType] = useState('Clothing');
 
 
 
@@ -78,8 +78,8 @@ const CreateProduct = () => {
         e.preventDefault()
         console.log("handleCreateProduct was clicked!");
         console.log(productType)
-        //clearing AUDIO and DOWNLOAD if type was Merch
-        if(productType=="Merch"){
+        //clearing AUDIO and DOWNLOAD if type was Clothing
+        if(productType=="Clothing"){
             fetch(`http://localhost:3001/products`,{
                 method: "POST",
                 headers: {
@@ -335,7 +335,7 @@ const CreateProduct = () => {
 
                             Type:
                             <select id="product-type" name="product-type" value={productType} onChange={e => setProductType(e.target.value)}>
-                                <option selected value="Merch">Merch</option>
+                                <option selected value="Clothing">Clothing</option>
                                 <option value="Audio">Audio</option>
                                 <option value="Misc">Miscellaneous</option>
                             </select>
@@ -378,7 +378,7 @@ const CreateProduct = () => {
                                         handleUpload(1);
                                     }}>
                                     <div>
-                                        <label htmlFor="imageInput">Select an image file 300x300:</label>
+                                        <label htmlFor="imageInput">Select an image file 250x250:</label>
                                         <input type="file" id="imageInput" onChange={handleFileChangeImage} />
                                     </div>
                                     <button type="submitImage">Upload</button>

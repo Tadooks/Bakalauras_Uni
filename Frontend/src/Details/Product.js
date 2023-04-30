@@ -317,9 +317,9 @@ const Product = ({socket}) => {
             <div>Product image: {data.image}</div>
             <div>Product description: {data.desc}</div>
             <div>Product price: {data.price} €</div>
-            {data.type == "Merch" && (
+            {data.type == "Clothing" && (
                 <>
-                Merch size:
+                Clothing size:
                 <select id="product-type" name="product-type" value={productSize} onChange={e => setProductSize(e.target.value)}>
                     <option default disabled value="None">Please select size</option>
                     <option value="Extra Small">Extra Small</option>
