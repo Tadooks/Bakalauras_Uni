@@ -56,14 +56,14 @@ const Product = ({socket}) => {
 	
 	  const handleSubmit = (event) => {
 		event.preventDefault();
-		
+		console.log(inputs.rating)
 		if(inputs.name && inputs.review && inputs.rating){
 			socket.emit('add_review',{
 				productID: id,
 				name: inputs.name,
 				rating: inputs.rating,
 				review: inputs.review,
-                authid: auth.currentUser.uid,
+                // authid: auth.currentUser.uid,
                 email: auth.currentUser.email,
 
 			});
@@ -232,7 +232,7 @@ const Product = ({socket}) => {
             let hasComment = false;
 			message.forEach((el)=>{
 				realRating += Number(el.rating);
-                if(auth.currentUser != null && el.authid == auth.currentUser.uid){
+                if(auth.currentUser != null && el.email == auth.currentUser.email){
                     hasComment = true;
                 }
 			})
@@ -281,10 +281,10 @@ const Product = ({socket}) => {
 		socket.on('added_review', addedNewReview);
 
         if(auth.currentUser != null){
-		    socket.emit('get_all_reviews',{"productID": id, "authid": auth.currentUser.uid});
+		    socket.emit('get_all_reviews',{"productID": id, "email": auth.currentUser.email});
         }
 		else {
-            socket.emit('get_all_reviews',{"productID": id, "authid": "None"});
+            socket.emit('get_all_reviews',{"productID": id, "email": "None"});
         }
 
 		return () => {

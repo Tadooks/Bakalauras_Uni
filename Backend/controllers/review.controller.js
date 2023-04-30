@@ -14,7 +14,7 @@ let addReview = function(request, response) {
         }else{
             console.log(allReviews)
             console.log(request)
-            const filteredReviews = allReviews.filter(item => item.authid === request.authid);
+            const filteredReviews = allReviews.filter(item => item.email === request.email);
             if(filteredReviews.length < 1){
                 add_review_service(request, function(error, review) {
                     if (error){
@@ -36,8 +36,8 @@ let getAllReviewsOnProduct = function(request, response) {
             response(error, null);
         }else{
             let filteredReviews = []
-            if(request.authid){
-                filteredReviews = allReviews.filter(item => item.visable === true || item.authid == request.authid);
+            if(request.email){
+                filteredReviews = allReviews.filter(item => item.visable === true || item.email == request.email);
             }else{
                 filteredReviews = allReviews.filter(item => item.visable === true);
             }
