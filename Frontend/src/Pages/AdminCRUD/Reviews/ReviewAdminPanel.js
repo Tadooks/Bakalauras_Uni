@@ -122,6 +122,7 @@ const ReviewAdminPanel = () => {
                         <th>Review</th>
                         <th>ReviewID</th>
                         <th>Visable</th>
+                        <th>Email</th>
 
                       </tr>
                     </thead>
@@ -136,6 +137,7 @@ const ReviewAdminPanel = () => {
                       <td>{data[productId][tempreviewId].review}</td>
                       <td>{data[productId][tempreviewId].reviewID}</td>
                       <td>{data[productId][tempreviewId].visable.toString()}</td>
+                      <td>{data[productId][tempreviewId].email}</td>
 
                       <button onClick={()=>handleDeleteReview(data[productId][tempreviewId])}>Delete</button>
 

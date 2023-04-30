@@ -64,6 +64,7 @@ const Product = ({socket}) => {
 				rating: inputs.rating,
 				review: inputs.review,
                 authid: auth.currentUser.uid,
+                email: auth.currentUser.email,
 
 			});
 		}
