@@ -5,12 +5,20 @@ import Dialog from '@material-ui/core/Dialog';
 
 import { Link } from "react-router-dom";
 import { IconButton } from "@material-ui/core";
+import { Button } from "@mui/material";
 
 import {auth} from '../../../firebase_config'
 
 //https://www.npmjs.com/package/react-player
 import ReactPlayer from "react-player";
 import { ContactlessOutlined } from "@material-ui/icons";
+
+import { DataGrid,
+  GridToolbarContainer,
+  GridToolbarColumnsButton,
+  GridToolbarFilterButton,
+  GridToolbarExport,
+  GridToolbarDensitySelector } from '@mui/x-data-grid';
 
 const OrderAdminPanel = () => {
 
@@ -21,8 +29,14 @@ const OrderAdminPanel = () => {
     const [error, setError] = useState(null);
     //---------------------------------------
 
+    //calcloading
+    const [calcLoading, setcalcLoading] = useState(true);
+
+
     const [productDialogStuff, setProductDialogStuff] = useState("");
     const [shippingDialogStuff, setShippingDialogStuff] = useState("");
+
+    const [displayData, setDisplayData] = useState(null);
 
     const [dialogOpen, setDialogOpen] = useState(false);
     const [dialogOpenProducts, setDialogOpenProducts] = useState(false);
@@ -58,6 +72,12 @@ const OrderAdminPanel = () => {
             setData(usefulData);
             console.log("MMmm watcha saaaay aaay, ");
             console.log(usefulData[0]);
+
+            //add id number for data displays
+            const dataWithIds = usefulData.map((item, index) => {
+              return { ...item, id: index + 1 };
+            });
+            setDisplayData(dataWithIds);
 
             setLoading(false);
           })
@@ -130,6 +150,17 @@ const OrderAdminPanel = () => {
 
     }
 
+    function CustomToolbar() {
+      return (
+        <GridToolbarContainer>
+          <GridToolbarColumnsButton />
+          <GridToolbarFilterButton />
+          <GridToolbarDensitySelector />
+          <GridToolbarExport />
+        </GridToolbarContainer>
+      );
+    }
+
     const ProductsVisual=()=>{
 
       let tempSubtotal=0.00;
@@ -138,7 +169,6 @@ const OrderAdminPanel = () => {
           tempSubtotal=item.totalprice+tempSubtotal
         ))
       }
-      
 
       return(
       <>
@@ -146,7 +176,7 @@ const OrderAdminPanel = () => {
             {/* Dialog content goes here */}
             
             <button variant="contained" onClick={handleCloseProducts}>Close</button>
-            Order number:
+            Product info
             <table>
                     <thead>
                       <tr>
@@ -192,7 +222,7 @@ const OrderAdminPanel = () => {
             {/* Dialog content goes here */}
             
             <button variant="contained" onClick={handleCloseShipping}>Close</button>
-            Order number:
+            Shipping info
             <table>
                     <thead>
                       <tr>
@@ -222,15 +252,93 @@ const OrderAdminPanel = () => {
       );
     }
 
+    //add calc loading
 
+    //doesnt calculate fast enough for display
     const CalculateTotal=(item) => {
+      console.log(item)
       let totalItemSum=0;
       item.map((temp) =>{
         totalItemSum=totalItemSum+temp.totalprice;
       })
       return totalItemSum.toFixed(2);
     };
+    
 
+    var columns = [
+      
+      { field: 'id', headerName: 'Count', flex: 1, cellClassName: 'vertical-line' },
+      { field: 'ordernumber', headerName: 'Order number', flex: 1, autoWidth: true, cellClassName: 'vertical-line' },
+      { field: 'email', headerName: 'Email', flex: 1,minWidth: 250, cellClassName: 'vertical-line' },
+      { field: 'products', headerName: 'Products', flex: 1, cellClassName: 'vertical-line',
+        renderCell: (params) => (
+              
+          <span className="clickableText" onClick={()=>OpenProductsDialog(params.row.products)}>Products</span >
+        ),
+    
+      },
+      { field: 'shippinginfo', headerName: 'Shipping info', flex: 1, cellClassName: 'vertical-line',
+        renderCell: (params) => (
+            
+          <span className="clickableText" onClick={()=>OpenShippingDialog(params.row.shippinginfo)}>Shipping info</span >
+        ),
+      },
+
+
+      // <span className="clickableText" onClick={()=>OpenShippingDialog(order.shippinginfo)}>Shipping info</span >
+      { field: 'totalprice', headerName: 'Total price', flex: 1, type: 'number', sortable: false,
+      renderCell: (params) => {
+        
+        return(
+          <>
+            {CalculateTotal(params.row.products)}
+          </>
+        );
+      },
+      cellClassName: 'vertical-line'
+      },
+
+
+      { field: 'totalproductcount', headerName: 'Total product count',type: 'number' ,flex: 1, cellClassName: 'vertical-line' },
+      { field: 'paymentstatus', headerName: 'Payment status', flex: 1, cellClassName: 'vertical-line' },
+      { field: 'deliverystatus', headerName: 'Delivery status', flex: 1, cellClassName: 'vertical-line' },
+      { field: 'orderdate', headerName: 'Order date', flex: 1, cellClassName: 'vertical-line',
+      renderCell: (params) => {
+        
+        return(
+          <>
+            {new Date(params.row.orderdate).toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric', hour:"numeric",minute:"numeric"}).replace(/([\d]+:[\d]{2})(:[\d]{2})(.*)/, "$1$3")}
+          </>
+        );
+      },
+      },
+      
+
+      // <td>{new Date(order.orderdate).toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric', hour:"numeric",minute:"numeric"}).replace(/([\d]+:[\d]{2})(:[\d]{2})(.*)/, "$1$3")}</td>
+      //delete and edit buttons
+      {
+        field: 'actions',
+        headerName: 'Actions',
+        flex: 1,
+        
+        renderCell: (params) => {
+          return (
+            <div>
+              <Link to={`/editorder/${params.row.uid}`}>
+              <Button>Edit</Button>
+              </Link>
+
+              {/* params.row gives the object */}
+              <Button onClick={() => handleDeleteOrder(params.row)}>Delete</Button>
+            </div>
+          );
+        },
+        
+      },
+
+    ];
+
+    //---------------------MAIN RETURN---------------------------
     return(
         <div style={{ color: 'white'}}>
             <h1>Orders</h1>
@@ -241,54 +349,19 @@ const OrderAdminPanel = () => {
                 <p>An error occured</p>
             ):(
             <>
-            {console.log(data)}
-
-            <table>
-                    <thead>
-                      <tr>
-                        
-                        <th>Order number</th>
-                        <th>Email</th>
-                        <th>Products</th>
-                        <th>Shipping info</th>
-                        <th>Total price</th>
-                        <th>Total product count</th>
-                        <th>Payment status</th>
-                        <th>Delivery status</th>
-                        <th>Order date</th>
-                        
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {data && 
-                        data?.map((order) => (
-                          
-                          <tr key={order.id}>
-                            <td>{order.ordernumber}</td>
-                            <td>{order.email}</td>
-
-                            <td><span className="clickableText" onClick={()=>OpenProductsDialog(order.products)}>Products info</span > </td>
-                            <td><span className="clickableText" onClick={()=>OpenShippingDialog(order.shippinginfo)}>Shipping info</span > </td>
-                            
-                            
-                            <td>{CalculateTotal(order.products)} €</td>
-                            <td>{order.totalproductcount}</td>
-  
-                            <td>{order.paymentstatus}</td>
-                            <td>{order.deliverystatus}</td>
-                            <td>{new Date(order.orderdate).toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric', hour:"numeric",minute:"numeric"}).replace(/([\d]+:[\d]{2})(:[\d]{2})(.*)/, "$1$3")}</td>
-                            {/* Add the open single order  */}
-
-                            <Link to={`/editorder/${order.uid}`}>
-                                <button>Edit</button>
-                            </Link>
-
-                            <button onClick={()=>handleDeleteOrder(order)}>Delete</button>
-
-                          </tr>
-                        ))}
-                    </tbody>
-            </table>
+            {console.log(displayData)}
+            <div style={{ height: 800, width: '100%', background: 'rgba(255, 255, 255, 1)'}}>
+                <DataGrid style={{ }}
+                   checkboxSelection={false}
+                  rows={displayData}
+                  bulkActionButtons={false}
+                  columns={columns}
+                  pageSize={10}
+                  rowsPerPageOptions={[10]}
+                  slots={{ toolbar: CustomToolbar }}
+                  
+                />
+            </div>
             <ProductsVisual/>
             <ShippingVisual/>
             </>
