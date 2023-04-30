@@ -267,7 +267,7 @@ const handlePriceChange = (e) => {
                                 <option selected value="Ambience">Ambience</option>
                                 <option selected value="Synthwave">Synthwave</option>
                                 <option selected value="Drum and bass">Drum and bass</option>
-                                <option selected value="Rap">Drum and bass</option>
+                                <option selected value="Rap">Rap</option>
                                 <option selected value="House">House</option>
                                 <option selected value="Techno">Techno</option>
                                 <option selected value="Dubstep">Dubstep</option>

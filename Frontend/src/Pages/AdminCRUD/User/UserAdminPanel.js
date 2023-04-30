@@ -1,11 +1,15 @@
 import { firebaseDatabase } from "../../../firebase_config"
 import React,{useState, useEffect} from "react"
 import { set,ref,child, Database } from "firebase/database"
-import Button from '@material-ui/core/Button';
+
 import Dialog from '@material-ui/core/Dialog';
 import { Link } from "react-router-dom";
 
 import {auth} from '../../../firebase_config'
+
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+
+import Button from '@material-ui/core/Button';
 
 import { DataGrid,
   GridToolbarContainer,
@@ -166,7 +170,18 @@ const UserAdminPanel = () => {
     }
 
 
-
+//--------------------CSS for MUI table-------------------------
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#5a0061',
+    },
+    secondary: {
+      main: '#5a0061', 
+    },
+  },
+});
+//---------------------------------------------------------------
 
 
 
@@ -175,7 +190,7 @@ const UserAdminPanel = () => {
 
     return(
         <div style={{ color: 'white'}}>
-            <h1>Users</h1>
+            <h1 style={{ textAlign: 'center' }}>Users</h1>
             {/* <Link to='/createuser'>
                 <button>Add neeeew user</button>
             </Link> */}
@@ -186,8 +201,13 @@ const UserAdminPanel = () => {
                 <p>An error occured</p>
             ):(
             <>
-              <div style={{ minheight:300, height: 700, width: '100%', background: 'rgba(255, 255, 255, 1)'}}>
-                <DataGrid style={{ }}
+              <ThemeProvider theme={theme}>
+                
+              <div style={{ height: '100%', minHeight: 250, width: '100%'}}>
+              <DataGrid style={{ 
+                  background: 'rgba(255, 255, 255, 1)',
+                  color: '#333'
+                }}
                    checkboxSelection={false}
                   rows={displayData}
                   bulkActionButtons={false}
@@ -198,7 +218,7 @@ const UserAdminPanel = () => {
                 />
               </div>
 
-            
+              </ThemeProvider>
             </>
             )}
         </div>

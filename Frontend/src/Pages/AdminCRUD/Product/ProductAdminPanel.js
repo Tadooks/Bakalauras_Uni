@@ -7,7 +7,8 @@ import { DataGrid,
   GridToolbarExport,
   GridToolbarDensitySelector } from '@mui/x-data-grid';
   
-  
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
 
 import { Link } from "react-router-dom";
 import { Button } from "@mui/material";
@@ -107,7 +108,7 @@ const ProductAdminPanel = () => {
       },
 
       { field: 'desc', headerName: 'Description',   flex: 1,minWidth: 250, cellClassName: 'vertical-line'},
-      { field: 'type', headerName: 'Product type',  flex: 1,minWidth: 250, cellClassName: 'vertical-line'},
+      { field: 'type', headerName: 'Product type',  flex: 1,minWidth: 150, cellClassName: 'vertical-line'},
       { 
         field: 'image', 
         headerName: 'Image', 
@@ -123,7 +124,7 @@ const ProductAdminPanel = () => {
       {
         field: 'audio', 
         headerName: 'Audio', 
-        flex: 1,minWidth: 200, 
+        flex: 1,minWidth: 250, 
         cellClassName: 'vertical-line',
         renderCell: (params) => {
           if (params.value != "None") {
@@ -181,6 +182,22 @@ const ProductAdminPanel = () => {
       </GridToolbarContainer>
     );
   }
+
+//--------------------CSS for MUI table-------------------------
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#5a0061',
+    },
+    secondary: {
+      main: '#5a0061', 
+    },
+  },
+});
+//---------------------------------------------------------------
+
+
+
     
 console.log("displayData");
 console.log(displayData);
@@ -190,14 +207,15 @@ console.log(displayData);
         <div style={{ color: 'white'}}>
 
             {/* when empty this will get stuck on loading. */}
-            <h1>Products</h1>
+            <h1 style={{ textAlign: 'center' }}>Products</h1>
             {loading ?(
                 <p>Loading...</p>
             ) : error ? (
                 <p>An error occured</p>
             ):(
             <>
-              <div style={{ height: 800, width: '100%'}}>
+              <ThemeProvider theme={theme}>
+              <div style={{ height: '100%', minHeight: 250, width: '100%'}}>
                 <DataGrid style={{ 
                   background: 'rgba(255, 255, 255, 1)',
                   color: '#333'
@@ -208,11 +226,13 @@ console.log(displayData);
                   columns={columns}
                   pageSize={10}
                   rowsPerPageOptions={[10]}
-                  slots={{ toolbar: CustomToolbar }}
+                  slots={{ 
+                    toolbar: CustomToolbar,
+                  }}
                 />
               </div>
 
-            
+              </ThemeProvider>
             </>
             )}
         </div>

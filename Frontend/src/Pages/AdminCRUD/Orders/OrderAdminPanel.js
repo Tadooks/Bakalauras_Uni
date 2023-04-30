@@ -13,6 +13,8 @@ import {auth} from '../../../firebase_config'
 import ReactPlayer from "react-player";
 import { ContactlessOutlined } from "@material-ui/icons";
 
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+
 import { DataGrid,
   GridToolbarContainer,
   GridToolbarColumnsButton,
@@ -174,9 +176,9 @@ const OrderAdminPanel = () => {
       <>
         <Dialog open={dialogOpenProducts} onClose={handleCloseProducts}>
             {/* Dialog content goes here */}
-            
-            <button variant="contained" onClick={handleCloseProducts}>Close</button>
-            Product info
+            <div className="DialogPopup" >
+            <Button variant="contained" onClick={handleCloseProducts}>Close</Button>
+            <h4 style={{ textAlign: 'center' }}><b > Product info</b> </h4>
             <table>
                     <thead>
                       <tr>
@@ -194,18 +196,19 @@ const OrderAdminPanel = () => {
                     {productDialogStuff && 
                         productDialogStuff?.map((item) => (
                           <tr>
-                            <td>{item.name}</td>
-                            <td>{item.type}</td>
-                            <td>{item.amount}</td>
-                            <td>{item.productSize}</td>
-                            <td>{item.price} €</td>
-                            <td>{item.totalprice.toFixed(2)} €</td>
+                            <td className="tableInfo">{item.name}</td>
+                            <td className="tableInfo">{item.type}</td>
+                            <td className="tableInfo">{item.amount}</td>
+                            <td className="tableInfo">{item.productSize}</td>
+                            <td className="tableInfo">{item.price} €</td>
+                            <td className="tableInfo">{item.totalprice.toFixed(2)} €</td>
                           </tr>
                         ))
                       }
                     </tbody>
             </table>
-            Subtotal of all products: {tempSubtotal.toFixed(2)} €
+            <span style={{ padding: '5px' }}> Subtotal of all products: {tempSubtotal.toFixed(2)} € </span>
+            </div>
         </Dialog>
       </>
       );
@@ -220,9 +223,9 @@ const OrderAdminPanel = () => {
         {/*-------------------Dialog EDIT window popup-------------------*/}
         <Dialog open={dialogOpenShipping} onClose={handleCloseShipping}>
             {/* Dialog content goes here */}
-            
-            <button variant="contained" onClick={handleCloseShipping}>Close</button>
-            Shipping info
+            <div className="DialogPopup" >
+            <Button variant="contained" onClick={handleCloseShipping}>Close</Button>
+            <h4 style={{ textAlign: 'center' }}><b > Shipping info</b></h4>
             <table>
                     <thead>
                       <tr>
@@ -238,15 +241,16 @@ const OrderAdminPanel = () => {
                     </thead>
                     <tbody>
                     <tr>
-                            <td>{shippingDialogStuff.country}</td>
-                            <td>{shippingDialogStuff.city}</td>
-                            <td>{shippingDialogStuff.post}</td>
-                            <td>{shippingDialogStuff.name}</td>
-                            <td>{shippingDialogStuff.surname}</td>
-                            <td>{shippingDialogStuff.phone}</td>
+                            <td className="tableInfo">{shippingDialogStuff.country}</td>
+                            <td className="tableInfo">{shippingDialogStuff.city}</td>
+                            <td className="tableInfo">{shippingDialogStuff.post}</td>
+                            <td className="tableInfo">{shippingDialogStuff.name}</td>
+                            <td className="tableInfo">{shippingDialogStuff.surname}</td>
+                            <td className="tableInfo">{shippingDialogStuff.phone}</td>
                     </tr>
                     </tbody>
             </table>
+            </div>
         </Dialog>
       </>
       );
@@ -338,10 +342,23 @@ const OrderAdminPanel = () => {
 
     ];
 
+    //--------------------CSS for MUI table-------------------------
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#5a0061',
+    },
+    secondary: {
+      main: '#5a0061', 
+    },
+  },
+});
+//---------------------------------------------------------------
+
     //---------------------MAIN RETURN---------------------------
     return(
         <div style={{ color: 'white'}}>
-            <h1>Orders</h1>
+            <h1 style={{ textAlign: 'center' }}>Orders</h1>
             {/* when empty this will get stuck on loading. */}
             {loading ?(
                 <p>Loading...</p>
@@ -349,9 +366,13 @@ const OrderAdminPanel = () => {
                 <p>An error occured</p>
             ):(
             <>
+            <ThemeProvider theme={theme}>
             {console.log(displayData)}
-            <div style={{ height: 800, width: '100%', background: 'rgba(255, 255, 255, 1)'}}>
-                <DataGrid style={{ }}
+            <div style={{ height: '100%', minHeight: 250, width: '100%'}}>
+              <DataGrid style={{ 
+                    background: 'rgba(255, 255, 255, 1)',
+                    color: '#333'
+                  }}
                    checkboxSelection={false}
                   rows={displayData}
                   bulkActionButtons={false}
@@ -364,6 +385,7 @@ const OrderAdminPanel = () => {
             </div>
             <ProductsVisual/>
             <ShippingVisual/>
+            </ThemeProvider>
             </>
             )}
         </div>

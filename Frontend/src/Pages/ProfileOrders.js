@@ -14,6 +14,9 @@ import { DataGrid,
   GridToolbarExport,
   GridToolbarDensitySelector } from '@mui/x-data-grid';
 
+  import { ThemeProvider, createTheme } from '@mui/material/styles';
+
+
 const ProfileOrders = () => {
     
     //getting user data from useContext
@@ -133,11 +136,11 @@ const ProfileOrders = () => {
 
       return(
       <>
-        <Dialog open={dialogOpenProducts} onClose={handleCloseProducts}>
+        <Dialog  open={dialogOpenProducts} onClose={handleCloseProducts}>
             {/* Dialog content goes here */}
-            
-            <button variant="contained" onClick={handleCloseProducts}>Close</button>
-            Products
+            <div className="DialogPopup" >
+            <Button variant="contained" onClick={handleCloseProducts}>Close</Button>
+            <h4 style={{ textAlign: 'center' }}><b>Product info</b></h4>
             <table>
                     <thead>
                       <tr>
@@ -155,18 +158,20 @@ const ProfileOrders = () => {
                     {productDialogStuff && 
                         productDialogStuff?.map((item) => (
                           <tr>
-                            <td>{item.name}</td>
-                            <td>{item.type}</td>
-                            <td>{item.amount}</td>
-                            <td>{item.productSize}</td>
-                            <td>{item.price} €</td>
-                            <td>{item.totalprice.toFixed(2)} €</td>
+                            <td className="tableInfo">{item.name}</td>
+                            <td className="tableInfo">{item.type}</td>
+                            <td className="tableInfo">{item.amount}</td>
+                            <td className="tableInfo">{item.productSize}</td>
+                            <td className="tableInfo">{item.price} €</td>
+                            <td className="tableInfo">{item.totalprice.toFixed(2)} €</td>
                           </tr>
                         ))
                       }
                     </tbody>
             </table>
+            <br></br>
             Subtotal of all products: {tempSubtotal.toFixed(2)} €
+            </div>
         </Dialog>
       </>
       );
@@ -181,9 +186,11 @@ const ProfileOrders = () => {
         {/*-------------------Dialog EDIT window popup-------------------*/}
         <Dialog open={dialogOpenShipping} onClose={handleCloseShipping}>
             {/* Dialog content goes here */}
-            
-            <button variant="contained" onClick={handleCloseShipping}>Close</button>
-            Shipping info
+            <div className="DialogPopup" >
+            <div>
+              <Button variant="contained" onClick={handleCloseShipping}>Close</Button>
+            </div>
+            <h4 style={{ textAlign: 'center' }}><b>Shipping info</b></h4>
             <table>
                     <thead>
                       <tr>
@@ -199,15 +206,16 @@ const ProfileOrders = () => {
                     </thead>
                     <tbody>
                     <tr>
-                            <td>{shippingDialogStuff.country}</td>
-                            <td>{shippingDialogStuff.city}</td>
-                            <td>{shippingDialogStuff.post}</td>
-                            <td>{shippingDialogStuff.name}</td>
-                            <td>{shippingDialogStuff.surname}</td>
-                            <td>{shippingDialogStuff.phone}</td>
+                            <td className="tableInfo">{shippingDialogStuff.country}</td>
+                            <td className="tableInfo">{shippingDialogStuff.city}</td>
+                            <td className="tableInfo">{shippingDialogStuff.post}</td>
+                            <td className="tableInfo">{shippingDialogStuff.name}</td>
+                            <td className="tableInfo">{shippingDialogStuff.surname}</td>
+                            <td className="tableInfo">{shippingDialogStuff.phone}</td>
                     </tr>
                     </tbody>
             </table>
+            </div>
         </Dialog>
       </>
       );
@@ -285,11 +293,28 @@ const ProfileOrders = () => {
           </GridToolbarContainer>
         );
       }
+
+
+
+        //--------------------CSS for MUI table-------------------------
+        const theme = createTheme({
+          palette: {
+            primary: {
+              main: '#5a0061',
+            },
+            secondary: {
+              main: '#5a0061', 
+            },
+          },
+        });
+        //---------------------------------------------------------------
+
+
     
-    
+        //---------------------MAIN RETURN---------------------------
       return(
         <div style={{ color: 'white'}}>
-            <h1>My orders</h1>
+            <h1 style={{ textAlign: 'center' }}>My orders</h1>
             {/* when empty this will get stuck on loading. */}
             {loading ?(
                 <p>Loading...</p>
@@ -297,17 +322,23 @@ const ProfileOrders = () => {
                 <p>An error occured</p>
             ):(
             <>
+            <ThemeProvider theme={theme}>
             {console.log(data)}
-            After every order you make, you will receive a order confirmation email which will include payment information.<br></br>
-            <Link to='/InfoPage'>
-              MORE INFO
-            </Link>
-            <br></br>
-            <b>Please write your order number which you are paying for</b><br></br><br></br>
-            If you are having trouble with your order, contact support here: tadastadas81@gmail.com
-            <br></br><br></br>
-            <div style={{ height: 800, width: '100%', background: 'rgba(255, 255, 255, 1)'}}>
-                <DataGrid style={{ }}
+            <div className="OrderInfoProfile">
+              After every order you make, you will receive a order confirmation email which will include payment information.<br></br>
+              <Link to='/InfoPage'>
+                MORE INFO
+              </Link>
+              <br></br>
+              <b>Please write your order number which you are paying for</b><br></br><br></br>
+              If you are having trouble with your order, contact support here: <b> tadasdevenas00@gmail.com </b>
+              <br></br><br></br>
+            </div>
+            <div style={{ height: '100%', minHeight: 250, width: '100%'}}>
+                  <DataGrid style={{ 
+                    background: 'rgba(255, 255, 255, 1)',
+                    color: '#333'
+                  }}
                    checkboxSelection={false}
                   rows={displayData}
                   bulkActionButtons={false}
@@ -320,6 +351,7 @@ const ProfileOrders = () => {
             </div>
             <ProductsVisual/>
             <ShippingVisual/>
+            </ThemeProvider>
             </>
             )}
         </div>

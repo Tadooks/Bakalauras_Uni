@@ -14,7 +14,7 @@ import { DataGrid,
   GridToolbarExport,
   GridToolbarDensitySelector } from '@mui/x-data-grid';
 
-
+  import { ThemeProvider, createTheme } from '@mui/material/styles';
 const RequestAdminPanel = () => {
 
     //Add states
@@ -123,21 +123,21 @@ const RequestAdminPanel = () => {
 
     var columns = [
       
-      { field: 'id', headerName: 'Count',  flex: 1,minWidth: 250, cellClassName: 'vertical-line' },
-      { field: 'email', headerName: 'Email',  flex: 1,minWidth: 250, cellClassName: 'vertical-line' },
+      { field: 'id', headerName: 'Count',  flex: 1,minWidth: 150, cellClassName: 'vertical-line' },
+      { field: 'email', headerName: 'Email',  flex: 1,minWidth: 200, cellClassName: 'vertical-line' },
       { 
         field: 'budget', 
         headerName: 'Budget', 
         type: 'number', 
-        flex: 1,minWidth: 250,
+        flex: 1,minWidth: 150,
         valueFormatter: ({ value }) => `${value} €`,
         cellClassName: 'vertical-line'
       },
-      { field: 'type', headerName: 'Type',  flex: 1, minWidth: 250, cellClassName: 'vertical-line' },
+      { field: 'type', headerName: 'Type',  flex: 1, minWidth: 150, cellClassName: 'vertical-line' },
       { field: 'description', headerName: 'Description',  flex: 1, minWidth: 250, cellClassName: 'vertical-line' },
-      { field: 'genre', headerName: 'Genre',  flex: 1, minWidth: 250, cellClassName: 'vertical-line' },
-      { field: 'synthpresetpack', headerName: 'Synth Preset Pack',  flex: 1, minWidth: 250, cellClassName: 'vertical-line' },
-      { field: 'includeproject', headerName: 'Include project',  flex: 1, minWidth: 250, cellClassName: 'vertical-line' },
+      { field: 'genre', headerName: 'Genre',  flex: 1, minWidth: 140, cellClassName: 'vertical-line' },
+      { field: 'synthpresetpack', headerName: 'Synth Preset Pack',  flex: 1, minWidth: 100, cellClassName: 'vertical-line' },
+      { field: 'includeproject', headerName: 'Include project',  flex: 1, minWidth: 100, cellClassName: 'vertical-line' },
       
       {
         field: 'actions',
@@ -166,12 +166,25 @@ const RequestAdminPanel = () => {
       );
     }
 
+    //--------------------CSS for MUI table-------------------------
+    const theme = createTheme({
+      palette: {
+        primary: {
+          main: '#5a0061',
+        },
+        secondary: {
+          main: '#5a0061', 
+        },
+      },
+    });
+    //---------------------------------------------------------------
+
 
 
 
     return(
         <div style={{ color: 'white'}}>
-            <h1>Requests</h1>
+            <h1 style={{ textAlign: 'center' }}>Requests</h1>
             {/* <Link to='/createrequest'>
                 <button>Add neeeew request</button>
             </Link> */}
@@ -182,8 +195,12 @@ const RequestAdminPanel = () => {
                 <p>An error occured</p>
             ):(
             <>
-              <div style={{ height: 800, width: '100%', background: 'rgba(255, 255, 255, 1)'}}>
-                <DataGrid style={{ }}
+            <ThemeProvider theme={theme}>
+              <div style={{ height: '100%', minHeight: 250, width: '100%'}}>
+                  <DataGrid style={{ 
+                    background: 'rgba(255, 255, 255, 1)',
+                    color: '#333'
+                  }}
                    checkboxSelection={false}
                   rows={displayData}
                   bulkActionButtons={false}
@@ -194,7 +211,7 @@ const RequestAdminPanel = () => {
                 />
               </div>
 
-            
+              </ThemeProvider>
             </>
             )}
         </div>

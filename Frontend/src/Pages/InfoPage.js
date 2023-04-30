@@ -10,7 +10,7 @@ const InfoPage = () => {
         <h1>Contact Us</h1>
         <p>
             For any questions or concerns, please contact us at 
-            <b> tadastadas81@gmail.com</b>
+            <b> tadasdevenas00@gmail.com</b>
         </p>
 
         <h1>Purchase conditions</h1>
@@ -49,12 +49,12 @@ const InfoPage = () => {
 
         <h1>Returns and Refunds</h1>
         <p>
-            Returns are available only for physical items purchased. Please contact us here for more info about refunds: tadastadas81@gmail.com
+            Returns are available only for physical items purchased. Please contact us here for more info about refunds: <b>tadasdevenas00@gmail.com</b>
             <ul>
             <li>- Returns must be in new, unused condition</li>
             <li>- Refunds will be issued to the original form of payment</li>
             <li>- Shipping charges are non-refundable</li>
-            <li>- For refunds contact us here: tadastadas81@gmail.com</li>
+            <li>- For refunds contact us here: <b>tadasdevenas00@gmail.com</b></li>
             </ul>
         </p>
 

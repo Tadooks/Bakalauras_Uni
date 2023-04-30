@@ -193,7 +193,7 @@ const CreateProduct = () => {
 
     //allow admin to input only numbers
     const handlePriceChange = (e) => {
-        const regex = /^[0-9]+(\.[0-9]{1,2})?$/; // regex to validate money values with up to 2 decimal places
+        const regex = /^(?!0\d)[0-9]+(\.[0-9]{1,2})?$/; // regex to validate money values with up to 2 decimal places
         if (e.target.value === '' || regex.test(e.target.value)) {
           setProductPrice(e.target.value);
         }

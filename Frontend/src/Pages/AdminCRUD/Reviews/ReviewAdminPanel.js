@@ -14,6 +14,8 @@ import { IconButton } from "@material-ui/core";
 
 import {auth} from '../../../firebase_config'
 
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+
 //https://www.npmjs.com/package/react-player
 import ReactPlayer from "react-player";
 
@@ -139,10 +141,10 @@ const ReviewAdminPanel = () => {
 
     var columns = [
       
-      { field: 'id', headerName: 'Count', flex: 1, minWidth: 250, cellClassName: 'vertical-line' },
+      { field: 'id', headerName: 'Count', flex: 1, minWidth: 150, cellClassName: 'vertical-line' },
       { field: 'productID', headerName: 'Product ID', flex: 1, minWidth: 250, autoWidth: true, cellClassName: 'vertical-line' },
       { field: 'name', headerName: 'Name', flex: 1, minWidth: 250, autoWidth: true, cellClassName: 'vertical-line' },
-      { field: 'rating', headerName: 'Rating', flex: 1, minWidth: 250, autoWidth: true, cellClassName: 'vertical-line' },
+      { field: 'rating', headerName: 'Rating', flex: 1, minWidth: 50, autoWidth: true, cellClassName: 'vertical-line' },
       { field: 'review', headerName: 'Review', flex: 1, minWidth: 250, autoWidth: true, cellClassName: 'vertical-line' },
       { field: 'email', headerName: 'Email', flex: 1, minWidth: 250, autoWidth: true, cellClassName: 'vertical-line' },
       {
@@ -177,17 +179,35 @@ const ReviewAdminPanel = () => {
 
 
 
+    //--------------------CSS for MUI table-------------------------
+    const theme = createTheme({
+      palette: {
+        primary: {
+          main: '#5a0061',
+        },
+        secondary: {
+          main: '#5a0061', 
+        },
+      },
+    });
+    //---------------------------------------------------------------
+
+
     return(
         <div style={{ color: 'white'}}>
-            <h1>Reviews</h1>
+            <h1 style={{ textAlign: 'center' }}>Reviews</h1>
             {loading ?(
                 <p>Loading...</p>
             ) : error ? (
                 <p>An error occured</p>
             ):(
               <>
-              <div style={{ height: 800, width: '100%', background: 'rgba(255, 255, 255, 1)'}}>
-                <DataGrid style={{ }}
+              <ThemeProvider theme={theme}>
+              <div style={{ height: '100%', minHeight: 250, width: '100%'}}>
+              <DataGrid style={{ 
+                    background: 'rgba(255, 255, 255, 1)',
+                    color: '#333'
+                  }}
                    checkboxSelection={false}
                   rows={displayData}
                   bulkActionButtons={false}
@@ -198,7 +218,7 @@ const ReviewAdminPanel = () => {
                 />
               </div>
 
-            
+              </ThemeProvider>
             </>
             )}
         </div>
