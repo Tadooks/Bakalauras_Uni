@@ -120,8 +120,8 @@ const ReviewAdminPanel = () => {
                         <th>productID</th>
                         <th>Rating</th>
                         <th>Review</th>
-                        <th>ReviewID</th>
-                        <th>Visable</th>
+                        {/* <th>ReviewID</th> */}
+                        {/* <th>Visable</th> */}
                         <th>Email</th>
 
                       </tr>
@@ -130,13 +130,14 @@ const ReviewAdminPanel = () => {
 
                     {Object.keys(data).map((productId) => (
                     Object.keys(data[productId]).map((tempreviewId) => (
-                    <tr key={data[productId][tempreviewId].reviewID}>
+                    <tr>
                       <td>{data[productId][tempreviewId].name}</td>
+                      {/* <td>{data[productId][tempreviewId].reviewID}</td> */}
                       <td>{data[productId][tempreviewId].productID}</td>
                       <td>{data[productId][tempreviewId].rating}</td>
                       <td>{data[productId][tempreviewId].review}</td>
-                      <td>{data[productId][tempreviewId].reviewID}</td>
-                      <td>{data[productId][tempreviewId].visable.toString()}</td>
+                      {/* <td>{data[productId][tempreviewId].reviewID}</td> */}
+                      {/* <td>{data[productId][tempreviewId].visable.toString()}</td> */}
                       <td>{data[productId][tempreviewId].email}</td>
 
                       <button onClick={()=>handleDeleteReview(data[productId][tempreviewId])}>Delete</button>
