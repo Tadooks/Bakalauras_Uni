@@ -38,6 +38,7 @@ let get_all_for_product_reviews =  async function(reviewData, result) {
                     rating: value.rating,
                     review: value.review,
                     visable: value.visable,
+                    email: value.email,
                 });
             });
             result(null, arrayOfReviews);
@@ -69,7 +70,8 @@ let add_review =  async function(review, result) {
             name: review.name,
             rating: review.rating,
             review: review.review,
-            visable: true//if implement confirm comment function change to false
+            visable: true,//if implement confirm comment function change to false
+            email: review.email//if implement confirm comment function change to false
         };
         
         //We will create an object of updates
@@ -86,7 +88,8 @@ let add_review =  async function(review, result) {
             name: review.name,
             rating: review.rating,
             review: review.review,
-            visable: true
+            visable: true,
+            email: review.email
         });
 
     }else{
@@ -152,7 +155,8 @@ let edit_review =  async function(review, result) {
             name: review.review.name,
             rating: review.review.rating,
             review: review.review.review,
-            visable: review.review.visable
+            visable: review.review.visable,
+            email: review.review.email
         };
     
         const updates = {};
