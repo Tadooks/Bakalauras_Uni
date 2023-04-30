@@ -21,7 +21,7 @@ const Product = ({socket}) => {
     //getting user data from useContext
     const { user } = useContext(AuthContext);
 
-
+    
     //visual cart change
     const { cartCount, setCartCount } = useContext(CartContext);
     
@@ -41,35 +41,36 @@ const Product = ({socket}) => {
 
     const [inputs, setInputs] = useState({});
 
-	  const handleChange = (event) => {
-        
-        if(event.target.name == "rating"){
-            const name = event.target.name;
-            const value = Number(event.target.value);
-            setInputs(values => ({...values, [name]: value}))
-        }else{
-            const name = event.target.name;
-            const value = event.target.value;
-            setInputs(values => ({...values, [name]: value}))
-        }
-	  }
+	const handleChange = (event) => {
+      
+      if(event.target.name == "rating"){
+          const name = event.target.name;
+          const value = Number(event.target.value);
+          setInputs(values => ({...values, [name]: value}))
+      }else{
+          const name = event.target.name;
+          const value = event.target.value;
+          setInputs(values => ({...values, [name]: value}))
+      }
+	}
 	
-	  const handleSubmit = (event) => {
-		event.preventDefault();
-		console.log(inputs.rating)
-		if(inputs.name && inputs.review && inputs.rating){
-			socket.emit('add_review',{
-				productID: id,
-				name: inputs.name,
-				rating: inputs.rating,
-				review: inputs.review,
-                // authid: auth.currentUser.uid,
-                email: auth.currentUser.email,
-
-			});
-		}
-
-	  }		
+	const handleSubmit = (event) => {
+	event.preventDefault();
+	console.log("inputs.rating")
+	console.log(inputs.rating)
+    if(!inputs.rating) {
+        inputs.rating=5;
+    }
+	if(inputs.name && inputs.review && inputs.rating){
+		socket.emit('add_review',{
+			productID: id,
+			name: inputs.name,
+			rating: inputs.rating,
+			review: inputs.review,
+            email: auth.currentUser.email,
+		});
+	}
+	}		
 
 	const [list, setList] = useState(
 		{
@@ -226,7 +227,8 @@ const Product = ({socket}) => {
         if(window.localStorage.getItem("cart")){
             setCart(JSON.parse(window.localStorage.getItem("cart")));
         }
-
+        console.log("auth.currentUser")
+        console.log(auth.currentUser)
 		const allReviews = (message) => {
 			let realRating = 0;
             let hasComment = false;
@@ -329,7 +331,7 @@ const Product = ({socket}) => {
                 </>
             )}
             
-            {data.audio !="none" && (
+            {data.type =="Audio" && (
             <>
             Audio Preview:
                 <div>
@@ -431,21 +433,6 @@ const Product = ({socket}) => {
 
 
 	</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         </>
         )}
         </div>
