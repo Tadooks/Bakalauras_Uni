@@ -1,13 +1,17 @@
 
 import React,{useState, useEffect} from "react"
 import { set,ref,child, Database } from "firebase/database"
-import Button from '@material-ui/core/Button';
+
 
 import { Link,useNavigate, useParams } from "react-router-dom";
 
 import { IconButton } from "@material-ui/core";
 
 import {auth} from '../../../firebase_config'
+
+
+import { Button } from "@mui/material";
+import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 const EditUser = () => {
 
@@ -102,8 +106,25 @@ const EditUser = () => {
     }
     //------------------------------------
 
+
+
+    //--------------------CSS for MUI table-------------------------
+    const theme = createTheme({
+        palette: {
+          primary: {
+            main: '#5a0061',
+          },
+          secondary: {
+            main: '#5a0061', 
+          },
+        },
+      });
+      //---------------------------------------------------------------
+  
+
     return(
         <div style={{ color: 'white'}}>
+            <ThemeProvider theme={theme}>
 
             {/* when empty this will get stuck on loading. */}
             {loading ?(
@@ -158,6 +179,7 @@ const EditUser = () => {
 
             </>
             )}
+            </ThemeProvider>
         </div>
     )
 }

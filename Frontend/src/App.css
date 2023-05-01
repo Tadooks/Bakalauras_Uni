@@ -714,8 +714,19 @@ a:active {
 
 
 
+.EditProduct-Screenerino{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 
+.bonus-Product{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 
 

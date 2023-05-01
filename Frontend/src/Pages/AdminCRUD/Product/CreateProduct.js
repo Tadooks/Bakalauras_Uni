@@ -1,6 +1,5 @@
 
 import React,{useState, useEffect} from "react"
-import Button from '@material-ui/core/Button';
 
 import { Link,useNavigate, useParams } from "react-router-dom";
 
@@ -9,6 +8,9 @@ import { IconButton, useTheme } from "@material-ui/core";
 
 //https://www.npmjs.com/package/react-player
 import ReactPlayer from "react-player";
+
+import { Button } from "@mui/material";
+import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 
 //storage for adding files
@@ -274,11 +276,36 @@ const CreateProduct = () => {
     };
 
 
+
+
+        //--------------------CSS for MUI table-------------------------
+        const theme = createTheme({
+            palette: {
+              primary: {
+                main: '#5a0061',
+              },
+              secondary: {
+                main: '#5a0061', 
+              },
+            },
+          });
+          //---------------------------------------------------------------
+      
+
+
+
+
+
     return(
         <div style={{ color: 'white'}}>
-            <Link to='/productadminpanel'>
-                <Button variant="contained">Back</Button>
-            </Link>
+            <h1 style={{ textAlign: 'center' }}>Create product</h1>
+
+            <ThemeProvider theme={theme}>
+            <div style={{ textAlign: 'center' }}>
+                <Link to='/productadminpanel'>
+                    <Button variant="contained">Back</Button>
+                </Link>
+            </div>
             {/* when empty this will get stuck on loading. */}
             {loading ?(
                 <p>Loading...</p>
@@ -286,13 +313,12 @@ const CreateProduct = () => {
             ) : error ? (
                 <p>An error occured</p>
             ):(
-            <>
-                <div className='StyledCreateProduct'>
+                <>
+                <div className='EditProduct-Screenerino'>
+                    
                     <div>
-                        <div >Create window content</div>
+                        <div >Edit window content</div>
 
-                        
-                        
 
                         <form className="StyledForm" onSubmit={handleCreateProduct} >
                             Name:
@@ -335,10 +361,11 @@ const CreateProduct = () => {
 
                             Type:
                             <select id="product-type" name="product-type" value={productType} onChange={e => setProductType(e.target.value)}>
-                                <option selected value="Clothing">Clothing</option>
+                                <option value="Clothing">Clothing</option>
                                 <option value="Audio">Audio</option>
                                 <option value="Misc">Miscellaneous</option>
                             </select>
+                            
 
                             {productType == "Audio" && (
                             <>
@@ -346,54 +373,46 @@ const CreateProduct = () => {
                             <textarea 
                                 type='text' 
                                 value={productAudio}
-                                placeholder="Audio"
+                                placeholder="Image"
                                 required
                                 onChange={e=>setProductAudio(e.target.value)}
                                 
                             />
-                            {/* Download url:
-                            <textarea 
-                                type='text' 
-                                value={productDownload}
-                                placeholder="Image"
-                                required
-                                onChange={e=>setProductDownload(e.target.value)}
-
-                            /> */}
                             </>
                             )}
                             
 
                             
 
-                            <Button variant="contained" type='submit'>Create product</Button>
+                            <Button variant="contained" type='submit'>Save changes</Button>
                         </form>
                         </div>
-                        
+                    </div>    
+
+                    <div className="bonus-Product">  
                         {/* We always show image preview */}
-                        <div >
-                                <div className="ImagePreview">
+                        <div>
+                                <div className="crudFilePreview">
                                     <form onSubmit={e => {
                                         e.preventDefault();
                                         handleUpload(1);
-                                    }}>
-                                    <div>
-                                        <label htmlFor="imageInput">Select an image file 250x250:</label>
+                                    }
+                                        }>
+                                        <div>
+                                        <label htmlFor="imageInput">Select an image file:</label>
                                         <input type="file" id="imageInput" onChange={handleFileChangeImage} />
-                                    </div>
-                                    <button type="submitImage">Upload</button>
+                                        </div>
+                                        <Button  variant="contained" type="submitImage">Upload</Button>
                                     </form>
                                     
-                                    <div className="preview-container">
-                                        Image preview:
-                                        {productImage && (
-                                        <div className="preview-container">
-                                            <a href={productImage}>
-                                                <img className=".preview-image" src={productImage} alt={productImage}></img>
-                                            </a>
-                                        </div>
-                                    )}
+                                    Image preview:
+                                    {productImage && (
+                                    <div>
+                                        {/* <a href={productImage}>{productImage}</a> */}
+                                        <img src={productImage} alt={productImage} width="250" height="250"></img>
                                     </div>
+                                    )}
+                                    
                                 </div>
                         </div>
                         
@@ -415,13 +434,13 @@ const CreateProduct = () => {
                                         <label htmlFor="audioInput">Select an audio mp3 file:</label>
                                         <input type="file" id="audioInput" onChange={handleFileChangeAudio} />
                                         </div>
-                                        <button type="submitAudio">Upload</button>
+                                        <Button  variant="contained" type="submitAudio">Upload</Button>
                                     </form>
                                     
                                     Audio url and preview:
                                     {productAudio && (
                                     <div>
-                                        <a href={productAudio}>{productAudio}</a>
+                                        {/* <a href={productAudio}>{productAudio}</a> */}
                                         <ReactPlayer
                                             url={productAudio}
                                             width="100%"
@@ -434,41 +453,21 @@ const CreateProduct = () => {
                                 </div>
 
                                 
-                                {/* <div className="crudFilePreview">
-                                    <form onSubmit={e => {
-                                                e.preventDefault();
-                                        handleUpload(3);
-                                    }
-                                        }>
-                                        <div>
-                                            <div>Downloadable file</div>
-                                            <label htmlFor="downloadInput">Select an Archived file:</label>
-                                            <input type="file" id="downloadInput" onChange={handleFileChangeDownload} />
-                                        </div>
-                                        <button type="submitDownload">Upload</button>
-                                    </form>
-                                    
-                                    Download file url:
-                                    {productDownload && (
-                                    <div>
-                                        
-                                        <a href={productDownload}>{productDownload}</a>
-
-                                        
-                                    </div>
-                                    )}
-                                </div> */}
+                        
                                 
                             </div>
                         </div>
                         )}
-                </div>
+                    </div>      
+                        
+                
 
             </>
 
             
 
             )}
+            </ThemeProvider>
         </div>
     )
 }

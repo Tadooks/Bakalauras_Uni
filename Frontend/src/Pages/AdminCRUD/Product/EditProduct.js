@@ -1,6 +1,5 @@
 
 import React,{useState, useEffect} from "react"
-import Button from '@material-ui/core/Button';
 
 import { Link,useNavigate, useParams } from "react-router-dom";
 
@@ -9,6 +8,11 @@ import { IconButton, useTheme } from "@material-ui/core";
 
 //https://www.npmjs.com/package/react-player
 import ReactPlayer from "react-player";
+
+
+
+import { Button } from "@mui/material";
+import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 
 //storage for adding files
@@ -272,12 +276,29 @@ const EditProduct = () => {
             alert("No file or wrong file selected!");
     };
 
+    //--------------------CSS for MUI table-------------------------
+    const theme = createTheme({
+        palette: {
+          primary: {
+            main: '#5a0061',
+          },
+          secondary: {
+            main: '#5a0061', 
+          },
+        },
+      });
+      //---------------------------------------------------------------
+
 
     return(
         <div style={{ color: 'white'}}>
-            <Link to='/productadminpanel'>
-                <Button variant="contained">Back</Button>
-            </Link>
+            <ThemeProvider theme={theme}>
+            <h1 style={{ textAlign: 'center' }}>Edit product</h1>
+            <div style={{ textAlign: 'center' }}>
+                <Link  to='/productadminpanel'>
+                    <Button  variant="contained">Back</Button>
+                </Link>
+            </div>
             {/* when empty this will get stuck on loading. */}
             {loading ?(
                 <p>Loading...</p>
@@ -286,14 +307,13 @@ const EditProduct = () => {
                 <p>An error occured</p>
             ):(
             <>
-                <div className='crudCenter'>
+                <div className='EditProduct-Screenerino'>
+                    
                     <div>
                         <div >Edit window content</div>
 
-                        
-                        
 
-                        <form onSubmit={handleEditProduct} >
+                        <form className="StyledForm" onSubmit={handleEditProduct} >
                             Name:
                             <input 
                                 type='text' 
@@ -360,7 +380,9 @@ const EditProduct = () => {
                             <Button variant="contained" type='submit'>Save changes</Button>
                         </form>
                         </div>
-                        
+                    </div>    
+
+                    <div className="bonus-Product">  
                         {/* We always show image preview */}
                         <div>
                                 <div className="crudFilePreview">
@@ -373,14 +395,14 @@ const EditProduct = () => {
                                         <label htmlFor="imageInput">Select an image file:</label>
                                         <input type="file" id="imageInput" onChange={handleFileChangeImage} />
                                         </div>
-                                        <button type="submitImage">Upload</button>
+                                        <Button  variant="contained" type="submitImage">Upload</Button>
                                     </form>
                                     
                                     Image preview:
                                     {productImage && (
                                     <div>
-                                        <a href={productImage}>{productImage}</a>
-                                        <img src={productImage} alt={productImage} width="400" height="300"></img>
+                                        {/* <a href={productImage}>{productImage}</a> */}
+                                        <img src={productImage} alt={productImage} width="250" height="250"></img>
                                     </div>
                                     )}
                                     
@@ -405,13 +427,13 @@ const EditProduct = () => {
                                         <label htmlFor="audioInput">Select an audio mp3 file:</label>
                                         <input type="file" id="audioInput" onChange={handleFileChangeAudio} />
                                         </div>
-                                        <button type="submitAudio">Upload</button>
+                                        <Button  variant="contained" type="submitAudio">Upload</Button>
                                     </form>
                                     
                                     Audio url and preview:
                                     {productAudio && (
                                     <div>
-                                        <a href={productAudio}>{productAudio}</a>
+                                        {/* <a href={productAudio}>{productAudio}</a> */}
                                         <ReactPlayer
                                             url={productAudio}
                                             width="100%"
@@ -429,15 +451,16 @@ const EditProduct = () => {
                             </div>
                         </div>
                         )}
+                    </div>      
                         
-                        
-                </div>
+                
 
             </>
 
             
 
             )}
+            </ThemeProvider>
         </div>
     )
 }

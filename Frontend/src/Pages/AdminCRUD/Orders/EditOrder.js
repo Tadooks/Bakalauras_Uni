@@ -1,9 +1,12 @@
 
 import React,{useState, useEffect} from "react"
 import { set,ref,child, Database } from "firebase/database"
-import Button from '@material-ui/core/Button';
+
 import Dialog from '@material-ui/core/Dialog';
 
+
+import { Button } from "@mui/material";
+import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { Link,useNavigate, useParams } from "react-router-dom";
 
 import { IconButton } from "@material-ui/core";
@@ -177,7 +180,7 @@ const ProductsVisual=()=>{
     <Dialog open={dialogOpenProducts} onClose={handleCloseProducts}>
         {/* Dialog content goes here */}
         
-        <button variant="contained" onClick={handleCloseProducts}>Close</button>
+        <Button  variant="contained" onClick={handleCloseProducts}>Close</Button>
         Order number:
         <table>
                 <thead>
@@ -222,7 +225,7 @@ const ShippingVisual=()=>{
     <Dialog open={dialogOpenShipping} onClose={handleCloseShipping}>
         {/* Dialog content goes here */}
         
-        <button variant="contained" onClick={handleCloseShipping}>Close</button>
+        <Button  variant="contained" onClick={handleCloseShipping}>Close</Button>
         Order number:
         <table>
                 <thead>
@@ -267,8 +270,24 @@ const ShippingVisual=()=>{
 
 
 
+    //--------------------CSS for MUI table-------------------------
+    const theme = createTheme({
+      palette: {
+        primary: {
+          main: '#5a0061',
+        },
+        secondary: {
+          main: '#5a0061', 
+        },
+      },
+    });
+    //---------------------------------------------------------------
+
+
+
     return(
         <div style={{ color: 'white'}}>
+          <ThemeProvider theme={theme}>
             <Link to='/orderadminpanel'>
                 <Button variant="contained">Back</Button>
             </Link>
@@ -336,6 +355,7 @@ const ShippingVisual=()=>{
 
             </>
             )}
+            </ThemeProvider>
         </div>
     )
 }
