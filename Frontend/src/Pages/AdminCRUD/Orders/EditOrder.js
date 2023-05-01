@@ -167,21 +167,20 @@ const OpenShippingDialog=async(shippinginfo)=>{
 
 const ProductsVisual=()=>{
 
-  let tempSubtotal=0;
+  let tempSubtotal=0.00;
   if(productDialogStuff){
     productDialogStuff?.map((item) => (
       tempSubtotal=item.totalprice+tempSubtotal
     ))
   }
-  
 
   return(
   <>
     <Dialog open={dialogOpenProducts} onClose={handleCloseProducts}>
         {/* Dialog content goes here */}
-        
-        <Button  variant="contained" onClick={handleCloseProducts}>Close</Button>
-        Order number:
+        <div className="DialogPopup" >
+        <Button variant="contained" onClick={handleCloseProducts}>Close</Button>
+        <h4 style={{ textAlign: 'center' }}><b > Product info</b> </h4>
         <table>
                 <thead>
                   <tr>
@@ -192,24 +191,26 @@ const ProductsVisual=()=>{
                     <th>Size</th>
                     <th>Single product price</th>
                     <th>Combined price</th>
+                    
                   </tr>
                 </thead>
                 <tbody>
                 {productDialogStuff && 
                     productDialogStuff?.map((item) => (
                       <tr>
-                        <td>{item.name}</td>
-                        <td>{item.type}</td>
-                        <td>{item.amount}</td>
-                        <td>{item.productSize}</td>
-                        <td>{item.price} €</td>
-                        <td>{item.totalprice.toFixed(2)} €</td>
+                        <td className="tableInfo">{item.name}</td>
+                        <td className="tableInfo">{item.type}</td>
+                        <td className="tableInfo">{item.amount}</td>
+                        <td className="tableInfo">{item.productSize}</td>
+                        <td className="tableInfo">{item.price} €</td>
+                        <td className="tableInfo">{item.totalprice.toFixed(2)} €</td>
                       </tr>
                     ))
                   }
                 </tbody>
         </table>
-        Subtotal of all products: {tempSubtotal.toFixed(2)} €
+        <span style={{ padding: '5px' }}> Subtotal of all products: {tempSubtotal.toFixed(2)} € </span>
+        </div>
     </Dialog>
   </>
   );
@@ -224,9 +225,9 @@ const ShippingVisual=()=>{
     {/*-------------------Dialog EDIT window popup-------------------*/}
     <Dialog open={dialogOpenShipping} onClose={handleCloseShipping}>
         {/* Dialog content goes here */}
-        
-        <Button  variant="contained" onClick={handleCloseShipping}>Close</Button>
-        Order number:
+        <div className="DialogPopup" >
+        <Button variant="contained" onClick={handleCloseShipping}>Close</Button>
+        <h4 style={{ textAlign: 'center' }}><b > Shipping info</b></h4>
         <table>
                 <thead>
                   <tr>
@@ -242,15 +243,16 @@ const ShippingVisual=()=>{
                 </thead>
                 <tbody>
                 <tr>
-                        <td>{shippingDialogStuff.country}</td>
-                        <td>{shippingDialogStuff.city}</td>
-                        <td>{shippingDialogStuff.post}</td>
-                        <td>{shippingDialogStuff.name}</td>
-                        <td>{shippingDialogStuff.surname}</td>
-                        <td>{shippingDialogStuff.phone}</td>
+                        <td className="tableInfo">{shippingDialogStuff.country}</td>
+                        <td className="tableInfo">{shippingDialogStuff.city}</td>
+                        <td className="tableInfo">{shippingDialogStuff.post}</td>
+                        <td className="tableInfo">{shippingDialogStuff.name}</td>
+                        <td className="tableInfo">{shippingDialogStuff.surname}</td>
+                        <td className="tableInfo">{shippingDialogStuff.phone}</td>
                 </tr>
                 </tbody>
         </table>
+        </div>
     </Dialog>
   </>
   );
@@ -288,9 +290,13 @@ const ShippingVisual=()=>{
     return(
         <div style={{ color: 'white'}}>
           <ThemeProvider theme={theme}>
-            <Link to='/orderadminpanel'>
-                <Button variant="contained">Back</Button>
-            </Link>
+            
+            <h1 style={{ textAlign: 'center' }}>Edit order</h1>
+            <div style={{ textAlign: 'center' }}>
+              <Link to='/orderadminpanel'>
+                  <Button variant="contained">Back</Button>
+              </Link>
+            </div>
             {/* when empty this will get stuck on loading. */}
             {loading ?(
                 <p>Loading...</p>
@@ -301,58 +307,62 @@ const ShippingVisual=()=>{
             <>
     
                 {/* Dialog content goes here */}
-                <div>Edit window content</div>
-
-                <Link to='/orderadminpanel'>
-                    <Button variant="contained">Back</Button>
-                </Link>
                 
+              <div className='EditProduct-Screenerino'>
 
+                
                 <form onSubmit={handleEditOrder} >
                 
-                    Order number
+                    <b>Order number:</b>
                     <div>{orderNumber}</div>
-                    Email
+                    <br></br>
+                    <b>Email:</b>
                     <div>{email}</div>
+                    <br></br>
 
 
-                    Products:
-                    <div>Products info </div>
+                    <b>Products:</b>
+                    <br></br>
                     <span className="clickableText" onClick={()=>OpenProductsDialog(products)}>Products info</span >
-
+                    <br></br><br></br>
+                    
                     <div>Shipping info</div>
                     <span className="clickableText" onClick={()=>OpenShippingDialog(shippingInfo)}>Shipping info</span >
-                   
+                    <br></br><br></br>
+                    
                    <div>Total product count</div>
                    {/* calculated in backend */}
                    <div>{totalProductCount}</div>
+                   <br></br><br></br>
 
                     Total price:
                     {/* Product prices are set in backend, matched according to the product */}
                     <div>{CalculateTotal(products)} €</div>
 
+                    <br></br><br></br>
                     Payment status:
                     <select id="product-type" name="product-type" value={paymentStatus} onChange={e => setPaymentStatus(e.target.value)}>
                         <option value="unpaid">unpaid</option>
                         <option value="paid">paid</option>
                     </select>
-
+                    <br></br><br></br>
                     Delivery status:
                     <select id="product-type" name="product-type" value={deliveryStatus} onChange={e => setDeliveryStatus(e.target.value)}>
                         <option value="not shipped">not shipped</option>
                         <option value="shipped">shipped</option>
                         <option value="arrived">arrived</option>
                     </select>
-
+                    <br></br><br></br>
                     Order date
-                    <div>Shipping info</div>
-
+                    <br></br>
+                    {new Date(orderDate).toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric', hour:"numeric",minute:"numeric"}).replace(/([\d]+:[\d]{2})(:[\d]{2})(.*)/, "$1$3")}
+                    <br></br><br></br>
                     <Button variant="contained" type='submit'>Save changes</Button>
                 </form>
 
                 <ProductsVisual/>
                 <ShippingVisual/>
-
+                </div>
             </>
             )}
             </ThemeProvider>

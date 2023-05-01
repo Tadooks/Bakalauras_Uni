@@ -27,7 +27,7 @@ import EditProduct from './Pages/AdminCRUD/Product/EditProduct';
 import ProductAdminPanel from './Pages/AdminCRUD/Product/ProductAdminPanel';
 import UserAdminPanel from './Pages/AdminCRUD/User/UserAdminPanel';
 import EditUser from './Pages/AdminCRUD/User/EditUser';
-import CreateUser from './Pages/AdminCRUD/User/CreateUser';
+
 import { AuthContext } from './Pages/AuthContextNew';
 import OrderAdminPanel from './Pages/AdminCRUD/Orders/OrderAdminPanel';
 import EditOrder from './Pages/AdminCRUD/Orders/EditOrder';

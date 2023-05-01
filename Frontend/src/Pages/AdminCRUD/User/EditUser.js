@@ -125,7 +125,7 @@ const EditUser = () => {
     return(
         <div style={{ color: 'white'}}>
             <ThemeProvider theme={theme}>
-
+            <h1 style={{ textAlign: 'center' }}>Edit user</h1>
             {/* when empty this will get stuck on loading. */}
             {loading ?(
                 <p>Loading...</p>
@@ -134,49 +134,38 @@ const EditUser = () => {
                 <p>An error occured</p>
             ):(
             <>
-    
+                <div className="EditProduct-Screenerino">
+                    <div>
                 {/* Dialog content goes here */}
-                <div>Edit window content</div>
-
-                <Link to='/useradminpanel'>
-                    <Button variant="contained">Back</Button>
-                </Link>
+                <div style={{ textAlign: 'center' }}>
+                    <Link to='/useradminpanel'>
+                        <Button variant="contained">Back</Button><br></br><br></br>
+                    </Link>
+                </div>
                 
 
                 <form onSubmit={handleEditUser} >
-                {/* Authid:
-                {userAuthId}<br></br> */}
-                {/* <input 
-                    type='text' 
-                    value={userAuthId}
-                    placeholder="Auth ID"
-                    required
-                    onChange={e=>setUserAuthId(e.target.value)}
-                /> */}
-                Email:
-                {userEmail}<br></br>
-                {/* <input 
-                    type='text' 
-                    value={userEmail}
-                    placeholder="Email"
-                    required
-                    onChange={e=>setUserEmail(e.target.value)}
-                /> */}
-                Verified:{""+ userVerified}<br></br>
+                <div>
+                    Email:
+                    {userEmail}<br></br><br></br>
+                </div>
+                Verified:{""+ userVerified}<br></br><br></br>
 
                 Permissions:
                 <select id="permissions" name="permissions" value={userPermissions} onChange={e => setUserPermissions(e.target.value)}>
                     <option value="None">None</option>
                     <option value="admin">admin</option>
-                </select>
+                </select><br></br><br></br>
 
+                <div style={{ textAlign: 'center' }}>
                 <Button variant="contained" type='submit'>Save changes</Button>
+                </div>
                 </form>
 
 
             
-        
-
+                </div>
+                </div>
             </>
             )}
             </ThemeProvider>
