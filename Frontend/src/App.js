@@ -3,7 +3,6 @@ import {BrowserRouter as Router, Link, Routes, Route, useNavigate, Navigate} fro
 import Home from './Pages/Home';
 import Request from './Pages/Request';
 import Shop from './Pages/Shop';
-import ProductsList from './Pages/ProductList';
 import Cart from './Pages/Cart';
 import Product from './Details/Product';
 import Login from './Pages/Login';
@@ -220,38 +219,50 @@ function App() {
         <>
         <CartContext.Provider value={cartCountValue} >
 
+
+        {/* -NAV BAR- */}
         <nav>
           {/* Left navbar items */}
-          <div>
-          <Link to="/">Melonter</Link>
+          <div className='ArtistNav' >
+            <Link to="shop">Artist</Link>
           </div>
 
           {/* Center navbar items */}
           <div>
-            {/* <Link to="songs">Songs</Link> */}
-            <Link to="shop">Shop</Link>
-            <Link to="request">CUSTOM Request</Link>
-            <Link to="infopage">Info</Link>
             
+            <div className='ArtistNav' >
+            <Link to="shop">Shop</Link>
+            <Link to="request">Custom request</Link>
+            <Link to="infopage">Info</Link>
+            </div>
             {/* ALL ADMIN PANEL Link GO HERE */}
+            <div>
             <AdminPanelNav/>
+            </div>
           
           </div>
 
           {/* Right navbar items */}
-          <div>
-            {/* Cart button and count stuff */}
-            <Cert/>
-
-
-            {/* <Link to="login">Login</Link> */}
-            <ProfileNew/>
-          </div>
+          <div className='ArtistNav' >
+            <div >
+              
+            </div>
+            <div>
+              <Cert/>
+              <ProfileNew/>
+            </div>
+          </div>  
           
         </nav>
+
+
+
+
+
+
         <Routes>
           
-          <Route path="/" element={<Home />} />
+          {/* <Route path="/" element={<Home />} /> */}
           <Route path="request" element={<Request />} />
           <Route path="shop" element={<Shop />} />
           <Route path="cart" element={<Cart />} />
@@ -262,7 +273,6 @@ function App() {
           <Route path="forgotpassword" element={<ForgotPassword/>} />
           <Route path="changepassword" element={<ChangePassword/>} />
           <Route path="infopage" element={<InfoPage/>} />
-          <Route path="productlist" element={<ProductsList/>} />
           {/* <Route path="checkout" element={<Checkout/>} /> */}
 
           {/* Product admin */}

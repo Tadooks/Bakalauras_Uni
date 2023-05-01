@@ -411,7 +411,7 @@ const theme = createTheme({
                 <br/>
             {showForm && (
             <div >
-                <h3>Leave some feedback!</h3>
+                <h3>Leave a review!</h3>
 
                 <form onSubmit={handleSubmit}>
                     <Rating
@@ -432,17 +432,17 @@ const theme = createTheme({
                         </label>
                     </p>
                     <textarea
-                    maxlength="100" 
-                    className="textboxclass" 
+                    className="textboxclass"
+                    maxlength="110" 
                     id="review" 
-                    name="review" rows="4" cols="50"
+                    name="review" rows="3" cols="50"
                     value={inputs.review || ""} 
                     onChange={handleChange}>
                             Your review goes here
                         </textarea>
-                    <p>
-                        <input className="button2 button1" type="submit" value="Post review"/>
-                    </p>
+                    <div>
+                        <Button variant="contained" type="submit">Post review</Button>
+                    </div>
                 </form>
             </div>
             )}

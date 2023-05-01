@@ -327,7 +327,9 @@ const ProfileOrders = () => {
             <div className="OrderInfoProfile">
               After every order you make, you will receive a order confirmation email which will include payment information.<br></br>
               <Link to='/InfoPage'>
+                <div className="clickableText">
                 MORE INFO
+                </div>
               </Link>
               <br></br>
               <b>Please write your order number which you are paying for</b><br></br><br></br>

@@ -144,6 +144,9 @@ const Checkout=()=> {
     e.preventDefault()
     console.log("handleCreateOrder was clicked!");
 
+    if(window.confirm("Are you sure you want to create your order ?")){
+    
+
     // Returns a random integer from 0 to 999:
     const randomNumTxt = (Math.floor(Math.random() * 1000));
 
@@ -193,7 +196,7 @@ const Checkout=()=> {
         console.error(`An error occurred: ${e}`)
       });
 
-
+    }
       setRefresh(true);
     return;
 }
@@ -247,8 +250,6 @@ const Checkout=()=> {
                     
 
                     <form className="StyledForm" onSubmit={handleCreateOrder} >
-
-                    
                         
                         
                         <h1>Shipping info</h1>

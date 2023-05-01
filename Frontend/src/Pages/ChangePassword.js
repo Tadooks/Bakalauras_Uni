@@ -2,6 +2,10 @@ import {useState} from 'react'
 import {auth} from '../firebase_config';
 import {EmailAuthProvider,reauthenticateWithCredential,updatePassword} from 'firebase/auth'
 
+
+import { Button } from "@mui/material";
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+
 const ChangePassword = () => {
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
@@ -37,8 +41,22 @@ const ChangePassword = () => {
       });
   };
 
+  //--------------------CSS for MUI table(well and buttons apparently)-------------------------
+  const theme = createTheme({
+    palette: {
+      primary: {
+        main: '#5a0061',
+      },
+      secondary: {
+        main: '#5a0061', 
+      },
+    },
+  });
+  //---------------------------------------------------------------
+
   return (
     <div style={{ color: 'white'}} className='center'>
+      <ThemeProvider>
         <div className='auth'>
             <form onSubmit={handleSubmit}>
                 <label htmlFor="current-password">Current password:</label>
@@ -59,9 +77,10 @@ const ChangePassword = () => {
                     onChange={handleChange}
                 />
                 You will have to login after changing the password!
-                <button type="submit">Change Password</button>
+                <Button variant="contained" type="submit">Change Password</Button>
             </form>
         </div>
+        </ThemeProvider>
     </div>
   );
 };

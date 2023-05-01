@@ -1,5 +1,4 @@
-/* Styling for the App component nav element 
-and Course component course-nav div */
+
 
 html{
   min-height: 100%;
@@ -63,26 +62,27 @@ body{
   /* box-shadow: 3px 3px 15px rgba(239, 11, 247, 0.5); */
 }
 
-
-
-/* Styling for App component nav element anchor 
-tag and Course component nav element anchor tag */
+/* Nav text CSS */
 .App nav a{
   padding: 20px 20px;
   font-size: 26px;
   font-weight: bold;
-  text-transform: uppercase;
   text-decoration: none;
   color: #ffffff;
   
 }
 
-
-.App nav a:hover {
-  background: #9c09ac23;
-  padding-block: 10px;
+.ArtistNav{
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-  
+
+/* .App nav a:hover {
+  background: #9c09ac23;
+  padding-block: 1px;
+}
+   */
 
   
 /*BACKGROUND PAGRINDINIS*/
@@ -127,15 +127,16 @@ tag and Course component nav element anchor tag */
 
 
 .textboxclass{
+  max-width: 100%;
+  font-size: 16px;
+  padding: 16px;
+  font-family: Arial;
   border: 2px solid #310033;
   border-radius: 4px;
   background-color: #6e127a;
   color: white;
   width: 50%;
-  max-width: 100%;
-  font-size: 16px;
-  padding: 16px;
-  font-family: Arial;
+  
   
 }
 
@@ -196,76 +197,13 @@ li{
 }
 
 
-
-
-.button1 {
-  background-color: rgba(165, 0, 151, 0.322); 
-  color: rgb(255, 255, 255); 
-  border: 0px solid #000000;
-}
-
-.button1:hover {
-  background-color: rgba(165, 0, 151, 0.534);
-  color: white;
-}
-
-/* button for comment */
-.button2 {
-  background-color: rgba(165, 0, 151, 0.322); 
-  border: none;
-  color: white;
-  padding-left: 6px;
-  padding-right: 6px;
-  padding-bottom: 6px;
-  padding-top: 6px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 15px;
-  /* margin: 4px 2px; */
-  transition-duration: 0.4s;
-  cursor: pointer;
-  border-radius: 3px;
+.Centered-Request{
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 
-
-.socials:link, .socials:visited {
-  background-color: rgba(165, 0, 151, 0.322); 
-  border: none;
-  color: white;
-  padding-left: 6px;
-  padding-right: 6px;
-  padding-bottom: 6px;
-  padding-top: 6px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 22px;
-  /* margin: 4px 2px; */
-  transition-duration: 0.4s;
-  cursor: pointer;
-  border-radius: 3px;
-}
-
-.socials:hover, .socials:active {
-  background-color: rgba(165, 0, 151, 0.534);
-  color: white;
-}
-
-.subscription{
-  padding:30px;
-  width: 30%;
-  color:white;
-  background-color: rgba(165, 0, 151, 0.247);
-}
-
-.songrequest{
-  padding:30px;
-  width: 50%;
-  color:white;
-  background-color: rgba(165, 0, 151, 0.247);
-}
 
 .temp{
   padding: 20px;
@@ -479,7 +417,6 @@ td.other {
   margin: auto;
   width: 50%;
   max-width: 400px;
-  border: 1px solid #dcdcdc;
   padding: 20px;
   text-align: center;
 }
@@ -541,11 +478,24 @@ td.other {
 /* Profile CSS */
 
 .profile{
-  width: 90%;
-  max-width: 400px;
-  border: 1px solid #dcdcdc;
+
+  
+  /* border: 1px solid #dcdcdc; */
   padding: 20px;
   text-align: center;
+  
+}
+
+.testDiv{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.testDiv p {
+  text-align: left;
+  max-width: 80%;
+  margin: 0;
 }
 
 .profile p {
@@ -553,9 +503,11 @@ td.other {
 }
 
 .profile > span{
-  color: blue;
+  color: rgb(255, 255, 255);
   margin-top: 30px;
   cursor: pointer;
+  font-weight: bold;
+  text-decoration: underline;
 }
 
 
@@ -661,10 +613,17 @@ td.other {
 
 .clickableText{
   cursor: pointer;
-  color: rgb(84, 0, 100);
+  color: rgb(255, 255, 255);
   text-decoration: underline;
+  font-weight: bold;
 }
 
+.clickableTextProfile{
+  cursor: pointer;
+  color: rgb(255, 255, 255);
+  text-decoration: underline;
+  font-weight: bold;
+}
 
 
 
@@ -714,7 +673,8 @@ a:active {
 }
 
 .AdminNav{
-  scale: 75%
+  scale: 70%;
+  padding-top: 6px;
 }
 
 
@@ -742,6 +702,9 @@ a:active {
 .StyledCreateOrder{
   padding-right:150px
 }
+
+
+
 
 
 

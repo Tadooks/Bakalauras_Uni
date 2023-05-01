@@ -82,7 +82,7 @@ const handleTypeClick = (type) => {
     return (
         <div style={{ color: 'white'}}>
             <ToastContainer/>
-            <h1 style={{ textAlign: 'center' }}>Shop</h1>
+            <h1 style={{ textAlign: 'center' }}>Catalog</h1>
             <div style={{ textAlign: 'center' }}>
             <h2>
                 <button className='filterButton' onClick={() => handleClearClick()} >All</button>  

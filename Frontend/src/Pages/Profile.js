@@ -35,7 +35,7 @@ function Profile() {
   //add loading
   return (
     <div style={{ color: 'white'}}>
-      <div style={{ background: 'white', color: 'black'}} className='center'>
+      <div style={{ }} className='center'>
         <div className='profile'>
           <h1>Profile</h1>
           <p><strong>Email: </strong>{auth.currentUser.email}</p>
@@ -44,12 +44,18 @@ function Profile() {
             {`${auth.currentUser.emailVerified}`}
             
           </p>
-
+          
           <Link to="/ProfileOrders">
-          My orders:
+            <p className='clickableTextProfile'>
+              My orders
+            </p>
           </Link>
+          
 
-          <p><Link to='/changepassword'>Change password</Link></p>
+          <p  className='clickableTextProfile'>
+            <Link to='/changepassword'>Change password</Link>
+          </p>
+
           <span onClick={() => {
             signOut(auth);
             setUser([{}]);
@@ -58,7 +64,8 @@ function Profile() {
 
              navigate("/login");
               window.location.reload(true);
-              }}>Sign Out</span>
+              }}>Sign Out
+          </span>
         </div>
         
       </div>

@@ -7,6 +7,8 @@ import {signOut} from 'firebase/auth'
 
 //set this up then check what you can delete
 
+import { Button } from "@mui/material";
+import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 
 function Register() {
@@ -76,8 +78,22 @@ function Register() {
   }
 
 
+    //--------------------CSS for MUI table(well and buttons apparently)-------------------------
+    const theme = createTheme({
+      palette: {
+        primary: {
+          main: '#5a0061',
+        },
+        secondary: {
+          main: '#5a0061', 
+        },
+      },
+    });
+    //---------------------------------------------------------------
+
   return (
     <div style={{ color: 'white'}} className='center'>
+      <ThemeProvider theme={theme}>
       <div className='auth'>
         <h1>Register</h1>
         {error && <div className='auth__error'>{error}</div>}
@@ -103,13 +119,14 @@ function Register() {
             placeholder='Confirm password'
             onChange={e => setConfirmPassword(e.target.value)}/>
 
-          <button type='submit'>Register</button>
+          <Button variant="contained" type='submit'>Register</Button>
         </form>
         <span>
-          Already have an account?  
-          <Link to='/login'>login</Link>
+          Already have an account?<br></br>
+          <Link to='/login'>Login</Link>
         </span>
       </div>
+      </ThemeProvider>
     </div>
   )
 }

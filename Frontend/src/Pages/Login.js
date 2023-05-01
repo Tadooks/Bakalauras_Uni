@@ -5,7 +5,8 @@ import {auth, signInWithGoogle} from '../firebase_config'
 import {useNavigate} from 'react-router-dom'
 import { AuthContext } from './AuthContextNew'
 
-
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { Button } from "@mui/material";
 //IF encountering issues with profile, REFRESH page when profile is clicked first thing.
 function Login(){
 
@@ -59,14 +60,29 @@ function Login(){
       window.location.reload(true)
       signOut(auth)
     }else{
-      navigate('/')
+      navigate('/shop')
     }
     })
     .catch(err => setError(err.message))
   }
 
+
+      //--------------------CSS for MUI table-------------------------
+      const theme = createTheme({
+        palette: {
+          primary: {
+            main: '#5a0061',
+          },
+          secondary: {
+            main: '#5a0061', 
+          },
+        },
+      });
+      //---------------------------------------------------------------
+
   return(
     <div style={{ color: 'white'}} className='center'>
+      <ThemeProvider theme={theme}>
       <div className='auth'>
         <h1>Log in</h1>
         {error && <div className='auth__error'>{error}</div>}
@@ -85,11 +101,10 @@ function Login(){
             placeholder='Enter your password'
             onChange={e => setPassword(e.target.value)}/>
 
-          <button type='submit'>Login</button>
+          <Button variant="contained" type='submit'>Login</Button>
         </form>
         <p>
-          Don't have and account? 
-          <Link to='/register'>Create one here</Link>
+          <Link to='/register'>Register</Link>
         </p>
 
         {/* <div>Sign in with gmail</div> */}
@@ -97,10 +112,14 @@ function Login(){
           Sign in with Google
         </button> */}
         
-        <p>Forgot your password?</p> <Link to='/forgotpassword'>Reset password</Link>
+        
+        <Link  to='/forgotpassword'>
+          Forgot password
+        </Link>
       
         
       </div>
+      </ThemeProvider>
     </div>
   )
 }

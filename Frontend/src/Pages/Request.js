@@ -3,6 +3,10 @@ import { AuthContext } from './AuthContextNew';
 import {useNavigate} from "react-router-dom"
 import { auth } from '../firebase_config';
 
+
+import { Button } from "@mui/material";
+
+import { ThemeProvider, createTheme } from '@mui/material/styles';
 // import emailjs from '@emailjs/browser'
 
 //data sent: email, genre selection, budget, song length, packs, include project file 
@@ -38,26 +42,6 @@ const Request = () => {
   const navigate = useNavigate()
 
 
-
-//   // //-------GET PRODUCT DATA FROM API------------
-//   useEffect(() => {
-        
-//     fetch(`http://localhost:3001/request`,{
-//         method: "GET"
-//     })
-//       .then(response => response.json())
-//       .then((usefulData) => {
-//         //console.log(usefulData);
-//         setData(usefulData);
-//         setLoading(false);
-        
-//       })
-//       .catch((e) => {
-//         console.error(`An error occurred: ${e}`)
-//       });
-//       setRefresh(false);
-// }, [refresh]);
-// // //------------------------------------------
 
 
 
@@ -214,6 +198,20 @@ const handlePriceChange = (e) => {
 }
 
 
+//--------------------CSS for MUI table-------------------------
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#5a0061',
+    },
+    secondary: {
+      main: '#5a0061', 
+    },
+  },
+});
+//---------------------------------------------------------------
+
+
 
 
 
@@ -223,16 +221,14 @@ const handlePriceChange = (e) => {
 
 // style="color: white; display: flex; align-items: center; justify-content: center;"
   return (
-    <div >
-        <h1 className="temp">Request form</h1>
-        <div className="temp2">
-        <div className='songrequest'>
+    <div style={{ color: 'white'}} >
+      <ThemeProvider theme={theme}>
+        <h1 style={{ textAlign: 'center' }}>Request</h1>
+        <div>
+        <div className='Centered-Request'>
           <>
                 <div className='StyledCreateProduct'>
                     <div>
-                        <div >Create window content</div>
-
-                        Email: {user[0].email}
 
                         <form className="StyledForm" onSubmit={handleCreateRequest} >
                             Type:
@@ -308,10 +304,12 @@ const handlePriceChange = (e) => {
                                 value={requestDescription}
                                 placeholder="Description"
                                 required
+                                maxLength={100} // limit the maximum number of characters to 100
+
                                 onChange={e=>setRequestDescription(e.target.value)}
                             />
 
-                            <button variant="contained" type='submit'>Send request</button>
+                            <Button variant="contained" type='submit'>Send request</Button>
                         </form>
                         </div>
                         
@@ -332,6 +330,7 @@ const handlePriceChange = (e) => {
 
         </div>
         </div> 
+        </ThemeProvider>
     </div>
 )
 }
