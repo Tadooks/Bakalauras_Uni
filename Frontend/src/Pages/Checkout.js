@@ -1,6 +1,5 @@
 import React, { useState,useEffect,useContext } from 'react';
 import {Link,useNavigate, useParams} from "react-router-dom"
-import Button from '@material-ui/core/Button';
 import { auth } from '../firebase_config';
 import { AuthContext } from './AuthContextNew';
 import { CartContext } from './CartContext';
@@ -11,6 +10,10 @@ import { CartContext } from './CartContext';
 //Order number, email, ,  payment status, delivery status, order date
 //products
 // shipping info,
+
+import { Button } from "@mui/material";
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+
 
 
 const Checkout=()=> {
@@ -197,9 +200,25 @@ const Checkout=()=> {
 //------------------------------------
 
 
+    //--------------------CSS for MUI table(well and buttons apparently)-------------------------
+    const theme = createTheme({
+        palette: {
+          primary: {
+            main: '#5a0061',
+          },
+          secondary: {
+            main: '#5a0061', 
+          },
+        },
+      });
+      //---------------------------------------------------------------
+
+
   return(
     <div style={{ color: 'white'}}>
-
+        <ThemeProvider theme={theme}>
+        <h1 style={{ textAlign: 'center' }}>Order summary</h1>
+        <div className='Checkout-Screenerino'>
         {/* when empty this will get stuck on loading. */}
         {/* {loading ?(
             <p>Loading...</p>
@@ -209,28 +228,30 @@ const Checkout=()=> {
         ):( */}
 
         {/* if empty array */}
-        {cart==[] ? (
+        {cart[0].length==0  ? (
                 <div className="cartEmpty">
                 <p>Your cart is empty !</p>
                 <div className="startShopping">
-                    <Link to="/">
-
-                        Start Shopping
-                    </Link>
+                    <div className="buttonPadding">
+                        <Link to="/shop">
+                            <Button  variant="contained">Back to shopping</Button>
+                        </Link>
+                    </div>
                 </div>
                 </div>
             ) : (//LOADED cart
         <>
+
             <div className='StyledCreateOrder'>
                 <div>
-                    <div >Create window content</div>
+                    
 
                     <form className="StyledForm" onSubmit={handleCreateOrder} >
 
                     
                         
                         
-                        Shipping info
+                        <h1>Shipping info</h1>
                         Country:
                         <input 
                             type='text' 
@@ -303,13 +324,12 @@ const Checkout=()=> {
                     
             </div>
 
-
-
             {/* ---------------------------------ORDER SUMMARY---------------------------------- */}
-            <div className='auth'>
-            <h1>Order summary</h1>
+        <div style={{scale: "100%"}} >
+            
             {/* if empty array */}
-            {cart==[] ? (
+
+            {cart[0].length==0 ? (
                 <div className="cartEmpty">
                 <p>Your cart is empty !</p>
                 <div className="startShopping">
@@ -323,63 +343,73 @@ const Checkout=()=> {
                 <div>
                     
                     <div className="cart-items">
-                    ORDER SUMMARY
-                    <table>
-                        {cart[0]?.map((cartItem) =>(
-                            // <div className="cart-item" key={cartItem.id}>
-                            <>
-                                <tr className="cart-item" key={cartItem.id}>
-                                    <div>{cartItem.id}</div>
-                                    <td class="first"> 
-                                        <img style={{ width: '50px', height: '80px' }} src={cartItem.image} alt={cartItem.name}/>
-                                    </td>
 
-                                    <td class="other">
-                                        <div>
-                                            Name: 
-                                            {cartItem.name}
-                                        </div>
-                                        <div>
-                                            Size: 
-                                            {cartItem.productSize}
-                                        </div>
-                                        <div>
-                                            Price:
-                                            {tempCartSum=(cartItem.price*cartItem.amount).toFixed(2)} €
-                                        </div>
+                <table>
+                    {console.log("This aint empty ")}
+                    {console.log(cart[0][0])}
+                    {cart[0]?.map((cartItem) =>(
+                        // <div className="cart-item" key={cartItem.id}>
+                        <>
+                            <tr className="cart-item" key={cartItem.uid}>
+                                {/* <div>{cartItem.uid}</div> */}
+                                <td class="first"> 
+                                    <img style={{ width: '120px', height: '120px' }} src={cartItem.image} alt={cartItem.name}/>
+                                </td>
+
+                                <td class="other">
+                                    <div>
+                                        {cartItem.name}
+                                    </div>
+                                    <div>
+                                        {cartItem.type == "Clothing" && (
+                                            <>
+                                                Size: {cartItem.productSize}
+                                            </>
+                                        )}
                                         
-                                    </td>
-                                    <td class="other">
-                                        
-                                    </td>
-                                    <td class="other">
-                                        Quantity:
-                                        <div>
-                                            <div className="count">{cartItem.amount}</div>
-                                        </div>
-                                        
-                                    </td>
-                                </tr>
-                            </>
-                        ))}
-                    </table>
-                    </div>
-                    <div className="cart-summary">
-                        <div className="cart-checkout">
-                            <div className="subtotal">
-                                <span>Subtotal: </span>
-                                <span>{subtotal} €</span>
-                            </div>
-                        </div>
-                    </div>
+                                    </div>
+                                    <div>
+                                        Price:
+                                        {tempCartSum=(cartItem.price*cartItem.amount).toFixed(2)} €
+                                    </div>
+                                    
+                                </td>
+                                <td class="other">
+                                    
+                                    <div>
+                                        <div className="quantityCount">Count: {cartItem.amount}</div>
+                                    </div>
+                                    
+                                </td>
+
+                            </tr>
+                        </>
+                    ))}
+                </table>
+                
+
+                
+                </div>
+                <div className="subtotal">
+                    <h2 style={{ textAlign: 'center' }}>
+                        <span>Subtotal: </span>
+                        <span>{subtotal} €</span>
+                    </h2>
+                </div>
 
                 </div>
             )}
-  </div>
-{/* ------------------------------------------------------------------order summary end */}
+            </div>
+            {/* -------------------------------------order summary end */}
+
+
+
+            
 
         </>
 )}
+</div>
+</ThemeProvider>
 </div>
 )
 

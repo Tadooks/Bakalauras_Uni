@@ -8,6 +8,8 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 //https://fkhadra.github.io/react-toastify/introduction
 
+import { Button } from "@mui/material";
+import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 
 const Cart = () => {
@@ -242,11 +244,40 @@ const Cart = () => {
 
     //console.log("awooga user:"+ {user?.email})
 
+
+
+    //--------------------CSS for MUI table(well and buttons apparently)-------------------------
+const theme = createTheme({
+    palette: {
+      primary: {
+        main: '#5a0061',
+      },
+      secondary: {
+        main: '#5a0061', 
+      },
+    },
+  });
+  //---------------------------------------------------------------
+
+
+
+
+    //-------------------------RETURN----------------------------
     return(
     <div style={{ color: 'white'}} className="cart-container">
+        <ThemeProvider theme={theme}>
         <ToastContainer/>
-        <h2>Shopping cart</h2>
+        <h1 style={{ textAlign: 'center' }}>Shopping cart</h1>
 
+        <div className="productViewCenter">
+            <div className="continue-shopping">
+                <div className="buttonPadding">
+                    <Link to="/shop">
+                        <Button  variant="contained">Back to shopping</Button>
+                    </Link>
+                </div>
+                
+            </div>
         {/* <ThemeContext.Provider value={darkTheme} >
             <button onClick={toggleTheme}>Toggle</button>
             <FunctionContextComponent/>
@@ -258,18 +289,18 @@ const Cart = () => {
             <p>Your cart is empty!</p>
             {console.log("This carrrt is empty ")}
                     {console.log([cart])}
-            <div className="startShopping">
+            {/* <div className="startShopping">
                 <Link to="/shop">
 
                     Start Shopping
                 </Link>
-            </div>
+            </div> */}
             </div>
         ) : (//LOADED cart
             <div>
                 
                 <div className="cart-items">
-                ORDER SUMMARY
+
                 <table>
                     {console.log("This aint empty ")}
                     {console.log(cart[0][0])}
@@ -277,21 +308,22 @@ const Cart = () => {
                         // <div className="cart-item" key={cartItem.id}>
                         <>
                             <tr className="cart-item" key={cartItem.uid}>
-                                <div>{cartItem.uid}</div>
+                                {/* <div>{cartItem.uid}</div> */}
                                 <td class="first"> 
-                                    <img style={{ width: '50px', height: '80px' }} src={cartItem.image} alt={cartItem.name}/>
+                                    <img style={{ width: '120px', height: '120px' }} src={cartItem.image} alt={cartItem.name}/>
                                 </td>
 
                                 <td class="other">
                                     <div>
-                                        Name: 
                                         {cartItem.name}
                                     </div>
                                     <div>
-                                        Size: 
-                                        {console.log("cartItemAAAAAAAAAAAAAAAAAAAAAAAAAAAAa")}
-                                        {console.log(cartItem)}
-                                        {cartItem.productSize}
+                                        {cartItem.type == "Clothing" && (
+                                            <>
+                                                Size: {cartItem.productSize}
+                                            </>
+                                        )}
+                                        
                                     </div>
                                     <div>
                                         Price:
@@ -301,48 +333,46 @@ const Cart = () => {
                                 </td>
                                 <td class="other">
                                     
-                                </td>
-                                <td class="other">
-                                    Quantity:
                                     <div>
-                                        <button onClick={()=>handleAmountRemove(cartItem)}>-</button>
-                                        <div className="count">{cartItem.amount}</div>
-                                        <button onClick={()=>handleAmountAdd(cartItem)}>+</button>
+                                        <Button variant="contained" onClick={()=>handleAmountRemove(cartItem)}><div style={{ fontSize: '35px'}} >-</div></Button>
+                                        <div className="quantityCount">{cartItem.amount}</div>
+                                        <Button variant="contained" onClick={()=>handleAmountAdd(cartItem)}><div style={{ fontSize: '35px'}} >+</div></Button>
                                     </div>
                                     
                                 </td>
                                 <td>
-                                    <button onClick={()=>handleRemoveFromCart(cartItem)}>Remove</button>
+                                    <Button variant="contained" onClick={()=>handleRemoveFromCart(cartItem)}>Remove</Button>
                                 </td>
                             </tr>
                         </>
                     ))}
                 </table>
-                </div>
-                <div className="cart-summary">
-                    <button onClick={()=>handleClearCart()} className="clear-cart">Clear Cart</button>
-                    <div className="cart-checkout">
-                        <div className="subtotal">
-                            <span>Subtotal: </span>
-                            <span>{subtotal} €</span>
-                        </div>
-                        
-                        <Link to="/checkout">
-                        <button>Checkout</button>
-                        </Link>
+                
 
-                        <div className="continue-shopping">
-                            <Link to="/shop">
-                                Continue shopping
-                            </Link>
-                            Continue Shopping
-                        </div>
+                
+                </div>
+                <div className="subtotal">
+                    <h2 style={{ textAlign: 'center' }}>
+                        <span>Subtotal: </span>
+                        <span>{subtotal} €</span>
+                    </h2>
+                </div>
+                <div className="cartSummary">
+                    <div className="buttonPadding">
+                        <Button variant="contained" onClick={()=>handleClearCart()} className="clear-cart">Clear Cart</Button>
                     </div>
+                    <div className="buttonPadding">
+                        <Link to="/checkout">
+                            <Button variant="contained">Checkout</Button>
+                        </Link>
+                    </div>
+                    
                 </div>
-
+                                            
             </div>
         )}
-        
+        </div>
+    </ThemeProvider>
     </div>
     );
 };

@@ -321,10 +321,16 @@ const theme = createTheme({
     return(
         <div  style={{ color: 'white'}}>
             <ToastContainer/>
-            <div className="productInfoMain">
-
             
+            
+            <div className="productInfoMain">
             <ThemeProvider theme={theme}>
+            <div className="buttonPadding">
+                <Link to={`/shop`} >
+                    <Button variant="contained">BACK</Button>
+                </Link>
+            </div>
+            
             
             {loading ?(
                 <p>Loading...</p>
@@ -333,11 +339,7 @@ const theme = createTheme({
             ):(
             <>
                 <div>
-                <div className="buttonPadding">
-                    <Link to={`/shop`} >
-                        <Button variant="contained">BACK</Button>
-                    </Link>
-                </div>
+                
                 <div className="productViewCenter">
                     <div key={data.uid} className="productClicked">
                             
@@ -370,8 +372,16 @@ const theme = createTheme({
                         </select>
                         </>
                     )}
+                    
 
                 </div>
+
+                <div style={{ textAlign: 'center', paddingBottom: '20px' }}>
+                        <Link to="/cart">
+                            <Button variant="contained">Checkout</Button>
+                        </Link>
+                </div>
+                
                 <div>
                      {data.desc}
                 </div>

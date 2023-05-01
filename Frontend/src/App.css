@@ -386,7 +386,7 @@ li{
 }
 
 .productBonusInfo{
-  padding: 25px;
+  padding-top: 25px;
   display: flex;
   align-items: center; 
   justify-content: center;
@@ -417,23 +417,58 @@ li{
 .cart-items{
   flex: fit-content;
   display: flex;
+  align-items: center; 
 }
 
 .cart-item{
-  padding: 5px;
+  padding: 20px;
+}
+
+.cartSummary{
+  padding: 0px;
+  display: flex;
+  align-items: center; 
+  justify-content: center;
+  flex-direction: row;
+}
+
+.quantityCount{
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
 }
 
 
 
 
-tr {
-  border: 1px solid blue;
-}
-
+/* checkout table color */
 td {
-  outline: 0.5px solid #72007b;
-  padding: 0;
+  outline: 0.5px solid #ffffff00;
+  padding: 25px;
+  
 }
+
+td.other {
+  outline: 0.5px solid #73007b00;
+  padding: 25px;
+  align-items: center;
+
+}
+
+
+/* Checkout CSS thingamajigs */
+
+.Checkout-Screenerino{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+
+
 
 
 
@@ -565,8 +600,9 @@ td {
   display: flex;
   flex-direction: column;
   max-width: 300px;
-  margin-top: 2rem;
 }
+
+
   
 .StyledForm select,
   .StyledForm input {
@@ -700,6 +736,11 @@ a:active {
 
 .DialogPopup{
   padding: 10px;
+}
+
+
+.StyledCreateOrder{
+  padding-right:150px
 }
 
 
