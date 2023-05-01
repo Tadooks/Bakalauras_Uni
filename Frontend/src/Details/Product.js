@@ -6,9 +6,10 @@ import { Rating } from "@mui/material";
 
 import { AuthContext } from "../Pages/AuthContextNew";
 
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+
 import { auth } from "../firebase_config";
-
-
+import { Button } from "@mui/material";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 //https://fkhadra.github.io/react-toastify/introduction
@@ -90,7 +91,13 @@ const Product = ({socket}) => {
 
 
     const handleAddToCart = (product) => {
-
+        console.log("Looking to fix size bugs")
+        console.log(product)
+        console.log(productSize)
+        if(product.type=="Clothing" && productSize=="None"){
+            alert("Please select a size")
+            return;
+        }
         
         if (cart[0].some((tempCart2) => {
 
@@ -296,147 +303,191 @@ const Product = ({socket}) => {
 	}, [socket,refresh]);
 
 
-
+//--------------------CSS for MUI table(well and buttons apparently)-------------------------
+const theme = createTheme({
+    palette: {
+      primary: {
+        main: '#5a0061',
+      },
+      secondary: {
+        main: '#5a0061', 
+      },
+    },
+  });
+  //---------------------------------------------------------------
 
     
     
     return(
-        <div style={{ color: 'white'}}>
-        <ToastContainer/>
-        {loading ?(
-            <p>Loading...</p>
-        ) : error ? (
-            <p>An error occured</p>
-        ):(
-        <>
-            <div> Cia bus id: {dataID}
-            <Link to={`/shop`} >
-                <button>BACK</button>
-            </Link>
-            <div>Product name: {data.name}</div>
-            <div>Product image: {data.image}</div>
-            <div>Product description: {data.desc}</div>
-            <div>Product price: {data.price} €</div>
-            {data.type == "Clothing" && (
-                <>
-                Clothing size:
-                <select id="product-type" name="product-type" value={productSize} onChange={e => setProductSize(e.target.value)}>
-                    <option default disabled value="None">Please select size</option>
-                    <option value="Extra Small">Extra Small</option>
-                    <option value="Small">Small</option>
-                    <option value="Medium">Medium</option>
-                    <option value="Large">Large</option>
-                    <option value="Extra Large">Extra Large</option>
-                </select>
-                </>
-            )}
+        <div  style={{ color: 'white'}}>
+            <ToastContainer/>
+            <div className="productInfoMain">
+
             
-            {data.type =="Audio" && (
+            <ThemeProvider theme={theme}>
+            
+            {loading ?(
+                <p>Loading...</p>
+            ) : error ? (
+                <p>An error occured</p>
+            ):(
             <>
-            Audio Preview:
                 <div>
-                <ReactPlayer
-                    url={data.audio}
-                    width="40%"
-                    height="50px"
-                    playing={false}
-                    controls={true}
-                />
+                <div className="buttonPadding">
+                    <Link to={`/shop`} >
+                        <Button variant="contained">BACK</Button>
+                    </Link>
                 </div>
+                <div className="productViewCenter">
+                    <div key={data.uid} className="productClicked">
+                            
+                        <div>
+                            <img className="productImg" src={data.image} alt={data.name} />
+                        </div>
+                        <h2 style={{ textAlign: 'center' }}>{data.name}</h2>
+                        <div className="productPrice">
+                            <span>{data.price} € </span>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div className="productBonusInfo">
+                    <div className="buttonPadding">
+                        <Button variant="contained" onClick={()=> handleAddToCart(data)}>Add To Cart</Button>
+                    </div>
+                    
+                    
+                    {data.type == "Clothing" && (
+                        <>
+                        <select className='OptionSelection' id="product-type" name="product-type" value={productSize} onChange={e => setProductSize(e.target.value)}>
+                            <option default disabled value="None">Please select size</option>
+                            <option value="Extra Small">Extra Small</option>
+                            <option value="Small">Small</option>
+                            <option value="Medium">Medium</option>
+                            <option value="Large">Large</option>
+                            <option value="Extra Large">Extra Large</option>
+                        </select>
+                        </>
+                    )}
+
+                </div>
+                <div>
+                     {data.desc}
+                </div>
+                
+                {data.type =="Audio" && (
+                <div className="audioPreview">
+                <div>
+                    Preview:
+                </div>
+                    <div>
+                    <ReactPlayer
+                        
+                        url={data.audio}
+                        width="100%"
+                        height="50px"
+                        playing={false}
+                        controls={true}
+                    />
+                    </div>
+                </div>
+                )}
+                
+                </div>
+        
+        <div className="reviewDiv">
+
+                <br/>
+            {showForm && (
+            <div >
+                <h3>Leave some feedback!</h3>
+
+                <form onSubmit={handleSubmit}>
+                    <Rating
+                        name="rating"
+                        value={inputs.rating || 5}
+                        onChange={handleChange}
+                    />
+                    <p>
+                        <label >&nbsp;Enter your name: &nbsp;
+                        <input 
+                            maxlength="20" 
+                            className="textboxName"
+                            type="text" 
+                            name="name" 
+                            value={inputs.name || ""} 
+                            onChange={handleChange}
+                        />
+                        </label>
+                    </p>
+                    <textarea
+                    maxlength="100" 
+                    className="textboxclass" 
+                    id="review" 
+                    name="review" rows="4" cols="50"
+                    value={inputs.review || ""} 
+                    onChange={handleChange}>
+                            Your review goes here
+                        </textarea>
+                    <p>
+                        <input className="button2 button1" type="submit" value="Post review"/>
+                    </p>
+                </form>
+            </div>
+            )}
+
+            <h3>Reviews:</h3>
+            <div>Average user rating: &nbsp;
+            {  
+                Number.parseFloat(list.rating/list.listOfReviews.length).toFixed(2)
+            }
+            </div>
+            Number of reviews: &nbsp;
+            {  
+                list.listOfReviews.length
+            }
+
+        <ul>
+        {  
+                list.listOfReviews.map((review) =>
+                    <li key={review.id}>
+                        <div>
+                            <b>Name: </b> {review.name}
+                            
+                        </div>
+                        <div>
+                            {/* <b>Rating:</b> {review.rating} */}
+                            <p>
+                                <Rating className='ReviewRating'
+                                name="rating"
+                                value={review.rating}
+                                onChange={handleChange}
+                                />
+                            </p>
+                                
+                            <p></p>
+                        </div>
+                        <li>
+                            <div>
+                                <b> </b> {review.review}
+                            </div>
+                        </li>
+                    </li>
+                    )
+
+                }
+        </ul>
+
+
+            </div>
             </>
             )}
-            <button onClick={()=> handleAddToCart(data)}>Add To Cart</button>
-            </div>
-<div>
 
-
-            <br/>
-        {showForm && (
-        <>
-		<h3>Leave some feedback!</h3>
-
-		<form onSubmit={handleSubmit}>
-            <Rating
-                name="rating"
-                value={inputs.rating || 5}
-                onChange={handleChange}
-            />
-            <p>
-                <label >&nbsp;Enter your name: &nbsp;
-                <input 
-                    maxlength="20" 
-                    className="textboxName"
-                    type="text" 
-                    name="name" 
-                    value={inputs.name || ""} 
-                    onChange={handleChange}
-                />
-                </label>
-            </p>
-            <textarea
-            maxlength="100" 
-            className="textboxclass" 
-            id="review" 
-            name="review" rows="4" cols="50"
-            value={inputs.review || ""} 
-            onChange={handleChange}>
-                    Your review goes here
-                </textarea>
-            <p>
-                <input className="button2 button1" type="submit" value="Post review"/>
-            </p>
-    	</form>
-        </>
-        )}
-
-		<h3>Reviews:</h3>
-		<div>Average user rating: &nbsp;
-		{  
-			Number.parseFloat(list.rating/list.listOfReviews.length).toFixed(2)
-		}
-		</div>
-		Number of reviews: &nbsp;
-		{  
-			list.listOfReviews.length
-		}
-
-    <ul>
-	{  
-			list.listOfReviews.map((review) =>
-				<li key={review.id}>
-					<div>
-						<b>Name: </b> {review.name}
-						
-					</div>
-					<div>
-						{/* <b>Rating:</b> {review.rating} */}
-						<p>
-							<Rating className='ReviewRating'
-							name="rating"
-							value={review.rating}
-							onChange={handleChange}
-							/>
-						</p>
-							
-						<p></p>
-					</div>
-					<li>
-						<div>
-							<b> </b> {review.review}
-						</div>
-					</li>
-				</li>
-				)
-
-            }
-	</ul>
-
-
-	</div>
-        </>
-        )}
+        </ThemeProvider>
         </div>
-    );
-};
+</div>
+    
+);};
 
 export default Product;

@@ -108,12 +108,13 @@ const handleTypeClick = (type) => {
                     .map((product) => (
                         <div key={product.uid} className="product">
                         <Link className="productCard" to={`/productdetails/${product.uid}`}>
-                            <h2 style={{ textAlign: 'center' }}>{product.name}</h2>
+                            
                             <div>
                             <img className="productImg" src={product.image} alt={product.name} />
                             </div>
+                            <h2 style={{ textAlign: 'center' }}>{product.name}</h2>
                             <div className="productPrice">
-                            <span>{product.price} € </span>
+                                <span>{product.price} € </span>
                             </div>
                         </Link>
                         </div>

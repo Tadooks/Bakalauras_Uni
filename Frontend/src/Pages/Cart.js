@@ -288,7 +288,9 @@ const Cart = () => {
                                         {cartItem.name}
                                     </div>
                                     <div>
-                                        Name: 
+                                        Size: 
+                                        {console.log("cartItemAAAAAAAAAAAAAAAAAAAAAAAAAAAAa")}
+                                        {console.log(cartItem)}
                                         {cartItem.productSize}
                                     </div>
                                     <div>

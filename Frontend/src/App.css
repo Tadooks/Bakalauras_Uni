@@ -319,11 +319,22 @@ li{
 .product{
   width: 250px;
   max-width: 100%;
-  height: 400px;
+  height: 380px;
+  padding-left: 3%;
+  padding-right: 3%;
+  padding-bottom: 3%;
+  box-shadow: 5px 5px 55px rgba(0, 0, 0, 0.5);  
+}
+
+.productClicked{
+  width: 250px;
+  max-width: 100%;
+  height: 380px;
   padding-left: 3%;
   padding-right: 3%;
   padding-bottom: 3%;
   box-shadow: 5px 5px 55px rgba(0, 0, 0, 0.5);
+  padding: 35px;
   
 }
 
@@ -337,6 +348,11 @@ li{
   margin-top: 1rem;
   margin-left: auto;
   margin-right: auto;
+
+}
+
+.buttonPadding{
+  padding: 15px;
 }
 
 .productButton{
@@ -349,6 +365,49 @@ li{
   background-color: #6e127a;
   color: white;
   letter-spacing: 1.15px;
+}
+
+
+/* MORE info product CSS (when u click da thingy */
+.productInfoMain{
+  color: white;
+  display: flex;
+  align-items: center; 
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.productViewCenter{
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  padding: 0px;
+}
+
+.productBonusInfo{
+  padding: 25px;
+  display: flex;
+  align-items: center; 
+  justify-content: center;
+  
+}
+
+.audioPreview{
+  padding: 25px;
+  display: flex;
+  align-items: center; 
+  justify-content: center;
+  flex-direction: column;
+}
+
+.reviewDiv{
+  width: 50%;
+}
+
+.OptionSelection{
+  border: 0px;
+  padding: 8px;
 }
 
 
