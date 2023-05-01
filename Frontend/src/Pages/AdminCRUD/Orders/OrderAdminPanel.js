@@ -277,19 +277,18 @@ const OrderAdminPanel = () => {
       { field: 'products', headerName: 'Products', flex: 1, cellClassName: 'vertical-line',
         renderCell: (params) => (
               
-          <span className="clickableText" onClick={()=>OpenProductsDialog(params.row.products)}>Products</span >
+          <span className="clickableTextDark" onClick={()=>OpenProductsDialog(params.row.products)}>Products</span >
         ),
     
       },
       { field: 'shippinginfo', headerName: 'Shipping info', flex: 1, cellClassName: 'vertical-line',
         renderCell: (params) => (
             
-          <span className="clickableText" onClick={()=>OpenShippingDialog(params.row.shippinginfo)}>Shipping info</span >
+          <span className="clickableTextDark" onClick={()=>OpenShippingDialog(params.row.shippinginfo)}>Shipping info</span >
         ),
       },
 
 
-      // <span className="clickableText" onClick={()=>OpenShippingDialog(order.shippinginfo)}>Shipping info</span >
       { field: 'totalprice', headerName: 'Total price', flex: 1, type: 'number', sortable: false,
       renderCell: (params) => {
         

@@ -618,6 +618,14 @@ td.other {
   font-weight: bold;
 }
 
+.clickableTextDark{
+  cursor: pointer;
+  color: rgb(70, 0, 64);
+  text-decoration: underline;
+  font-weight: bold;
+}
+
+
 .clickableTextProfile{
   cursor: pointer;
   color: rgb(255, 255, 255);

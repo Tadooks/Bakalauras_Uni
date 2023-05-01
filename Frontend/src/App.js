@@ -170,11 +170,12 @@ function App() {
   const ProtectedRouteAdmin = ({ children }) => {
     
     //Loading padaryt kaip product data 
-    console.log("Protected Route current user:");
+    console.log("Protected Route current user:!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1");
     console.log(currentUser);
-    console.log(auth.currentUser);
+    console.log(user[0]);
+    console.log(user[0].permissions);
     
-    if(currentUser==null ){
+    if(currentUser==null || user[0].permissions=="None" ){
       console.log("no perms to access this pagerino")
       alert("No permissions")
       return <Navigate to={"/login"}/>
@@ -262,7 +263,7 @@ function App() {
 
         <Routes>
           
-          {/* <Route path="/" element={<Home />} /> */}
+
           <Route path="request" element={<Request />} />
           <Route path="shop" element={<Shop />} />
           <Route path="cart" element={<Cart />} />
@@ -273,27 +274,17 @@ function App() {
           <Route path="forgotpassword" element={<ForgotPassword/>} />
           <Route path="changepassword" element={<ChangePassword/>} />
           <Route path="infopage" element={<InfoPage/>} />
-          {/* <Route path="checkout" element={<Checkout/>} /> */}
 
-          {/* Product admin */}
-          {/* <Route path="productadminpanel" element={<ProductAdminPanel/>} /> */}
-          <Route path="createproduct" element={<CreateProduct/>} />
-          <Route path="editproduct/:id" element={<EditProduct/>} />
-
-          {/* User admin */}
-          <Route path="useradminpanel" element={<UserAdminPanel/>} />
-          <Route path="edituser/:id" element={<EditUser/>} />
-          {/* <Route path="createuser" element={<CreateUser/>} /> */}
 
           
-          <Route path="editorder/:id" element={<EditOrder/>} />
+
+       
           
           
           
           {/* ------------------------PROTECTED ADMIN PANELS-------------- */}
-          {/* Protected route product admin panel */}
 
-          {/* Product admin */}
+          {/* ---------Product admin--------- */}
           <Route 
             path="productadminpanel"
             element={
@@ -306,8 +297,33 @@ function App() {
               </ProtectedRouteAdmin>
             )} 
           />
-
-          {/* Order admin */}
+          <Route 
+            path="createproduct"
+            element={
+              loading ?(
+                // <p>Loading...</p>
+                <div>Loading...</div>
+            ) : (
+              <ProtectedRouteAdmin>  
+                <CreateProduct/>
+              </ProtectedRouteAdmin>
+            )} 
+          />
+          <Route 
+            path="editproduct/:id"
+            element={
+              loading ?(
+                // <p>Loading...</p>
+                <div>Loading...</div>
+            ) : (
+              <ProtectedRouteAdmin>  
+                <EditProduct/>
+              </ProtectedRouteAdmin>
+            )} 
+          />
+          
+   
+          {/* ---------Order admin--------- */}
           <Route 
             path="orderadminpanel"
             element={
@@ -320,8 +336,23 @@ function App() {
               </ProtectedRouteAdmin>
             )} 
           />
+          <Route 
+            path="editorder/:id"
+            element={
+              loading ?(
+                // <p>Loading...</p>
+                <div>Loading...</div>
+            ) : (
+              <ProtectedRouteAdmin>  
+                <EditOrder/>
+              </ProtectedRouteAdmin>
+            )} 
+          />
+
+
+
          
-          {/* Review admin */}
+          {/* ---------Review admin--------- */}
           <Route 
             path="reviewadminpanel"
             element={
@@ -336,7 +367,7 @@ function App() {
           />
 
           
-          {/* Request admin */}
+          {/* ---------Request admin--------- */}
           <Route 
             path="requestadminpanel"
             element={
@@ -349,6 +380,36 @@ function App() {
               </ProtectedRouteAdmin>
             )} 
           />
+
+
+          {/* ---------User admin--------- */}
+          <Route 
+            path="useradminpanel"
+            element={
+              loading ?(
+                // <p>Loading...</p>
+                <div>Loading...</div>
+            ) : (
+              <ProtectedRouteAdmin>  
+                <UserAdminPanel/>
+              </ProtectedRouteAdmin>
+            )} 
+          />
+          <Route 
+            path="edituser/:id"
+            element={
+              loading ?(
+                // <p>Loading...</p>
+                <div>Loading...</div>
+            ) : (
+              <ProtectedRouteAdmin>  
+                <EditUser/>
+              </ProtectedRouteAdmin>
+            )} 
+          />
+
+
+
           {/* ------------------------------------------End of protected admin-------------- */}
           
 
