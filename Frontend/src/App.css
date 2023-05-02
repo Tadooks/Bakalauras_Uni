@@ -11,13 +11,7 @@ body{
   background: linear-gradient(-0deg,#2b0031,#000) fixed;
   height: 100%;
   min-height: 100%;
-  /* background: linear-gradient(-40deg,#6e127a,#000); */
-  /* height: 100%; */
-  /* background-repeat: no-repeat;  */
-  /* background-size: cover; */
-  /* background-color: rgb(0, 0, 0); */
-  
-  /* New stuff here, if pages looks messed up this might be the reason */
+
   display: flex;
   flex-direction: column;
   
@@ -131,20 +125,20 @@ body{
   font-size: 16px;
   padding: 16px;
   font-family: Arial;
-  border: 2px solid #310033;
+  border: 2px solid #000000;
   border-radius: 4px;
-  background-color: #6e127a;
-  color: white;
+  background-color: #ffffff;
+  color: rgb(0, 0, 0);
   width: 50%;
   
   
 }
 
 .textboxName{
-  border: 2px solid #310033;
+  border: 2px solid #000000;
   border-radius: 4px;
-  background-color: #6e127a;
-  color: white;
+  background-color: #ffffff;
+  color: rgb(0, 0, 0);
 }
 
 
@@ -155,9 +149,10 @@ body{
 ul {
   width: 100%;
   padding: 12px;
-  border: 0px solid #00000080;
-  background-color: #8f199e3b;
+  border: 0px solid #000;
+  background-color: #00000047;
   list-style-type: none;
+  color: white;
   
 }
 
@@ -595,18 +590,18 @@ td.other {
 }
 
 .preview-container {
-  width: 300px; /* Set the width of the container */
-  height: 300px; /* Set the height of the container */
-  border: 2px dashed gray; /* Add a dashed gray border */
-  display: flex; /* Use flexbox to center the image */
-  justify-content: center; /* Center the image horizontally */
-  align-items: center; /* Center the image vertically */
+  width: 300px; 
+  height: 300px; 
+  border: 2px dashed gray;
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
 }
 .preview-image {
-  max-width: 100%; /* Ensure the image fits within the container */
-  max-height: 100%; /* Ensure the image fits within the container */
-  object-fit: none; /* Do not maintain aspect ratio */
-  object-position: center; /* Center the image within the container */
+  max-width: 100%; 
+  max-height: 100%; 
+  object-fit: none; 
+  object-position: center; 
 }
 
 

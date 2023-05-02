@@ -448,7 +448,7 @@ const theme = createTheme({
             )}
 
             <h3>Reviews:</h3>
-            <div>Average user rating: &nbsp;
+            <div>Average rating: &nbsp;
             {  
                 Number.parseFloat(list.rating/list.listOfReviews.length).toFixed(2)
             }
