@@ -3,8 +3,7 @@
 import { database } from "../db/firebaseDB.js";
 import { ref, child, get, push, update} from "firebase/database";
 
-//This could be upgraded with quaries. Filter on username.
-//Or use the excuse that this will be filtered on UID. Your choice.
+
 let get_all_for_product_reviews =  async function(reviewData, result) {
     //We get a database reference (is DB folder. FirebaseDB exportina reference to itself)
     const dbRef = ref(database);
@@ -43,7 +42,7 @@ let get_all_for_product_reviews =  async function(reviewData, result) {
             });
             result(null, arrayOfReviews);
         } else {
-            //If we dont get any data. Thus, we can assume that an error accured (Misstypo or smth.)
+            //If we dont get any data
             //Then we shall throw out an error message
             console.log("No data available");
             result(null, []);
@@ -71,7 +70,7 @@ let add_review =  async function(review, result) {
             rating: review.rating,
             review: review.review,
             visable: true,//if implement confirm comment function change to false
-            email: review.email//if implement confirm comment function change to false
+            email: review.email
         };
         
         //We will create an object of updates

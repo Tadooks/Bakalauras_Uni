@@ -1,6 +1,6 @@
 'use strict';
 // import method but IT HAS TO BE UNIQUELY NAMED. Otherwise "export" does not know if you mean "let" or import.
-//Thus its best when you are importing to say "as SomeUniqueName". I call it usually <method>_fileWhereItCameFrom.
+// naming <method>_fileWhereItCameFrom.
 import { add_review as add_review_service,
         get_all_reviews as get_all_reviews_service,
         get_all_for_product_reviews as get_all_for_product_reviews_service,

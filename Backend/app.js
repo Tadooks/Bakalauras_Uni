@@ -422,8 +422,8 @@ app.put("/orders/:id",function(req,res) {
 });
 
 //delete 
-// To delete / edit / create you need to use admin account . 
-//Thus its important to send user object with order to verify that its admin that wants to delete/edit/create !
+// To delete / edit / create need to use admin account . 
+//Thus its important to send user object with order to verify that its admin that wants to delete/edit/create
 app.delete("/orders/:id",function(req,res) {
     let userToVerify = req.headers['user'];
     const id = req.params.id;
@@ -515,7 +515,7 @@ app.put("/review/:id",function(req,res) {
 
 //delete 
 // To delete / edit / create you need to use admin account . 
-//Thus its important to send user object with order to verify that its admin that wants to delete/edit/create !
+//Thus its important to send user object with order to verify that its admin that wants to delete/edit/create
 app.delete("/review/:id",function(req,res) {
     let userToVerify = req.headers['user'];
     const id = req.params.id;
@@ -549,25 +549,6 @@ app.delete("/review/:id",function(req,res) {
 
 
 
-
-
-
-
-
-//the function ()=> thingamabob is the same as function(req,res) thingamajig
-// app.get("/products",(req,res)=>{
-//     res.send(products);
-// });
-
-
-// app.post('/event', function (req, res) {
-//     let change = req.body;
-//     console.log(change.id);
-//     console.log(change.name);
-//     res.send(change);
-// });
-
-
 const PORT = process.env.PORT || 3001;
 server.listen(PORT, function (err) {
     if (err) {
@@ -589,10 +570,6 @@ const io = require("socket.io")(server, {
       methods: ["GET", "POST"]
     }
   });
-
-// Socket setup
-//const io = socket(server);
-
 
 
 //Socket IO
@@ -714,7 +691,7 @@ app.post("/requests",function (req,res) {
 
 //delete 
 // To delete / edit / create i need to use admin account . 
-//Thus its important to send user object with request to verify that its admin that wants to delete/edit/create !
+//Thus its important to send user object with request to verify that its admin that wants to delete/edit/create
 app.delete("/requests/:id",function(req,res) {
     let userToVerify = req.headers['user'];
     const id = req.params.id;

@@ -14,11 +14,6 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 const Cart = () => {
     
-    //TO DO:
-    //Clear all carts
-    //Price calculations
-    //Total price calculations
-    //Checkout screen
 
     //visual cart change
     const { cartCount, setCartCount } = useContext(CartContext);
