@@ -16,16 +16,13 @@ const bodyParser = require('body-parser');
 
 const http = require('http');
 
+//This gives me the express.js powwweer
 const app = require('express')();
 const server = http.createServer(app);
 
 // Middleware
 app.use(bodyParser.json());
 
-// app.use(cors({
-//     origin: "http://localhost:3000",
-// })
-// );
 
 //--------------new stuff--------------//
 const express=require("express");
@@ -574,10 +571,9 @@ const io = require("socket.io")(server, {
 
 //Socket IO
 io.on("connection", function (socket) {
-    console.log("Made socket connection 2 here wooo");
+    console.log("Made socket connection successfully !");
 
 
-    //gets all reviews on  a product based on its ID (productID) or console logs error and sends an error message back. 
     socket.on('get_all_reviews', (review) => {
         getAllReviewsOnProduct(review, function(err, all_reviews) {
             if (err){
@@ -590,14 +586,7 @@ io.on("connection", function (socket) {
         });
     });
 
-    //adds a review object to a specific product or console logs error and sends an error message back. 
-    /*{
-        Id: ProductID,
-        Who:
-        Rating:
-        Review:
-        Visable: true vs false
-    }*/
+
     socket.on('add_review', (review) => {
         console.log(review)
         addReview(review, function(err, addedReview) {

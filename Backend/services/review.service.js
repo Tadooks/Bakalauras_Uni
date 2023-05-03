@@ -75,11 +75,11 @@ let add_review =  async function(review, result) {
         
         //We will create an object of updates
         const updates = {};
-        //In this specific object. We will assign a URL inside [] and then attach the object we want to add.
+        //We will assign a URL inside [] /Reviews/reviewProductID/ReviewID
         updates['/Reviews/'+ review.productID+ '/'+ newPostKey] = postData;
-        //We call "Update" functions from firebase and pass database reference and an array of updates
+        //Update function to pass database reference and an array of updates
         update(dbRef, updates);
-        //Pass updated review to frontend.
+        //Passing updated review to front-end cood.
         result(null, {
             productID: review.productID,
             reviewID: newPostKey,
