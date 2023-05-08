@@ -274,6 +274,7 @@ function App() {
           <Route path="forgotpassword" element={<ForgotPassword/>} />
           <Route path="changepassword" element={<ChangePassword/>} />
           <Route path="infopage" element={<InfoPage/>} />
+          <Route path="/" element={<Home/>} />
 
 
           
