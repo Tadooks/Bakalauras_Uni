@@ -5,28 +5,16 @@ import { ref, child, get, push, update} from "firebase/database";
 
 
 let get_all_for_product_reviews =  async function(reviewData, result) {
-    //We get a database reference (is DB folder. FirebaseDB exportina reference to itself)
+
     const dbRef = ref(database);
-    //We say "Get" to get data. And then we call "Child" to get a child from reference.
-    //We will passs database reference into child. As well as the URL we will use to get data from.
-    // Once we get the data we say "Then" to do something with said data.
-    // We will then assign the name "Snapshot" to this data.
+
     get(child(dbRef, `/Reviews/`+reviewData.productID)).then((snapshot) => {
-        //We call "exists" function on snapshot. This will check if we got any data at all.
-        //If we got any data we move forward.
+        
         if (snapshot.exists()) {
             
             const arrayOfReviews = [];
 
-            //We call "Snapshot.val" to get data.
-            // Do note: Firebase has 2 types of data. If you name it {i , 2 , 3} it will
-            // Automatically convert it to an array. So you can use for each.
-            //However, if you do insertions or smth. It will give you an unique ID or if you skip 
-            // A value. It will give you no longer an array. This means that For each suddenly doesnt work.
-            //To counter this. We basically convert it to Object and then say "Entries".
-            // Thus is best to Assume its all objects and NEVER arrays since the risk of crashing
-            // Is too high if you make a very simple mistake.
-            //(jeigu vidury istrintu value or smth kad nebutu eror)
+
             const objectArray = Object.entries( snapshot.val());
 
             objectArray.forEach(([key, value]) => {
@@ -69,7 +57,7 @@ let add_review =  async function(review, result) {
             name: review.name,
             rating: review.rating,
             review: review.review,
-            visable: true,//if implement confirm comment function change to false
+            visable: true,//if implement confirm review function change to false
             email: review.email
         };
         
@@ -136,7 +124,7 @@ let delete_review =  async function(review, result) {
         result(null, review.reviewID);
 
     }else{
-        result("Bad comment", null);
+        result("Bad reveiw", null);
     }
 };
 

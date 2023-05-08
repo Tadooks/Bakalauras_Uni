@@ -41,7 +41,7 @@ const ProductAdminPanel = () => {
           .then((usefulData) => {
             //console.log(usefulData);
             setData(usefulData);
-
+            console.log("then ivyko")
             //add id number for data displays
             const dataWithIds = usefulData.map((item, index) => {
               return { ...item, id: index + 1 };
@@ -76,10 +76,12 @@ const ProductAdminPanel = () => {
             })
             .then(response => response.json())
             .then((usefulData) => {
+                console.log("ResponseEEEEEEEEEEEEEEEEEEEEEEEEEE");
                 console.log(usefulData);
                 setLoading(false);
                 setData(usefulData);
                 setRefresh(true);
+                console.log("ResponseEEEEEEEEEEEEEEEEEEEEEEEEEE");
             })
             .catch((e) => {
                 setRefresh(true);
@@ -199,8 +201,8 @@ const theme = createTheme({
 
 
     
-console.log("displayData");
-console.log(displayData);
+// console.log("displayData");
+// console.log(displayData);
 
 
     return(

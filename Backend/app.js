@@ -144,6 +144,8 @@ app.delete("/products/:id",function(req,res) {
                         res.send(err);
                     }
                     else{
+                        console.log("responseDeleteOrder: " + responseDeleteProduct);
+                        console.log(responseDeleteProduct);
                         res.send(responseDeleteProduct);
                     }
                 });
@@ -441,6 +443,7 @@ app.delete("/orders/:id",function(req,res) {
                         res.send(err);
                     }
                     else{
+                        
                         res.send(responseDeleteOrder);
                     }
                 });
@@ -455,7 +458,7 @@ app.delete("/orders/:id",function(req,res) {
 
 
 
-//------------------REVIEWS---------------------
+//------------------REVIEWS (admin panel)---------------------
 //all
 app.get("/review",function (req,res) {
     let userToVerify = req.headers['user'];
@@ -562,7 +565,7 @@ server.listen(PORT, function (err) {
 
 
 
-
+//-----Reviews for users-----
 //Sockets
 const io = require("socket.io")(server, {
     cors: {
@@ -577,6 +580,7 @@ io.on("connection", function (socket) {
     console.log("Made socket connection successfully !");
 
 
+    //used for initial data display
     socket.on('get_all_reviews', (review) => {
         getAllReviewsOnProduct(review, function(err, all_reviews) {
             if (err){
