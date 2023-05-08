@@ -39,7 +39,6 @@ function Register() {
       // Create a new user with email and password using firebase
         createUserWithEmailAndPassword(auth, email, password)
         .then(async () => {
-          
           console.log(auth.currentUser)
           fetch(`http://localhost:3001/users`,{
             method: "POST",

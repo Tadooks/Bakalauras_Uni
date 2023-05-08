@@ -43,15 +43,15 @@ const ProfileOrders = () => {
 
     const [filteredPosts, setFilteredPosts] = React.useState([]);
     
-    ///------------part of get
+    ///------------part of get. We wait until we get a response.
     function getCurrentUser(auth) {
         return new Promise((resolve, reject) => {
            const unsubscribe = auth.onAuthStateChanged(user => {
-              unsubscribe();
+              unsubscribe();//unsubscribes from further updates
               resolve(user);
            }, reject);
         });
-      }
+    }
       
       
       //Putting this here so we could use async in useEffect (and avoid refresh crash)
@@ -81,6 +81,7 @@ const ProfileOrders = () => {
           })
           .catch((e) => {
             console.error(`An error occurred: ${e}`)
+            alert('Error, contact support: ' + e.message);
           });
           //setRefresh(false);
     }

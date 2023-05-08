@@ -223,6 +223,7 @@ app.post("/users",function (req,res) {
             res.send(err);
         }
         else{
+            
             res.send(responseAddUser);
         }
     });
@@ -320,7 +321,7 @@ app.get("/orders",function (req,res) {
     
 });
 
-//single
+//get single 
 app.get("/orders/:id",function (req, res) {
     const id = req.params.id;
     getSingleOrder(id, function(err, single_order) {
@@ -335,7 +336,7 @@ app.get("/orders/:id",function (req, res) {
 });
 
 
-//single
+//get userOrders from profile my orders 
 app.get("/userOrders/:id",function (req, res) {
     const id = req.params.id;
     let userToVerify = JSON.parse(req.headers['user']);
@@ -352,6 +353,7 @@ app.get("/userOrders/:id",function (req, res) {
                         res.send(err);
                     }
                     else{
+                        console.log(single_order);
                         res.send(single_order);
                     }
                 });
@@ -380,6 +382,7 @@ app.post("/orders",function (req,res) {
                         res.send(err);
                     }
                     else{
+                        
                         res.send(responseAddOrder);
                     }
                 });
@@ -595,7 +598,7 @@ io.on("connection", function (socket) {
                 socket.emit("error", err);
             }
             else{
-                socket.emit("added_review", addedReview);
+                io.emit("added_review", addedReview);
             }
         });
     });

@@ -197,7 +197,7 @@ const Cart = () => {
             //---------------------------------------
 
             toast("Count of " + cartItem.name+ " was decreased" +" !", {
-                position: toast.POSITION.BOTTOM_LEFT,
+                position: toast.POSITION.BOTTOM_RIGHT,
                 className: 'foo-bar'
             });
 
@@ -223,7 +223,7 @@ const Cart = () => {
         console.log(window.localStorage.getItem("cart"))
         setRefresh(true);//refreshing values
         toast("Cart was cleared!", {
-            position: toast.POSITION.BOTTOM_LEFT,
+            position: toast.POSITION.BOTTOM_RIGHT,
             className: 'foo-bar'
         });
 

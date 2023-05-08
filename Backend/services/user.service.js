@@ -72,6 +72,7 @@ let getSingleUserByAuthID =  async function(uid, result) {
 
             const objectArray = Object.entries( snapshot.val());
 
+            //JSON formatu
             for (let index = 0; index < objectArray.length; index++) {
                 const key = objectArray[index][0]; //([key, value])
                 const value = objectArray[index][1]; //([key, value])
@@ -100,13 +101,15 @@ let getSingleUserByAuthID =  async function(uid, result) {
 };
 
 let addUser =  async function(user, result) {
+    //we get a database reference
     const dbRef = ref(database);
     //db ref - > firebase storage 
     if(user != null){
         
-        //we create a new key
+        //we create a new key and push it into the database reference
         const newPostKey = push(child(dbRef, '/Users/' + user.uid)).key;
 
+        //we create a new object and pass data into it.
         const postData = {
             uid: newPostKey,
             authid: user.authid,
@@ -115,12 +118,16 @@ let addUser =  async function(user, result) {
             permissions: "None",
         };
     
+        //we create a new object
         const updates = {};
 
+        //object is populated with postData and with key and text where the object will be passed 
         updates['/Users/'+ newPostKey] = postData;
 
+        //we call update
         update(dbRef, updates);
  
+        //return result for frontend
         result(null, postData);
 
     }else{

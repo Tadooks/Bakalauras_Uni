@@ -51,8 +51,7 @@ const Request = () => {
 // Sound pack
 // Synth preset pack
 
-console.log("DIS DA MF USER WHOOOA")
-console.log(user[0])
+
 
 //------------BUTTON GOES CLICKTY CLICK--------------------------
   //------------Create product------------
@@ -96,6 +95,7 @@ console.log(user[0])
           })
           .catch((e) => {
             console.error(`An error occurred: ${e}`)
+            alert('Error, contact support: ' + e.message);
           });
     
     
@@ -134,6 +134,7 @@ console.log(user[0])
           })
           .catch((e) => {
             console.error(`An error occurred: ${e}`)
+            alert('Error, contact support: ' + e.message);
           });
     
     
@@ -172,6 +173,7 @@ console.log(user[0])
           })
           .catch((e) => {
             console.error(`An error occurred: ${e}`)
+            alert('Error, contact support: ' + e.message);
           });
     
     

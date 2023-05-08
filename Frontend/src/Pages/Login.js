@@ -23,7 +23,7 @@ function Login(){
     .then(() => {
 
       console.log(auth.currentUser.uid)
-      //i need realtimedatabase id
+      //i need realtimedatabase id (so i get it with auth id)
       fetch(`http://localhost:3001/auth/${auth.currentUser.uid}`,{
         method: "GET"
       })
@@ -43,6 +43,7 @@ function Login(){
       })
       .catch((e) => {
         console.error(`An error occurred: ${e}`)
+        alert('Error, contact support: ' + e.message);
       });
 
       if(!auth.currentUser.emailVerified) {

@@ -147,12 +147,10 @@ const Checkout=()=> {
     if(window.confirm("Are you sure you want to create your order ?")){
     
 
-    // Returns a random integer from 0 to 999:
-    const randomNumTxt = (Math.floor(Math.random() * 1000));
+    // Returns a random integer from 0 to 9999:
+    const randomNumTxt = (Math.floor(Math.random() * 10000));
+    console.log(randomNumTxt);
 
-
-    
-    
 
     // console.log(order);
     fetch(`http://localhost:3001/orders`,{
@@ -191,8 +189,10 @@ const Checkout=()=> {
       .then((usefulData) => {
         setLoading(false);
         setData(usefulData);
+        console.log(usefulData)
       })
       .catch((e) => {
+        alert('Error, contact support: ' + e.message);
         console.error(`An error occurred: ${e}`)
       });
 
