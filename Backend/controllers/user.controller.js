@@ -10,66 +10,66 @@ import { getUsers as getUsers_service,
 } from '../services/user.service.js'
 
 let getUsers = function(request, response) {
-    getUsers_service(request, function(error, comment) {
+    getUsers_service(request, function(error, data) {
         if (error){
             response(error, null);
         }else{
-            response(null, comment);
+            response(null, data);
         }
     });
 };
 
 
 let getSingleUserUID = function(request, response) {
-    getSingleUserUID_service(request, function(error, comment) {
+    getSingleUserUID_service(request, function(error, data) {
         if (error){
             response(error, null);
         }else{
-            response(null, comment);
+            response(null, data);
         }
     });
 };
 
 
 let getSingleUserByAuthID = function(request, response) {
-    getSingleUserAuthID_service(request, function(error, comment) {
+    getSingleUserAuthID_service(request, function(error, data) {
         if (error){
             response(error, null);
         }else{
-            response(null, comment);
+            response(null, data);
         }
     });
 };
 
 
 let addUser = function(request, response) {
-    addUser_service(request, function(error, comment) {
+    addUser_service(request, function(error, data) {
         if (error){
             response(error, null);
         }else{
-            response(null, comment);
+            response(null, data);
         }
     });
 };
 
 
 let editUser = function(request, response) {
-    editUser_service(request, function(error, comment) {
+    editUser_service(request, function(error, data) {
         if (error){
             response(error, null);
         }else{
-            response(null, comment);
+            response(null, data);
         }
     });
 };
 
 
 let deleteUser = function(request, response) {
-    deleteUser_service(request, function(error, comment) {
+    deleteUser_service(request, function(error, data) {
         if (error){
             response(error, null);
         }else{
-            response(null, comment);
+            response(null, data);
         }
     });
 };

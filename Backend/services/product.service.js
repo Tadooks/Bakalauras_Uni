@@ -88,7 +88,7 @@ let addProduct =  async function(product, result) {
         result(null, postData);
 
     }else{
-        result("Bad Product", null);
+        result("Bad add Product", null);
     }
 };
 
@@ -118,7 +118,7 @@ let editProduct =  async function(product, result) {
         result(null, postData);
 
     }else{
-        result("Bad Product", null);
+        result("Bad edit Product", null);
     }
 };
 
@@ -138,7 +138,7 @@ let deleteProduct =  async function(productUID, result) {
         result(null, productUID);
 
     }else{
-        result("Bad comment", null);
+        result("Bad delete product", null);
     }
 };
 

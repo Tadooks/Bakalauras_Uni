@@ -13,22 +13,22 @@ import {
 } from '../services/product.service.js'
 
 let getOrders = function(request, response) {
-    getOrders_service(request, function(error, comment) {
+    getOrders_service(request, function(error, data) {
         if (error){
             response(error, null);
         }else{
-            response(null, comment);
+            response(null, data);
         }
     });
 };
 
 
 let getSingleOrder = function(request, response) {
-    getSingleOrder_service(request, function(error, comment) {
+    getSingleOrder_service(request, function(error, data) {
         if (error){
             response(error, null);
         }else{
-            response(null, comment);
+            response(null, data);
         }
     });
 };
@@ -70,11 +70,11 @@ let addOrder = async function(request, response) {
     copiedArray.orderdate = Date.now();
     copiedArray.paymentstatus = "unpaid";
     copiedArray.deliverystatus = "not sent";
-    addOrder_service(copiedArray, function(error, comment) {
+    addOrder_service(copiedArray, function(error, data) {
         if (error){
             response(error, null);
         }else{
-            response(null, comment);
+            response(null, data);
         }
     });
 };
@@ -108,11 +108,11 @@ var calculatePrice = function (product) {
 
 
 let editOrder = function(request, response) {
-    editOrder_service(request, function(error, comment) {
+    editOrder_service(request, function(error, data) {
         if (error){
             response(error, null);
         }else{
-            response(null, comment);
+            response(null, data);
         }
     });
 };
@@ -122,11 +122,11 @@ let editOrder = function(request, response) {
 
 
 let deleteOrder = function(request, response) {
-    deleteOrder_service(request, function(error, comment) {
+    deleteOrder_service(request, function(error, data) {
         if (error){
             response(error, null);
         }else{
-            response(null, comment);
+            response(null, data);
         }
     });
 };

@@ -9,55 +9,55 @@ import { getProducts as getProducts_service,
 } from '../services/product.service.js'
 
 let getProducts = function(request, response) {
-    getProducts_service(request, function(error, comment) {
+    getProducts_service(request, function(error, data) {
         if (error){
             response(error, null);
         }else{
-            response(null, comment);
+            response(null, data);
         }
     });
 };
 
 
 let getSingleProduct = function(request, response) {
-    getSingleProduct_service(request, function(error, comment) {
+    getSingleProduct_service(request, function(error, data) {
         if (error){
             response(error, null);
         }else{
-            response(null, comment);
+            response(null, data);
         }
     });
 };
 
 
 let addProduct = function(request, response) {
-    addProduct_service(request, function(error, comment) {
+    addProduct_service(request, function(error, data) {
         if (error){
             response(error, null);
         }else{
-            response(null, comment);
+            response(null, data);
         }
     });
 };
 
 
 let editProduct = function(request, response) {
-    editProduct_service(request, function(error, comment) {
+    editProduct_service(request, function(error, data) {
         if (error){
             response(error, null);
         }else{
-            response(null, comment);
+            response(null, data);
         }
     });
 };
 
 
 let deleteProduct = function(request, response) {
-    deleteProduct_service(request, function(error, comment) {
+    deleteProduct_service(request, function(error, data) {
         if (error){
             response(error, null);
         }else{
-            response(null, comment);
+            response(null, data);
         }
     });
 };

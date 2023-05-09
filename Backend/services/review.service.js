@@ -80,7 +80,7 @@ let add_review =  async function(review, result) {
         });
 
     }else{
-        result("Bad review", null);
+        result("Bad add review", null);
     }
 };
 
@@ -124,7 +124,7 @@ let delete_review =  async function(review, result) {
         result(null, review.reviewID);
 
     }else{
-        result("Bad reveiw", null);
+        result("Bad delete reveiw", null);
     }
 };
 
@@ -155,7 +155,7 @@ let edit_review =  async function(review, result) {
         result(null, postData);
 
     }else{
-        result("Bad Reviews", null);
+        result("Bad edit Reviews", null);
     }
 };
 

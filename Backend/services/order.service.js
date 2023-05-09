@@ -100,7 +100,7 @@ let addOrder =  async function(order, result) {
         result(null, postData);
 
     }else{
-        result("Bad Order", null);
+        result("Bad add Order", null);
     }
 };
 
@@ -134,7 +134,7 @@ let editOrder =  async function(order, result) {
         result(null, postData);
 
     }else{
-        result("Bad Order", null);
+        result("Bad edit Order", null);
     }
 };
 
@@ -154,7 +154,7 @@ let deleteOrder =  async function(order, result) {
         result(null, order);
 
     }else{
-        result("Bad comment", null);
+        result("Bad delete order", null);
     }
 };
 

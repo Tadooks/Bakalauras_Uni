@@ -131,7 +131,7 @@ let addUser =  async function(user, result) {
         result(null, postData);
 
     }else{
-        result("Bad User", null);
+        result("Bad add User", null);
     }
 };
 
@@ -159,7 +159,7 @@ let editUser =  async function(user, result) {
         result(null, postData);
 
     }else{
-        result("Bad User", null);
+        result("Bad edit User", null);
     }
 };
 
@@ -187,7 +187,7 @@ let deleteUser =  async function(user, result) {
         result(null, user);
 
     }else{
-        result("Bad comment", null);
+        result("Bad delete user", null);
     }
 };
 
