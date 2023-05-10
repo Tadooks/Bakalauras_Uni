@@ -198,7 +198,8 @@ const ProfileOrders = () => {
                         
                         <th>Country</th>
                         <th>City</th>
-                        <th>Post code</th>
+                        <th>Address</th>
+                        <th>Postal code</th>
                         <th>Name</th>
                         <th>Surname</th>
                         <th>Phone</th>
@@ -209,6 +210,7 @@ const ProfileOrders = () => {
                     <tr>
                             <td className="tableInfo">{shippingDialogStuff.country}</td>
                             <td className="tableInfo">{shippingDialogStuff.city}</td>
+                            <td className="tableInfo">{shippingDialogStuff.address}</td>
                             <td className="tableInfo">{shippingDialogStuff.post}</td>
                             <td className="tableInfo">{shippingDialogStuff.name}</td>
                             <td className="tableInfo">{shippingDialogStuff.surname}</td>
@@ -325,7 +327,7 @@ const ProfileOrders = () => {
             <ThemeProvider theme={theme}>
             {console.log(data)}
             <div className="OrderInfoProfile">
-              After every order you make, you will receive a order confirmation email which will include payment information.<br></br>
+              After every order you make, you will receive a order confirmation email in 24 hours which will include payment information.<br></br>
               <Link to='/InfoPage'>
                 <div className="clickableText">
                 MORE INFO

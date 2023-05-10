@@ -139,7 +139,17 @@ const RequestAdminPanel = () => {
       { field: 'genre', headerName: 'Genre',  flex: 1, minWidth: 140, cellClassName: 'vertical-line' },
       { field: 'synthpresetpack', headerName: 'Synth Preset Pack',  flex: 1, minWidth: 100, cellClassName: 'vertical-line' },
       { field: 'includeproject', headerName: 'Include project',  flex: 1, minWidth: 100, cellClassName: 'vertical-line' },
-      
+      { field: 'requestdate', headerName: 'Request date', flex: 1, cellClassName: 'vertical-line',
+      renderCell: (params) => {
+        const date = new Date(parseInt(params.row.requestdate));
+
+        const formattedDate = date.toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric', hour:"numeric",minute:"numeric"}).replace(/([\d]+:[\d]{2})(:[\d]{2})(.*)/, "$1$3");
+  
+        return (
+          <>{formattedDate}</>
+        );
+      },
+      },
       {
         field: 'actions',
         headerName: 'Actions',

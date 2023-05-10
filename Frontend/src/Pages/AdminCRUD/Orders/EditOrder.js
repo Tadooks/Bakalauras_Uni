@@ -229,29 +229,31 @@ const ShippingVisual=()=>{
         <Button variant="contained" onClick={handleCloseShipping}>Close</Button>
         <h4 style={{ textAlign: 'center' }}><b > Shipping info</b></h4>
         <table>
-                <thead>
-                  <tr>
-                    
-                    <th>Country</th>
-                    <th>City</th>
-                    <th>Post code</th>
-                    <th>Name</th>
-                    <th>Surname</th>
-                    <th>Phone</th>
-                    
-                  </tr>
-                </thead>
-                <tbody>
-                <tr>
-                        <td className="tableInfo">{shippingDialogStuff.country}</td>
-                        <td className="tableInfo">{shippingDialogStuff.city}</td>
-                        <td className="tableInfo">{shippingDialogStuff.post}</td>
-                        <td className="tableInfo">{shippingDialogStuff.name}</td>
-                        <td className="tableInfo">{shippingDialogStuff.surname}</td>
-                        <td className="tableInfo">{shippingDialogStuff.phone}</td>
-                </tr>
-                </tbody>
-        </table>
+                    <thead>
+                      <tr>
+                        
+                        <th>Country</th>
+                        <th>City</th>
+                        <th>Address</th>
+                        <th>Postal code</th>
+                        <th>Name</th>
+                        <th>Surname</th>
+                        <th>Phone</th>
+                        
+                      </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                            <td className="tableInfo">{shippingDialogStuff.country}</td>
+                            <td className="tableInfo">{shippingDialogStuff.city}</td>
+                            <td className="tableInfo">{shippingDialogStuff.address}</td>
+                            <td className="tableInfo">{shippingDialogStuff.post}</td>
+                            <td className="tableInfo">{shippingDialogStuff.name}</td>
+                            <td className="tableInfo">{shippingDialogStuff.surname}</td>
+                            <td className="tableInfo">{shippingDialogStuff.phone}</td>
+                    </tr>
+                    </tbody>
+          </table>
         </div>
     </Dialog>
   </>

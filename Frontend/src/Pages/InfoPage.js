@@ -19,6 +19,7 @@ const InfoPage = () => {
         <ul>
             <li>- Register or log in with a valid email</li>
             <li>- Add the product to the "Cart"</li>
+            <li>- You will receive an "order confirmed" confirmation email in 24 hours after creating an order, contact support if you didn't</li>
             <li>- Once you have received an "order confirmed" confirmation email, please pay for the items by following instuctions in the email you received</li>
             <li>- After receiving your payment, your order status will be changed to "paid" in 1-2 days</li>
             <li>- After 3 working days, from the moment when your order was placed, any unpaid or unconfirmed orders will be canceled</li>
@@ -58,6 +59,14 @@ const InfoPage = () => {
             </ul>
         </p>
 
+        <h1>Custom request</h1>
+        <p>
+            If you want a custom request to be made for you, you can fill out a form!
+            <ul>
+            <li>- Once we receive your custom request, we will review it in 24 hours and send you an email with more info! </li>
+            </ul>
+        </p>
+
         <h1>Intellectual Property</h1>
         <p>
             All content and images on this website are the property of Melonter and may not be used without our permission.
@@ -65,6 +74,8 @@ const InfoPage = () => {
             <li>- Digital sound packs, synth presets, custom requests, all of the digital content that you receive after purchasing belongs to you and you can do whatever you want with it </li>
             </ul>
         </p>
+
+
         </div>
         </div>
     )

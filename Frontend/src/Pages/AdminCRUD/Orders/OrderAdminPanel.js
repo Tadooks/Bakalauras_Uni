@@ -232,7 +232,8 @@ const OrderAdminPanel = () => {
                         
                         <th>Country</th>
                         <th>City</th>
-                        <th>Post code</th>
+                        <th>Address</th>
+                        <th>Postal code</th>
                         <th>Name</th>
                         <th>Surname</th>
                         <th>Phone</th>
@@ -243,6 +244,7 @@ const OrderAdminPanel = () => {
                     <tr>
                             <td className="tableInfo">{shippingDialogStuff.country}</td>
                             <td className="tableInfo">{shippingDialogStuff.city}</td>
+                            <td className="tableInfo">{shippingDialogStuff.address}</td>
                             <td className="tableInfo">{shippingDialogStuff.post}</td>
                             <td className="tableInfo">{shippingDialogStuff.name}</td>
                             <td className="tableInfo">{shippingDialogStuff.surname}</td>
@@ -260,7 +262,7 @@ const OrderAdminPanel = () => {
 
     //doesnt calculate fast enough for display
     const CalculateTotal=(item) => {
-      console.log(item)
+      // console.log(item)
       let totalItemSum=0;
       item.map((temp) =>{
         totalItemSum=totalItemSum+temp.totalprice;
@@ -307,7 +309,8 @@ const OrderAdminPanel = () => {
       { field: 'deliverystatus', headerName: 'Delivery status', flex: 1, cellClassName: 'vertical-line' },
       { field: 'orderdate', headerName: 'Order date', flex: 1, cellClassName: 'vertical-line',
       renderCell: (params) => {
-        
+        console.log("UUUUUUUUUUUUUUUUUUUUUUUUUUAAAAAAAAAAAAAAaaa")
+        console.log(params.row.orderdate)
         return(
           <>
             {new Date(params.row.orderdate).toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric', hour:"numeric",minute:"numeric"}).replace(/([\d]+:[\d]{2})(:[\d]{2})(.*)/, "$1$3")}

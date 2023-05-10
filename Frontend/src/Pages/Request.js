@@ -81,7 +81,8 @@ const Request = () => {
                     genre: requestGenre,
                     includeproject: requestProject,
                     soundpacktype: "None",
-                    synthpresetpack: "None"
+                    synthpresetpack: "None",
+                    requestdate: Date.now().toString(),
                 }
             )
           })
@@ -120,7 +121,8 @@ const Request = () => {
                   genre: "",
                   includeproject: "No",
                   soundpacktype: requestPackType,
-                  synthpresetpack: "None"
+                  synthpresetpack: "None",
+                  requestdate: Date.now().toString(),
                 }
             )
           })
@@ -159,7 +161,8 @@ const Request = () => {
                   genre: "None",
                   includeproject: "No",
                   soundpacktype: "None",
-                  synthpresetpack: requestSynthPresetPack
+                  synthpresetpack: requestSynthPresetPack,
+                  requestdate: Date.now(),
                 }
             )
           })
