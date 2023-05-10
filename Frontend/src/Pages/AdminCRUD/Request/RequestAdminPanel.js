@@ -47,7 +47,7 @@ const RequestAdminPanel = () => {
     const tes= async ()=>{
       await getCurrentRequest(auth);
         
-      fetch(`http://localhost:3001/requests`,{
+      fetch(`https://bakalaurasserverrender.onrender.com/requests`,{
           method: "GET",
             headers: {
             'Content-Type': 'application/json',
@@ -87,7 +87,7 @@ const RequestAdminPanel = () => {
         console.log(request.uid);
         if(window.confirm("Are you sure you want to delete " + request.email + " ?")){
             
-            fetch(`http://localhost:3001/requests/${request.uid}`,{
+            fetch(`https://bakalaurasserverrender.onrender.com/requests/${request.uid}`,{
                 method: "DELETE",
                 headers: {
                   'Content-Type': 'application/json',

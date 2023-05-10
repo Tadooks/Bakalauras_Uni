@@ -41,7 +41,7 @@ function App() {
 
   const [socket, setSocket] = useState(null);
   useEffect(() => {
-    const newSocket = io("www.localhost:3001/");
+    const newSocket = io("https://bakalaurasserverrender.onrender.com");
     setSocket(newSocket);
     return () => newSocket.close();
   }, [setSocket]);
@@ -88,7 +88,7 @@ function App() {
         console.log("pries fetch")
         console.log(auth.currentUser.uid);
         //i need realtimedatabase id
-        fetch(`http://localhost:3001/users/${auth.currentUser.uid}`,{
+        fetch(`https://bakalaurasserverrender.onrender.com/users/${auth.currentUser.uid}`,{
           method: "GET"
         })
         .then(response => response.json())

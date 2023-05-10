@@ -40,7 +40,7 @@ function Register() {
         createUserWithEmailAndPassword(auth, email, password)
         .then(async () => {
           console.log(auth.currentUser)
-          fetch(`http://localhost:3001/users`,{
+          fetch(`https://bakalaurasserverrender.onrender.com/users`,{
             method: "POST",
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',

@@ -60,7 +60,7 @@ const ProfileOrders = () => {
       const tes= async ()=>{
         await getCurrentUser(auth);
           
-        fetch(`http://localhost:3001/userOrders/`+auth.currentUser.uid ,{
+        fetch(`https://bakalaurasserverrender.onrender.com/userOrders/`+auth.currentUser.uid ,{
             method: "GET",
               headers: {
               'Content-Type': 'application/json',

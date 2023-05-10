@@ -65,7 +65,7 @@ const Request = () => {
     }
     else{
       if(requestType=="Song request"){
-          fetch(`http://localhost:3001/requests`,{
+          fetch(`https://bakalaurasserverrender.onrender.com/requests`,{
             method: "POST",
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',
@@ -104,7 +104,7 @@ const Request = () => {
       
       }
       if(requestType=="Sound pack"){
-          fetch(`http://localhost:3001/requests`,{
+          fetch(`https://bakalaurasserverrender.onrender.com/requests`,{
             method: "POST",
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',
@@ -143,7 +143,7 @@ const Request = () => {
       
       }
       if(requestType=="Synth preset pack"){
-          fetch(`http://localhost:3001/requests`,{
+          fetch(`https://bakalaurasserverrender.onrender.com/requests`,{
             method: "POST",
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',

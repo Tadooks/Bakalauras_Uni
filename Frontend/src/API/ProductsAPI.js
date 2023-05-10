@@ -11,7 +11,7 @@ export function GetProductsAPI(){
     
     //-------GET PRODUCT DATA FROM API------------
     useEffect(() => {
-        fetch(`http://localhost:3001/products`,{
+        fetch(`https://bakalaurasserverrender.onrender.com/products`,{
             method: "GET"
         })
           .then(response => response.json())

@@ -50,7 +50,7 @@ const UserAdminPanel = () => {
     const tes= async ()=>{
       await getCurrentUser(auth);
         
-      fetch(`http://localhost:3001/users`,{
+      fetch(`https://bakalaurasserverrender.onrender.com/users`,{
           method: "GET",
             headers: {
             'Content-Type': 'application/json',
@@ -90,7 +90,7 @@ const UserAdminPanel = () => {
         console.log(user.uid);
         if(window.confirm("Are you sure you want to delete " + user.email + " ?")){
             
-            fetch(`http://localhost:3001/users/${user.uid}`,{
+            fetch(`https://bakalaurasserverrender.onrender.com/users/${user.uid}`,{
                 method: "DELETE",
                 headers: {
                   'Content-Type': 'application/json',

@@ -40,7 +40,7 @@ const EditUser = () => {
     // //-------GET PRODUCT DATA FROM API------------
     useEffect(() => {
         
-        fetch(`http://localhost:3001/users/${idFromURL}`,{
+        fetch(`https://bakalaurasserverrender.onrender.com/users/${idFromURL}`,{
             method: "GET"
         })
           .then(response => response.json())
@@ -72,7 +72,7 @@ const EditUser = () => {
         console.log("handleEditUser was clicked!");
 
         // console.log(user);
-        fetch(`http://localhost:3001/users/${idFromURL}`,{
+        fetch(`https://bakalaurasserverrender.onrender.com/users/${idFromURL}`,{
             method: "PUT",
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',

@@ -62,7 +62,7 @@ const OrderAdminPanel = () => {
       const tes= async ()=>{
         await getCurrentUser(auth);
           
-        fetch(`http://localhost:3001/orders`,{
+        fetch(`https://bakalaurasserverrender.onrender.com/orders`,{
             method: "GET",
               headers: {
               'Content-Type': 'application/json',
@@ -102,7 +102,7 @@ const OrderAdminPanel = () => {
         console.log("handleDeleteOrder was clicked!");
         if(window.confirm("Are you sure you want to delete " + order.ordernumber + " ?")){
             
-            fetch(`http://localhost:3001/orders/${order.uid}`,{
+            fetch(`https://bakalaurasserverrender.onrender.com/orders/${order.uid}`,{
               method: "DELETE",
               headers: {
                 'Content-Type': 'application/json',

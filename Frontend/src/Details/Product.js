@@ -212,7 +212,7 @@ const Product = ({socket}) => {
     
     //-------GET PRODUCT DATA FROM API------------
     useEffect(() => {
-        fetch(`http://localhost:3001/products/` + id)
+        fetch(`https://bakalaurasserverrender.onrender.com/products/` + id)
           .then(response => response.json())
           .then((usefulData) => {
             setLoading(false);

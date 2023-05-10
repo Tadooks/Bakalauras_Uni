@@ -54,7 +54,7 @@ const EditOrder = () => {
     // //-------GET PRODUCT DATA FROM API------------
     useEffect(() => {
         
-        fetch(`http://localhost:3001/orders/${idFromURL}`,{
+        fetch(`https://bakalaurasserverrender.onrender.com/orders/${idFromURL}`,{
             method: "GET"
         })
           .then(response => response.json())
@@ -91,7 +91,7 @@ const EditOrder = () => {
         e.preventDefault()
         console.log("handleEditOrder was clicked!");
         // console.log(order);
-        fetch(`http://localhost:3001/orders/${idFromURL}`,{
+        fetch(`https://bakalaurasserverrender.onrender.com/orders/${idFromURL}`,{
             method: "PUT",
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',

@@ -58,7 +58,7 @@ const EditProduct = () => {
     // //-------GET PRODUCT DATA FROM API------------
     useEffect(() => {
         
-        fetch(`http://localhost:3001/products/${idFromURL}`,{
+        fetch(`https://bakalaurasserverrender.onrender.com/products/${idFromURL}`,{
             method: "GET"
         })
           .then(response => response.json())
@@ -94,7 +94,7 @@ const EditProduct = () => {
 
         //clearing AUDIO and DOWNLOAD if type was Clothing
         if(productType=="Clothing"){
-            fetch(`http://localhost:3001/products/${idFromURL}`,{
+            fetch(`https://bakalaurasserverrender.onrender.com/products/${idFromURL}`,{
                 method: "PUT",
                 headers: {
                     'Content-type': 'application/json; charset=UTF-8',
@@ -130,7 +130,7 @@ const EditProduct = () => {
             
         }
         else if(productType=="Audio"){
-            fetch(`http://localhost:3001/products/${idFromURL}`,{
+            fetch(`https://bakalaurasserverrender.onrender.com/products/${idFromURL}`,{
                 method: "PUT",
                 headers: {
                     'Content-type': 'application/json; charset=UTF-8',
@@ -164,7 +164,7 @@ const EditProduct = () => {
             return;
         }
         else if(productType=="Misc"){
-            fetch(`http://localhost:3001/products/${idFromURL}`,{
+            fetch(`https://bakalaurasserverrender.onrender.com/products/${idFromURL}`,{
                 method: "PUT",
                 headers: {
                     'Content-type': 'application/json; charset=UTF-8',

@@ -34,7 +34,7 @@ const ProductAdminPanel = () => {
     // //-------GET PRODUCT DATA FROM API------------
     useEffect(() => {
         
-        fetch(`http://localhost:3001/products`,{
+        fetch(`https://bakalaurasserverrender.onrender.com/products`,{
             method: "GET"
         })
           .then(response => response.json())
@@ -66,7 +66,7 @@ const ProductAdminPanel = () => {
         console.log(product.uid);
         if(window.confirm("Are you sure you want to delete " + product.name + " ?")){
             
-            fetch(`http://localhost:3001/products/${product.uid}`,{
+            fetch(`https://bakalaurasserverrender.onrender.com/products/${product.uid}`,{
               method: "DELETE",
               headers: {
                 'Content-Type': 'application/json',

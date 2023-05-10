@@ -24,7 +24,7 @@ function Login(){
 
       console.log(auth.currentUser.uid)
       //i need realtimedatabase id (so i get it with auth id)
-      fetch(`http://localhost:3001/auth/${auth.currentUser.uid}`,{
+      fetch(`https://bakalaurasserverrender.onrender.com/auth/${auth.currentUser.uid}`,{
         method: "GET"
       })
       .then(response => response.json())

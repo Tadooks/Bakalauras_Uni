@@ -48,7 +48,7 @@ const ReviewAdminPanel = () => {
     const tes= async ()=>{
       await getCurrentUser(auth);
         
-      fetch(`http://localhost:3001/review`,{
+      fetch(`https://bakalaurasserverrender.onrender.com/review`,{
           method: "GET",
             headers: {
             'Content-Type': 'application/json',
@@ -114,7 +114,7 @@ const ReviewAdminPanel = () => {
         console.log(combineForDelete);
         if(window.confirm("Are you sure you want to delete " + tempReview + " ?")){
             
-            fetch(`http://localhost:3001/review/${combineForDelete}`,{
+            fetch(`https://bakalaurasserverrender.onrender.com/review/${combineForDelete}`,{
               method: "DELETE",
               headers: {
                 'Content-Type': 'application/json',

@@ -153,7 +153,7 @@ const Checkout=()=> {
 
 
     // console.log(order);
-    fetch(`http://localhost:3001/orders`,{
+    fetch(`https://bakalaurasserverrender.onrender.com/orders`,{
         method: "POST",
         headers: {
             'Content-type': 'application/json; charset=UTF-8',
