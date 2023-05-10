@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import {useState, useContext} from 'react'
 import {auth} from '../firebase_config';
 import {EmailAuthProvider,reauthenticateWithCredential,updatePassword} from 'firebase/auth'
 
@@ -6,9 +6,15 @@ import {EmailAuthProvider,reauthenticateWithCredential,updatePassword} from 'fir
 import { Button } from "@mui/material";
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 
+import { AuthContext } from './AuthContextNew';
+import { signOut } from 'firebase/auth' 
+
 const ChangePassword = () => {
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
+
+
+  const { user, setUser  } = useContext(AuthContext);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -34,6 +40,11 @@ const ChangePassword = () => {
         alert("Sucessfully changed password!")
         // window.location.href = "http://localhost:3000/profile";
         window.location.href = window.location.origin + "/profile";
+        
+        signOut(auth);
+        setUser([{}]);
+        window.localStorage.setItem("userAccount",JSON.stringify({})) ;
+        
       })
       .catch((err) => {
         console.log(err);
@@ -56,7 +67,7 @@ const ChangePassword = () => {
 
   return (
     <div style={{ color: 'white'}} className='center'>
-      <ThemeProvider>
+      <ThemeProvider theme={theme}>
         <div className='auth'>
             <form onSubmit={handleSubmit}>
                 <label htmlFor="current-password">Current password:</label>
