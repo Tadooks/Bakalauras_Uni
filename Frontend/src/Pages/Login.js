@@ -108,10 +108,6 @@ function Login(){
           <Link to='/register'>Register</Link>
         </p>
 
-        {/* <div>Sign in with gmail</div> */}
-        {/* <button class="login-with-google-btn" onClick={signInWithGoogle}>
-          Sign in with Google
-        </button> */}
         
         
         <Link  to='/forgotpassword'>

@@ -217,22 +217,22 @@ const EditProduct = () => {
     //FILE IMAGE UPLOADING 
     const handleFileChangeImage = (e) => {
         const selectedFile = e.target.files[0];
-        if (selectedFile && selectedFile.type.includes("image")) { // Check if the selected file is an image
+        if (selectedFile && selectedFile.type.includes("image")) { // Check if image
             setFile({type:1, selectedFile});
 
         } else {
-            alert("Please select a valid image file."); // Display an error message if the selected file is not an image
+            alert("Please select a valid image file."); 
         }
     };
 
     //FILE AUDIO UPLOADING MP3
     const handleFileChangeAudio = (e) => {
         const selectedFile = e.target.files[0];
-        if (selectedFile && selectedFile.type.includes("audio")) { // Check if the selected file is an audio file
+        if (selectedFile && selectedFile.type.includes("audio")) { // check if audio 
             setFile({type:2, selectedFile});
 
         } else {
-            alert("Please select a valid audio file."); // Display an error message if the selected file is not an audio file
+            alert("Please select a valid audio file.");
         }
     };
 
