@@ -130,13 +130,17 @@ const ProductAdminPanel = () => {
         renderCell: (params) => {
           if (params.value != "None") {
             return (
-              <ReactPlayer
-                url={params.value}
-                width="100%"
-                height="50px"
-                playing={false}
-                controls={true}
-              />
+              // <ReactPlayer
+              //   url={params.value}
+              //   width="100%"
+              //   height="50px"
+              //   playing={false}
+              //   controls={true}
+              // />
+              <audio controls>
+                <source src={params.value}>
+                </source>
+              </audio>
             );
           } else {
             return (

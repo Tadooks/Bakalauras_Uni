@@ -146,7 +146,7 @@ function App() {
     // console.log(auth.currentUser.uid);
 
     if(currentUser==null){
-      alert("User is not logged");
+      alert("User is not logged in");
       console.log("Not logged in")
       return <Navigate to={"/login"}/>
     }

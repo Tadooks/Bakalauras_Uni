@@ -147,7 +147,7 @@ const Checkout=()=> {
     if(window.confirm("Are you sure you want to create your order ?")){
     
 
-    // Returns a random integer from 0 to 9999:
+    // random int number from 0 to 9999:
     const randomNumTxt = (Math.floor(Math.random() * 10000));
     console.log(randomNumTxt);
 
@@ -175,7 +175,7 @@ const Checkout=()=> {
         )
     })
       .then(response => {
-        alert('Order was sent successfully');
+        alert('Order was created successfully');
         //we wipe local cart storage
         const tempEmpty = [[]]
         window.localStorage.setItem("cart", JSON.stringify(tempEmpty))
@@ -258,6 +258,7 @@ const Checkout=()=> {
                             type='text' 
                             value={shippingInfo.country}
                             placeholder="Country"
+                            maxLength={50}//limit
                             required
                             name="country"
                             onChange={e=>handleShippingChange(e.target.value,e.target.name)}
@@ -267,6 +268,7 @@ const Checkout=()=> {
                             type='text' 
                             value={shippingInfo.city}
                             placeholder="City"
+                            maxLength={50}//limit
                             required
                             name="city"
                             onChange={e=>handleShippingChange(e.target.value,e.target.name)}
@@ -276,6 +278,7 @@ const Checkout=()=> {
                             type='text' 
                             value={shippingInfo.address}
                             placeholder="Address"
+                            maxLength={100}//limit
                             required
                             name="address"
                             onChange={e=>handleShippingChange(e.target.value,e.target.name)}
@@ -285,6 +288,7 @@ const Checkout=()=> {
                             type='text' 
                             value={shippingInfo.post}
                             placeholder="Postal code"
+                            maxLength={30}//limit
                             required
                             name="post"
                             onChange={e=>handleShippingChange(e.target.value,e.target.name)}
@@ -294,6 +298,7 @@ const Checkout=()=> {
                             type='text' 
                             value={shippingInfo.name}
                             placeholder="Name"
+                            maxLength={50}//limit
                             required
                             name="name"
                             onChange={e=>handleShippingChange(e.target.value,e.target.name)}
@@ -303,6 +308,7 @@ const Checkout=()=> {
                             type='text' 
                             value={shippingInfo.surname}
                             placeholder="Surname"
+                            maxLength={50}//limit
                             required
                             name="surname"
                             onChange={e=>handleShippingChange(e.target.value,e.target.name)}
@@ -312,6 +318,7 @@ const Checkout=()=> {
                             type='text' 
                             value={shippingInfo.phone}
                             placeholder="Phone"
+                            maxLength={30}//limit
                             required
                             name="phone"
                             onChange={e=>handleShippingChange(e.target.value,e.target.name)}

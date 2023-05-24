@@ -196,7 +196,8 @@ const Request = () => {
 
 //allow admin to input only numbers
 const handlePriceChange = (e) => {
-  const regex = /^(?!0\d)[0-9]+(\.[0-9]{1,2})?$/; // regex to validate money values with up to 2 decimal places
+  // https://www.regextester.com/97725
+  const regex = /^[0-9]+(\.[0-9]{1,2})?$/; // regex to validate money value
   if (e.target.value === '' || regex.test(e.target.value)) {
     setRequestBudget(e.target.value);
   }
@@ -309,7 +310,7 @@ const theme = createTheme({
                                 value={requestDescription}
                                 placeholder="Description"
                                 required
-                                maxLength={100} // limit the maximum number of characters to 100
+                                maxLength={400}//limit
 
                                 onChange={e=>setRequestDescription(e.target.value)}
                             />

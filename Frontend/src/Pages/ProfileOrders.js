@@ -334,7 +334,7 @@ const ProfileOrders = () => {
                 </div>
               </Link>
               <br></br>
-              <b>Please write your order number which you are paying for</b><br></br><br></br>
+              <b>When sending your payment, please write your order number which you are paying for</b><br></br><br></br>
               If you are having trouble with your order, contact support here: <b> tadasdevenas00@gmail.com </b>
               <br></br><br></br>
             </div>

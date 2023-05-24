@@ -286,17 +286,20 @@ const Product = ({socket}) => {
             setRefresh(true);
 		};
 
+        //wait for emit event from server
 		socket.on('get_all_reviews_react', allReviews);
 		socket.on('added_review', addedNewReview);
 
         if(auth.currentUser != null){
-		    socket.emit('get_all_reviews',{"productID": id, "email": auth.currentUser.email});
+		    //sends emit event to server
+            socket.emit('get_all_reviews',{"productID": id, "email": auth.currentUser.email});
         }
 		else {
             socket.emit('get_all_reviews',{"productID": id, "email": "None"});
         }
 
 		return () => {
+          //prevent duplicates, when closing and opening new product
 		  socket.off('get_all_reviews_react', allReviews);
 		  socket.off('added_review', addedNewReview);
 		};
@@ -392,14 +395,20 @@ const theme = createTheme({
                     Preview:
                 </div>
                     <div>
-                    <ReactPlayer
+                    {/* <ReactPlayer
                         
                         url={data.audio}
                         width="100%"
                         height="50px"
                         playing={false}
                         controls={true}
-                    />
+                    /> */}
+                    {console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAa")}
+                    {console.log(data.audio)}
+                    <audio controls>
+                        <source src={data.audio}>
+                        </source>
+                    </audio>
                     </div>
                 </div>
                 )}
@@ -422,7 +431,7 @@ const theme = createTheme({
                     <p>
                         <label >&nbsp;Enter your name: &nbsp;
                         <input 
-                            maxlength="20" 
+                            maxLength={30}//limit
                             className="textboxName"
                             type="text" 
                             name="name" 
@@ -433,7 +442,7 @@ const theme = createTheme({
                     </p>
                     <textarea
                     className="textboxclass"
-                    maxlength="110" 
+                    maxLength={160}//limit
                     id="review" 
                     name="review" rows="3" cols="50"
                     value={inputs.review || ""} 

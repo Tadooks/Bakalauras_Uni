@@ -205,7 +205,8 @@ const EditProduct = () => {
 
     //allow admin to input only numbers
     const handlePriceChange = (e) => {
-        const regex = /^[0-9]+(\.[0-9]{1,2})?$/; // regex to validate money values with up to 2 decimal places
+        // https://www.regextester.com/97725
+        const regex = /^[0-9]+(\.[0-9]{1,2})?$/; // regex to validate money value
         if (e.target.value === '' || regex.test(e.target.value)) {
           setProductPrice(e.target.value);
         }
@@ -310,7 +311,7 @@ const EditProduct = () => {
                 <div className='EditProduct-Screenerino'>
                     
                     <div>
-                        <div >Edit window content</div>
+                        <div ><br></br></div>
 
 
                         <form className="StyledForm" onSubmit={handleEditProduct} >
@@ -319,6 +320,7 @@ const EditProduct = () => {
                                 type='text' 
                                 value={productName}
                                 placeholder="Product name"
+                                maxLength={50}//limit
                                 required
                                 onChange={e=>setProductName(e.target.value)}
                             />
@@ -336,6 +338,7 @@ const EditProduct = () => {
                                 type='text'
                                 value={productDescription}
                                 placeholder="Description"
+                                maxLength={250}//limit
                                 required
                                 onChange={e=>setProductDescription(e.target.value)}
 
@@ -434,13 +437,17 @@ const EditProduct = () => {
                                     {productAudio && (
                                     <div>
                                         {/* <a href={productAudio}>{productAudio}</a> */}
-                                        <ReactPlayer
+                                        {/* <ReactPlayer
                                             url={productAudio}
                                             width="100%"
                                             height="50px"
                                             playing={false}
                                             controls={true}
-                                        />
+                                        /> */}
+                                        <audio controls>
+                                            <source src={productAudio}>
+                                            </source>
+                                        </audio>
                                     </div>
                                     )}
                                 </div>
