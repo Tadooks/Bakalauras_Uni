@@ -91,7 +91,6 @@ const ProductAdminPanel = () => {
         
         return;
     }
-    //another for filtering array :OO wowzers
 
     var columns = [
       
@@ -137,7 +136,7 @@ const ProductAdminPanel = () => {
               //   playing={false}
               //   controls={true}
               // />
-              <audio controls>
+              <audio controls style={{ width: '100%', height: '50px' }}>
                 <source src={params.value}>
                 </source>
               </audio>

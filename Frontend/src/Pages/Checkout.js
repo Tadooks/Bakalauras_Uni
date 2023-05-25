@@ -89,7 +89,7 @@ const Checkout=()=> {
   useEffect(() => {
       if(window.localStorage.getItem("cart")){
           setCart(JSON.parse(window.localStorage.getItem("cart")));
-      }//this if may cause issues. idk idk
+      }
 
       var tempTotalPrice=0.0;
       var countTotal = 0;
@@ -222,13 +222,7 @@ const Checkout=()=> {
         <ThemeProvider theme={theme}>
         <h1 style={{ textAlign: 'center' }}>Order summary</h1>
         <div className='Checkout-Screenerino'>
-        {/* when empty this will get stuck on loading. */}
-        {/* {loading ?(
-            <p>Loading...</p>
-            
-        ) : error ? (
-            <p>An error occured</p>
-        ):( */}
+
 
         {/* if empty array */}
         {cart[0].length==0  ? (

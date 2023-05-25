@@ -139,11 +139,7 @@ function App() {
   //rerouting to login page if user not logged in
   const ProtectedRouteProfile = ({ children }) => {
     
-    //Loading padaryt kaip product data 
-    // console.log("Protected Route current user:");
-    // console.log(currentUser);
-    // console.log(auth.currentUser.emailVerified);
-    // console.log(auth.currentUser.uid);
+
 
     if(currentUser==null){
       alert("User is not logged in");
@@ -170,10 +166,10 @@ function App() {
   const ProtectedRouteAdmin = ({ children }) => {
     
     //Loading padaryt kaip product data 
-    console.log("Protected Route current user:!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1");
-    console.log(currentUser);
-    console.log(user[0]);
-    console.log(user[0].permissions);
+    // console.log("Protected Route current user:!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1");
+    // console.log(currentUser);
+    // console.log(user[0]);
+    // console.log(user[0].permissions);
     
     if(currentUser==null || user[0].permissions=="None" ){
       console.log("no perms to access this pagerino")
@@ -190,26 +186,6 @@ function App() {
     
   };
 
-  // const ProtectedRouteShopper = ({ children }) => {
-    
-  //   //Loading padaryt kaip product data 
-  //   console.log("Protected Route current user:");
-  //   console.log(currentUser);
-  //   console.log(auth.currentUser);
-    
-  //   if(currentUser==null){
-  //     console.log("WOWWOWOWOWOWO")
-  //     return <Navigate to={"/login"}/>
-  //   }
-  //   else
-  //   {
-  //     console.log("Signed in successfully")
-  //     console.log(auth.currentUser);
-
-  //     return children
-  //   }
-    
-  // };
 
   
   return (

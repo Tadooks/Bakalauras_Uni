@@ -444,7 +444,7 @@ const EditProduct = () => {
                                             playing={false}
                                             controls={true}
                                         /> */}
-                                        <audio controls>
+                                        <audio controls key={productAudio} style={{ width: '100%', height: '50px' }} >
                                             <source src={productAudio}>
                                             </source>
                                         </audio>

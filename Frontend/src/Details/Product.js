@@ -403,9 +403,9 @@ const theme = createTheme({
                         playing={false}
                         controls={true}
                     /> */}
-                    {console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAa")}
-                    {console.log(data.audio)}
-                    <audio controls>
+                    {/* {console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAa")}
+                    {console.log(data.audio)} */}
+                    <audio controls style={{ width: '100%', height: '50px' }}>
                         <source src={data.audio}>
                         </source>
                     </audio>

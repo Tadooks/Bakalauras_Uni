@@ -32,7 +32,7 @@ const Cart = () => {
     useEffect(() => {
         if(window.localStorage.getItem("cart")){
             setCart(JSON.parse(window.localStorage.getItem("cart")));
-        }//this if may cause issues. idk idk
+        }
 
         var tempTotalPrice=0.0;
         var countTotal = 0;
@@ -101,7 +101,7 @@ const Cart = () => {
         //setting the new cart to be saved in local storage
         window.localStorage.setItem("cart", JSON.stringify(tempCart))
         toast(cartItem.name+" was removed from cart!", {
-            position: toast.POSITION.BOTTOM_LEFT,
+            position: toast.POSITION.BOTTOM_RIGHT,
             className: 'foo-bar'
         });
 

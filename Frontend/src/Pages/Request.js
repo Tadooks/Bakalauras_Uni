@@ -87,7 +87,7 @@ const Request = () => {
             )
           })
           .then(response => {
-            alert('Request was sent successfully');
+            alert('Success! You will receive an email if your request gets accepted!');
             navigate('/')
           })
           .then((usefulData) => {
@@ -118,7 +118,7 @@ const Request = () => {
                   budget: requestBudget,
                   type: requestType,
                   description: requestDescription,
-                  genre: "",
+                  genre: "Other",
                   includeproject: "No",
                   soundpacktype: requestPackType,
                   synthpresetpack: "None",
@@ -127,7 +127,7 @@ const Request = () => {
             )
           })
           .then(response => {
-            alert('Request was sent successfully');
+            alert('Request was sent successfully! You will receive an email if your request gets accepted!');
             navigate('/')
           })
           .then((usefulData) => {
@@ -167,7 +167,7 @@ const Request = () => {
             )
           })
           .then(response => {
-            alert('Request was sent successfully');
+            alert('Request was sent successfully! You will receive an email if your request gets accepted!');
             navigate('/')
           })
           .then((usefulData) => {
@@ -219,23 +219,20 @@ const theme = createTheme({
 
 
 
-
-
-
-
-
-
-// style="color: white; display: flex; align-items: center; justify-content: center;"
   return (
     <div style={{ color: 'white'}} >
       <ThemeProvider theme={theme}>
         <h1 style={{ textAlign: 'center' }}>Request</h1>
+        
         <div>
+          
         <div className='Centered-Request'>
           <>
+          
                 <div className='StyledCreateProduct'>
+                  
                     <div>
-
+                        <br></br>
                         <form className="StyledForm" onSubmit={handleCreateRequest} >
                             Type:
                             <select id="product-type" name="product-type" value={requestType} onChange={e => setRequestType(e.target.value)}>
@@ -325,14 +322,6 @@ const theme = createTheme({
 
             </>
 
-          {/* {loading ?(
-                <p>Loading...</p>
-                
-            ) : error ? (
-                <p>An error occured</p>
-            ):(
-            
-          )}; */}
 
         </div>
         </div> 

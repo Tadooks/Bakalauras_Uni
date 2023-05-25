@@ -112,7 +112,7 @@ const ReviewAdminPanel = () => {
           reviewID:tempReview.reviewID
         }
         console.log(combineForDelete);
-        if(window.confirm("Are you sure you want to delete " + tempReview + " ?")){
+        if(window.confirm("Are you sure you want to delete " + tempReview.name + " comment " + " ?")){
             
             fetch(`https://bakalaurasserverrender.onrender.com/review/${combineForDelete}`,{
               method: "DELETE",

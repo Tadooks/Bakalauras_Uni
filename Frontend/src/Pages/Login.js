@@ -47,7 +47,7 @@ function Login(){
       });
 
       if(!auth.currentUser.emailVerified) {
-        //doesnt send the verification fully for some reason
+
         // sendEmailVerification(auth.currentUser)
         // .then(() => {
         //   setTimeActive(true)

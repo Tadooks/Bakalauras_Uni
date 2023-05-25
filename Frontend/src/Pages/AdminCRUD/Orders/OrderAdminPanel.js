@@ -309,10 +309,11 @@ const OrderAdminPanel = () => {
       { field: 'deliverystatus', headerName: 'Delivery status', flex: 1, cellClassName: 'vertical-line' },
       { field: 'orderdate', headerName: 'Order date', flex: 1, cellClassName: 'vertical-line',
       renderCell: (params) => {
-        console.log("UUUUUUUUUUUUUUUUUUUUUUUUUUAAAAAAAAAAAAAAaaa")
-        console.log(params.row.orderdate)
+        // console.log("UUUUUUUUUUUUUUUUUUUUUUUUUUAAAAAAAAAAAAAAaaa")
+        // console.log(params.row.orderdate)
         return(
           <>
+          {/* https://stackoverflow.com/questions/8888491/how-do-you-display-javascript-datetime-in-12-hour-am-pm-format */}
             {new Date(params.row.orderdate).toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric', hour:"numeric",minute:"numeric"}).replace(/([\d]+:[\d]{2})(:[\d]{2})(.*)/, "$1$3")}
           </>
         );
@@ -320,7 +321,6 @@ const OrderAdminPanel = () => {
       },
       
 
-      // <td>{new Date(order.orderdate).toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric', hour:"numeric",minute:"numeric"}).replace(/([\d]+:[\d]{2})(:[\d]{2})(.*)/, "$1$3")}</td>
       //delete and edit buttons
       {
         field: 'actions',
