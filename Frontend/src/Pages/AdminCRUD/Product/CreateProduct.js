@@ -392,7 +392,7 @@ const CreateProduct = () => {
                         </form>
                         </div>
                     </div>    
-
+                    <br></br><br></br>
                     <div className="bonus-Product">  
                         {/* We always show image preview */}
                         <div>
@@ -403,13 +403,14 @@ const CreateProduct = () => {
                                     }
                                         }>
                                         <div>
+                                        <div>Product image</div><br></br>
                                         <label htmlFor="imageInput">Select an image file:</label>
                                         <input type="file" id="imageInput" onChange={handleFileChangeImage} />
-                                        </div>
+                                        </div><br></br>
                                         <Button  variant="contained" type="submitImage">Upload</Button>
                                     </form>
                                     
-                                    Image preview:
+                                    <br></br>
                                     {productImage && (
                                     <div>
                                         {/* <a href={productImage}>{productImage}</a> */}
@@ -434,14 +435,14 @@ const CreateProduct = () => {
                                     }
                                         }>
                                         <div>
-                                        <div>Audio preview file</div>
+                                        <div>Audio preview file</div><br></br>
                                         <label htmlFor="audioInput">Select an audio mp3 file:</label>
                                         <input type="file" id="audioInput" onChange={handleFileChangeAudio} />
-                                        </div>
+                                        </div><br></br>
                                         <Button  variant="contained" type="submitAudio">Upload</Button>
                                     </form>
                                     
-                                    Audio url and preview:
+                                    {/* Audio url and preview: */}<br></br>
                                     {productAudio && (
                                     <div>
                                         {/* <a href={productAudio}>{productAudio}</a> */}
@@ -466,7 +467,7 @@ const CreateProduct = () => {
                             </div>
                         </div>
                         )}
-                    </div>      
+                    </div>  <br></br>    <br></br><br></br>    
                         
                 
 

@@ -385,10 +385,11 @@ const theme = createTheme({
                         </Link>
                 </div>
                 
-                <div>
+                <div style={{ textAlign: 'center', maxWidth: '500px' }}>
                      {data.desc}
                 </div>
                 
+
                 {data.type =="Audio" && (
                 <div className="audioPreview">
                 <div>
@@ -403,12 +404,14 @@ const theme = createTheme({
                         playing={false}
                         controls={true}
                     /> */}
-                    {/* {console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAa")}
-                    {console.log(data.audio)} */}
-                    <audio controls style={{ width: '100%', height: '50px' }}>
+                    {console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAa")}
+                    {/* {console.log(data.audio)}
+                    {data.audio} */}
+                    <audio controls style={{ height: '50px' }}>
                         <source src={data.audio}>
                         </source>
                     </audio>
+                    { }
                     </div>
                 </div>
                 )}

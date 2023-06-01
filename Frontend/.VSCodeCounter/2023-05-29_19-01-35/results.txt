@@ -1,0 +1,101 @@
+Date : 2023-05-29 19:01:35
+Directory : c:\Users\tadas\Documents\GitHub\Bakalauras\Frontend
+Total : 52 files,  37635 codes, 489 comments, 1489 blanks, all 39613 lines
+
+Languages
++------------+------------+------------+------------+------------+------------+
+| language   | files      | code       | comment    | blank      | total      |
++------------+------------+------------+------------+------------+------------+
+| JSON       |          6 |     32,417 |         16 |          4 |     32,437 |
+| JavaScript |         38 |      4,600 |        423 |      1,304 |      6,327 |
+| CSS        |          3 |        532 |         27 |        174 |        733 |
+| HTML       |          4 |         85 |         23 |          5 |        113 |
+| Markdown   |          1 |          1 |          0 |          2 |          3 |
++------------+------------+------------+------------+------------+------------+
+
+Directories
++------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                 | files      | code       | comment    | blank      | total      |
++------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                    |         52 |     37,635 |        489 |      1,489 |     39,613 |
+| . (Files)                                                                                            |          4 |     32,355 |         16 |          4 |     32,375 |
+| build                                                                                                |          6 |         73 |          3 |          3 |         79 |
+| build (Files)                                                                                        |          4 |         71 |          0 |          3 |         74 |
+| build\static                                                                                         |          2 |          2 |          3 |          0 |          5 |
+| build\static\css                                                                                     |          1 |          1 |          1 |          0 |          2 |
+| build\static\js                                                                                      |          1 |          1 |          2 |          0 |          3 |
+| public                                                                                               |          3 |         77 |         23 |          4 |        104 |
+| src                                                                                                  |         39 |      5,130 |        447 |      1,478 |      7,055 |
+| src (Files)                                                                                          |          4 |        885 |         66 |        292 |      1,243 |
+| src\API                                                                                              |          1 |         19 |          4 |          5 |         28 |
+| src\Components                                                                                       |          2 |          4 |          0 |          4 |          8 |
+| src\Details                                                                                          |          3 |        370 |         44 |        109 |        523 |
+| src\Pages                                                                                            |         28 |      3,849 |        333 |      1,068 |      5,250 |
+| src\Pages (Files)                                                                                    |         19 |      1,750 |        153 |        499 |      2,402 |
+| src\Pages\AdminCRUD                                                                                  |          9 |      2,099 |        180 |        569 |      2,848 |
+| src\Pages\AdminCRUD\Orders                                                                           |          2 |        580 |         36 |        157 |        773 |
+| src\Pages\AdminCRUD\Product                                                                          |          3 |        881 |         86 |        241 |      1,208 |
+| src\Pages\AdminCRUD\Request                                                                          |          1 |        179 |         15 |         39 |        233 |
+| src\Pages\AdminCRUD\Reviews                                                                          |          1 |        176 |         13 |         41 |        230 |
+| src\Pages\AdminCRUD\User                                                                             |          2 |        283 |         30 |         91 |        404 |
+| src\css                                                                                              |          1 |          3 |          0 |          0 |          3 |
++------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| filename                                                                                             | language   | code       | comment    | blank      | total      |
++------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| c:\Users\tadas\Documents\GitHub\Bakalauras\Frontend\README.md                                        | Markdown   |          1 |          0 |          2 |          3 |
+| c:\Users\tadas\Documents\GitHub\Bakalauras\Frontend\build\404.html                                   | HTML       |         32 |          0 |          2 |         34 |
+| c:\Users\tadas\Documents\GitHub\Bakalauras\Frontend\build\asset-manifest.json                        | JSON       |         13 |          0 |          0 |         13 |
+| c:\Users\tadas\Documents\GitHub\Bakalauras\Frontend\build\index.html                                 | HTML       |          1 |          0 |          0 |          1 |
+| c:\Users\tadas\Documents\GitHub\Bakalauras\Frontend\build\manifest.json                              | JSON       |         25 |          0 |          1 |         26 |
+| c:\Users\tadas\Documents\GitHub\Bakalauras\Frontend\build\static\css\main.40633199.css               | CSS        |          1 |          1 |          0 |          2 |
+| c:\Users\tadas\Documents\GitHub\Bakalauras\Frontend\build\static\js\main.5db7bf0e.js                 | JavaScript |          1 |          2 |          0 |          3 |
+| c:\Users\tadas\Documents\GitHub\Bakalauras\Frontend\firebase.json                                    | JSON       |          7 |         16 |          0 |         23 |
+| c:\Users\tadas\Documents\GitHub\Bakalauras\Frontend\package-lock.json                                | JSON       |     32,297 |          0 |          1 |     32,298 |
+| c:\Users\tadas\Documents\GitHub\Bakalauras\Frontend\package.json                                     | JSON       |         50 |          0 |          1 |         51 |
+| c:\Users\tadas\Documents\GitHub\Bakalauras\Frontend\public\404.html                                  | HTML       |         32 |          0 |          2 |         34 |
+| c:\Users\tadas\Documents\GitHub\Bakalauras\Frontend\public\index.html                                | HTML       |         20 |         23 |          1 |         44 |
+| c:\Users\tadas\Documents\GitHub\Bakalauras\Frontend\public\manifest.json                             | JSON       |         25 |          0 |          1 |         26 |
+| c:\Users\tadas\Documents\GitHub\Bakalauras\Frontend\src\API\ProductsAPI.js                           | JavaScript |         19 |          4 |          5 |         28 |
+| c:\Users\tadas\Documents\GitHub\Bakalauras\Frontend\src\App.css                                      | CSS        |        528 |         26 |        174 |        728 |
+| c:\Users\tadas\Documents\GitHub\Bakalauras\Frontend\src\App.js                                       | JavaScript |        331 |         36 |        107 |        474 |
+| c:\Users\tadas\Documents\GitHub\Bakalauras\Frontend\src\Components\Footer.js                         | JavaScript |          0 |          0 |          1 |          1 |
+| c:\Users\tadas\Documents\GitHub\Bakalauras\Frontend\src\Components\Header.js                         | JavaScript |          4 |          0 |          3 |          7 |
+| c:\Users\tadas\Documents\GitHub\Bakalauras\Frontend\src\Details\Order.js                             | JavaScript |          4 |          0 |          1 |          5 |
+| c:\Users\tadas\Documents\GitHub\Bakalauras\Frontend\src\Details\Product.js                           | JavaScript |        362 |         44 |        107 |        513 |
+| c:\Users\tadas\Documents\GitHub\Bakalauras\Frontend\src\Details\UserProfile.js                       | JavaScript |          4 |          0 |          1 |          5 |
+| c:\Users\tadas\Documents\GitHub\Bakalauras\Frontend\src\Pages\AdminCRUD\Orders\EditOrder.js          | JavaScript |        275 |         14 |         86 |        375 |
+| c:\Users\tadas\Documents\GitHub\Bakalauras\Frontend\src\Pages\AdminCRUD\Orders\OrderAdminPanel.js    | JavaScript |        305 |         22 |         71 |        398 |
+| c:\Users\tadas\Documents\GitHub\Bakalauras\Frontend\src\Pages\AdminCRUD\Product\CreateProduct.js     | JavaScript |        346 |         35 |        105 |        486 |
+| c:\Users\tadas\Documents\GitHub\Bakalauras\Frontend\src\Pages\AdminCRUD\Product\EditProduct.js       | JavaScript |        347 |         32 |         96 |        475 |
+| c:\Users\tadas\Documents\GitHub\Bakalauras\Frontend\src\Pages\AdminCRUD\Product\ProductAdminPanel.js | JavaScript |        188 |         19 |         40 |        247 |
+| c:\Users\tadas\Documents\GitHub\Bakalauras\Frontend\src\Pages\AdminCRUD\Request\RequestAdminPanel.js | JavaScript |        179 |         15 |         39 |        233 |
+| c:\Users\tadas\Documents\GitHub\Bakalauras\Frontend\src\Pages\AdminCRUD\Reviews\ReviewAdminPanel.js  | JavaScript |        176 |         13 |         41 |        230 |
+| c:\Users\tadas\Documents\GitHub\Bakalauras\Frontend\src\Pages\AdminCRUD\User\EditUser.js             | JavaScript |        121 |         14 |         41 |        176 |
+| c:\Users\tadas\Documents\GitHub\Bakalauras\Frontend\src\Pages\AdminCRUD\User\UserAdminPanel.js       | JavaScript |        162 |         16 |         50 |        228 |
+| c:\Users\tadas\Documents\GitHub\Bakalauras\Frontend\src\Pages\AdminNav.js                            | JavaScript |         24 |          2 |          5 |         31 |
+| c:\Users\tadas\Documents\GitHub\Bakalauras\Frontend\src\Pages\AuthContext.js                         | JavaScript |         12 |          0 |          3 |         15 |
+| c:\Users\tadas\Documents\GitHub\Bakalauras\Frontend\src\Pages\AuthContextNew.js                      | JavaScript |          5 |          1 |          1 |          7 |
+| c:\Users\tadas\Documents\GitHub\Bakalauras\Frontend\src\Pages\Cart.js                                | JavaScript |        247 |         36 |         91 |        374 |
+| c:\Users\tadas\Documents\GitHub\Bakalauras\Frontend\src\Pages\CartContext.js                         | JavaScript |          5 |          1 |          2 |          8 |
+| c:\Users\tadas\Documents\GitHub\Bakalauras\Frontend\src\Pages\CartCount.js                           | JavaScript |          7 |          0 |          2 |          9 |
+| c:\Users\tadas\Documents\GitHub\Bakalauras\Frontend\src\Pages\ChangePassword.js                      | JavaScript |         81 |          3 |         16 |        100 |
+| c:\Users\tadas\Documents\GitHub\Bakalauras\Frontend\src\Pages\Checkout.js                            | JavaScript |        287 |         36 |        105 |        428 |
+| c:\Users\tadas\Documents\GitHub\Bakalauras\Frontend\src\Pages\ForgotPassword.js                      | JavaScript |         59 |          3 |         10 |         72 |
+| c:\Users\tadas\Documents\GitHub\Bakalauras\Frontend\src\Pages\Home.js                                | JavaScript |         14 |          0 |          4 |         18 |
+| c:\Users\tadas\Documents\GitHub\Bakalauras\Frontend\src\Pages\InfoPage.js                            | JavaScript |         66 |          0 |         18 |         84 |
+| c:\Users\tadas\Documents\GitHub\Bakalauras\Frontend\src\Pages\Login.js                               | JavaScript |         93 |         11 |         20 |        124 |
+| c:\Users\tadas\Documents\GitHub\Bakalauras\Frontend\src\Pages\Profile.js                             | JavaScript |         55 |          1 |         22 |         78 |
+| c:\Users\tadas\Documents\GitHub\Bakalauras\Frontend\src\Pages\ProfileOrders.js                       | JavaScript |        274 |         16 |         75 |        365 |
+| c:\Users\tadas\Documents\GitHub\Bakalauras\Frontend\src\Pages\ProfileWow.js                          | JavaScript |         17 |          0 |          3 |         20 |
+| c:\Users\tadas\Documents\GitHub\Bakalauras\Frontend\src\Pages\Register.js                            | JavaScript |        110 |          7 |         16 |        133 |
+| c:\Users\tadas\Documents\GitHub\Bakalauras\Frontend\src\Pages\Request.js                             | JavaScript |        244 |         20 |         69 |        333 |
+| c:\Users\tadas\Documents\GitHub\Bakalauras\Frontend\src\Pages\Shop.js                                | JavaScript |         87 |         15 |         28 |        130 |
+| c:\Users\tadas\Documents\GitHub\Bakalauras\Frontend\src\Pages\VerifyEmail.js                         | JavaScript |         63 |          1 |          9 |         73 |
+| c:\Users\tadas\Documents\GitHub\Bakalauras\Frontend\src\css\panelgrid.css                            | CSS        |          3 |          0 |          0 |          3 |
+| c:\Users\tadas\Documents\GitHub\Bakalauras\Frontend\src\firebase_config.js                           | JavaScript |         17 |          4 |          8 |         29 |
+| c:\Users\tadas\Documents\GitHub\Bakalauras\Frontend\src\index.js                                     | JavaScript |          9 |          0 |          3 |         12 |
+| Total                                                                                                |            |     37,635 |        489 |      1,489 |     39,613 |
++------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
