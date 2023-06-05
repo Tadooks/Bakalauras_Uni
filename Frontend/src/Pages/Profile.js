@@ -35,7 +35,7 @@ function Profile() {
   //add loading
   return (
     <div style={{ color: 'white'}}>
-      <div style={{ }} className='center'>
+      <div style={{ }} className='profileCenter'>
         <div className='profile'>
           <h1>Profile</h1>
           <p><strong>Email: </strong>{auth.currentUser.email}</p>

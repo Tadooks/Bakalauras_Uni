@@ -69,7 +69,7 @@ const InfoPage = () => {
 
         <h1>Intellectual Property</h1>
         <p>
-            All content and images on this website are the property of Melonter and may not be used without our permission.
+            
             <ul>
             <li>- Digital sound packs, synth presets, custom requests, all of the digital content that you receive after purchasing belongs to you and you can do whatever you want with it </li>
             </ul>

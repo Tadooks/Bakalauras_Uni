@@ -513,6 +513,11 @@ td.other {
   margin: auto;
   width: 50%;
 }
+.profileCenter{
+  
+  margin: auto;
+  width: 25%;
+}
 
 .crudCenter{
   margin: auto;
